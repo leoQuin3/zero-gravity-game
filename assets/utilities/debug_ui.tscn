@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://co4j6w1gq4o7r"]
+
+[ext_resource type="Script" path="res://assets/entities/player/playerDebug.gd" id="1_yytru"]
+
+[node name="Debug" type="CanvasLayer" node_paths=PackedStringArray("InputArrow", "InputLabel", "VelocityArrow", "VelocityLabel")]
+script = ExtResource("1_yytru")
+InputArrow = NodePath("InputArrow")
+InputLabel = NodePath("InputLabel")
+VelocityArrow = NodePath("VelocityArrow")
+VelocityLabel = NodePath("VelocityLabel")
+
+[node name="InputArrow" type="Node2D" parent="."]
+position = Vector2(128, 128)
+rotation = -1.57079
+
+[node name="arrowLine" type="Line2D" parent="InputArrow"]
+position = Vector2(40, -9.15527e-05)
+points = PackedVector2Array(-40, 0, 64, 0, 40, -8, 40, 8, 64, 0)
+
+[node name="InputLabel" type="Label" parent="."]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 168.0
+offset_bottom = 151.0
+text = "(0,0)"
+
+[node name="VelocityArrow" type="Node2D" parent="."]
+position = Vector2(1024, 128)
+rotation = -1.57079
+
+[node name="arrowLine" type="Line2D" parent="VelocityArrow"]
+position = Vector2(40, -9.15527e-05)
+points = PackedVector2Array(-40, 0, 64, 0, 40, -8, 40, 8, 64, 0)
+
+[node name="VelocityLabel" type="Label" parent="."]
+offset_left = 984.0
+offset_top = 128.0
+offset_right = 1024.0
+offset_bottom = 151.0
+text = "(0,0)"

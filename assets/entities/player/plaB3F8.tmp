@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7s1aebr2tpxd"]
+
+[ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spn12"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_c8k0w"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead")]
+script = ExtResource("1_7lu1p")
+cameraHead = NodePath("CameraHolder")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_spn12")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_c8k0w")
+
+[node name="CameraHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="direction" type="Label" parent="CanvasLayer"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 168.0
+offset_bottom = 151.0
+text = "(0,0)"
+
+[node name="velocity" type="Label" parent="CanvasLayer"]
+offset_left = 1024.0
+offset_top = 128.0
+offset_right = 1064.0
+offset_bottom = 151.0
+text = "(0,0)"
+
+[node name="DirectionArrow" type="Node2D" parent="CanvasLayer"]
+position = Vector2(128, 128)
+rotation = -1.57079
+
+[node name="arrowLine" type="Line2D" parent="CanvasLayer/DirectionArrow"]
+position = Vector2(40, -9.15527e-05)
+points = PackedVector2Array(-40, 0, 64, 0, 40, -8, 40, 8, 64, 0)
+
+[node name="VelocityArrow" type="Node2D" parent="CanvasLayer"]
+position = Vector2(1024, 128)
+rotation = -1.57079
+
+[node name="arrowLine" type="Line2D" parent="CanvasLayer/VelocityArrow"]
+position = Vector2(40, -9.15527e-05)
+points = PackedVector2Array(-40, 0, 64, 0, 40, -8, 40, 8, 64, 0)

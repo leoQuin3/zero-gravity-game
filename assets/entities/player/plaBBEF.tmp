@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7s1aebr2tpxd"]
+
+[ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
+[ext_resource type="Script" path="res://assets/entities/player/playerDebug.gd" id="2_4oy4l"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spn12"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_c8k0w"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead")]
+script = ExtResource("1_7lu1p")
+cameraHead = NodePath("CameraHolder")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_spn12")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_c8k0w")
+
+[node name="CameraHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+
+[node name="playerDebug" type="CanvasLayer" parent="." node_paths=PackedStringArray("node", "InputArrow", "InputLabel", "VelocityArrow", "VelocityLabel")]
+script = ExtResource("2_4oy4l")
+node = NodePath("..")
+InputArrow = NodePath("InputArrow")
+InputLabel = NodePath("InputLabel")
+VelocityArrow = NodePath("VelocityArrow")
+VelocityLabel = NodePath("VelocityLabel")
+
+[node name="InputArrow" type="Node2D" parent="playerDebug"]
+position = Vector2(128, 128)
+rotation = -1.57079
+
+[node name="arrowLine" type="Line2D" parent="playerDebug/InputArrow"]
+position = Vector2(40, -9.15527e-05)
+points = PackedVector2Array(-40, 0, 64, 0, 40, -8, 40, 8, 64, 0)
+
+[node name="InputLabel" type="Label" parent="playerDebug"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 168.0
+offset_bottom = 151.0
+text = "(0,0)"
+
+[node name="VelocityArrow" type="Node2D" parent="playerDebug"]
+position = Vector2(1024, 128)
+rotation = -1.57079
+
+[node name="arrowLine" type="Line2D" parent="playerDebug/VelocityArrow"]
+position = Vector2(40, -9.15527e-05)
+points = PackedVector2Array(-40, 0, 64, 0, 40, -8, 40, 8, 64, 0)
+
+[node name="VelocityLabel" type="Label" parent="playerDebug"]
+offset_left = 984.0
+offset_top = 128.0
+offset_right = 1024.0
+offset_bottom = 151.0
+text = "(0,0)"

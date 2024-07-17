@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://de0cmyrqpcxrq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dng0"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_k7vpd"]
+_surfaces = [{
+"aabb": AABB(0, 0, -1, 1.00001, 1e-05, 1),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray(7, 0, 8, 0, 0, 0, 8, 0, 7, 0, 6, 0, 6, 0, 5, 0, 8, 0, 4, 0, 8, 0, 5, 0, 3, 0, 8, 0, 4, 0, 2, 0, 8, 0, 3, 0, 1, 0, 8, 0, 2, 0, 8, 0, 1, 0, 9, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 10,
+"vertex_data": PackedByteArray(254, 255, 0, 0, 0, 0, 0, 0, 235, 4, 0, 0, 13, 206, 0, 0, 124, 19, 0, 0, 7, 158, 0, 0, 36, 43, 0, 0, 197, 113, 0, 0, 250, 74, 0, 0, 250, 74, 0, 0, 197, 113, 0, 0, 36, 43, 0, 0, 7, 158, 0, 0, 124, 19, 0, 0, 13, 206, 0, 0, 235, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_o00tg"]
+resource_name = "wall_arc_Plane_039"
+_surfaces = [{
+"aabb": AABB(0, 0, -1, 1.00001, 1e-05, 1),
+"attribute_data": PackedByteArray(0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255),
+"format": 34896613399,
+"index_count": 24,
+"index_data": PackedByteArray(7, 0, 8, 0, 0, 0, 8, 0, 7, 0, 6, 0, 6, 0, 5, 0, 8, 0, 4, 0, 8, 0, 5, 0, 3, 0, 8, 0, 4, 0, 2, 0, 8, 0, 3, 0, 1, 0, 8, 0, 2, 0, 8, 0, 1, 0, 9, 0),
+"material": SubResource("StandardMaterial3D_0dng0"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 10,
+"vertex_data": PackedByteArray(254, 255, 0, 0, 0, 0, 255, 191, 235, 4, 0, 0, 13, 206, 255, 191, 124, 19, 0, 0, 7, 158, 255, 191, 36, 43, 0, 0, 197, 113, 255, 191, 250, 74, 0, 0, 250, 74, 255, 191, 197, 113, 0, 0, 36, 43, 255, 191, 7, 158, 0, 0, 124, 19, 255, 191, 13, 206, 0, 0, 235, 4, 255, 191, 0, 0, 0, 0, 0, 0, 255, 191, 0, 0, 0, 0, 255, 255, 255, 191, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_k7vpd")
+
+[node name="wall_arc2" type="Node3D"]
+
+[node name="wall_arc" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("ArrayMesh_o00tg")
+skeleton = NodePath("")

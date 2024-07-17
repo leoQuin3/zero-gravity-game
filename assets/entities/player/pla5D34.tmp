@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7s1aebr2tpxd"]
+
+[ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8d3lp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_js21i"]
+font_size = 24
+
+[node name="Player" type="CharacterBody3D"]
+motion_mode = 1
+script = ExtResource("1_7lu1p")
+
+[node name="CameraHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="PlayerCamera" type="Camera3D" parent="CameraHolder"]
+
+[node name="BodyCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_8d3lp")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 480.0
+offset_top = 544.0
+offset_right = 672.0
+offset_bottom = 578.0
+text = "Health:"
+label_settings = SubResource("LabelSettings_js21i")
