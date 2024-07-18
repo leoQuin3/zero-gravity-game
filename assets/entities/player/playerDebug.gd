@@ -1,14 +1,12 @@
 extends CanvasLayer
 
-##ADD TO PLAYER AS CHILD
-
 @export var node: Player
 @export var InputArrow: Node2D
 @export var InputLabel: Label
 @export var VelocityArrow: Node2D
 @export var VelocityLabel: Label
 
-
+# Visualize controller input and player movement
 func _process(delta):
 	var inputVector = Input.get_vector("left", "right", "forward", "back")
 	InputArrow.rotation = atan2(inputVector.y, inputVector.x)

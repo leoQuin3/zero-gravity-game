@@ -3,7 +3,6 @@ extends CharacterBody3D
 class_name Player
 
 # Parameters
-@export_category("Physics Settings")
 @export var MAX_SPEED: float = 7
 @export var THRUST_SPEED: float = 100
 @export var DAMPING: float = 0.5
@@ -33,7 +32,7 @@ func _physics_process(delta):
 	#	move around freely
 	#	if touching floor, set state to GROUNDED
 	#	if using grappling hook, set state to LAUNCHING
-	# If LAUNCHING:
+	# If GRAPPLING:
 	#	move toward target with little influence from player movement
 	#	if touching floor, set state to GROUNDED
 	#	if timer runs out or player dashes, set state to FLOATING
@@ -55,5 +54,10 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		var newPitch = event.relative.y
 		var newYaw = event.relative.x
+		
+		#Update camera pitch and player yaw
 		cameraHead.rotation.x -= newPitch * CAMERA_SENSITIVITY
 		self.rotation.y -= newYaw * CAMERA_SENSITIVITY
+		
+		# Cap camera pitch
+		cameraHead.rotation.x = clamp(cameraHead.rotation.x, deg_to_rad(-90), deg_to_rad(90))
