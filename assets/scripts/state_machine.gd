@@ -13,7 +13,8 @@ func _ready() -> void:
 	# Add children nodes as states
 	for node in get_children():
 		if node is State:
-			states[node.name] = node
+			states[node.name.to_upper()] = node
+			node.fsm = self
 			node.state_transitioned.connect(Callable(self, "on_state_changed"))
 			node.initialize()
 		
@@ -33,13 +34,13 @@ func _physics_process(delta) -> void:
 func _unhandled_input(event) -> void:
 	currentState.handle_input(event)
 
-# Transition to new state. Called when a state emits a signal
+# Transition to new state.
 func on_state_changed(key: String) -> void:
 	# Return if state does not exist or if already in said state
 	if !states.has(key) or currentState == states[key]:
 		return
 		
-	# Leave current state and enter to new state
+	# Leave current state and enter new state
 	currentState.exit()
 	currentState = states[key]
 	currentState.enter()

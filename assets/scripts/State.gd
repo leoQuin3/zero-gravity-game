@@ -3,6 +3,8 @@ class_name State
 
 signal state_transitioned
 
+var fsm: StateMachine
+
 func enter() -> void:
 	pass
 	

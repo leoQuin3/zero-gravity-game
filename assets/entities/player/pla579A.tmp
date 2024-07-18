@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
 [ext_resource type="Script" path="res://assets/scripts/state_machine.gd" id="2_fxhxo"]
-[ext_resource type="Script" path="res://assets/entities/player/player_states/player_grounded.gd" id="2_vlx2x"]
-[ext_resource type="Script" path="res://assets/entities/player/player_states/player_floating.gd" id="3_vy3lq"]
+[ext_resource type="Script" path="res://assets/entities/player/player_states/grounded.gd" id="2_vlx2x"]
+[ext_resource type="Script" path="res://assets/entities/player/player_states/floating.gd" id="3_vy3lq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spn12"]
 
@@ -11,7 +11,6 @@
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead")]
 script = ExtResource("1_7lu1p")
-THRUST_SPEED = 75.0
 cameraHead = NodePath("CameraHolder")
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
@@ -29,9 +28,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("2_fxhxo")
 initialState = NodePath("GROUNDED")
 
-[node name="GROUNDED" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("parent")]
+[node name="GROUNDED" type="Node" parent="PlayerFSM"]
 script = ExtResource("2_vlx2x")
-parent = NodePath("../..")
 
 [node name="FLOATING" type="Node" parent="PlayerFSM"]
 script = ExtResource("3_vy3lq")
