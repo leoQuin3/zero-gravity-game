@@ -8,9 +8,7 @@
 [node name="TestLevel" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_pghiu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-MAX_SPEED = 5.0
-THRUST_SPEED = 50.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="Debug" parent="." node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
 node = NodePath("../Player")

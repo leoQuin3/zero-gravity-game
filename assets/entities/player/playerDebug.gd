@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@export var node: Player
+@export var node: CharacterBody3D
 @export var InputArrow: Node2D
 @export var InputLabel: Label
 @export var VelocityArrow: Node2D

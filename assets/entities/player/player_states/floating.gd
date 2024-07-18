@@ -1,14 +1,11 @@
-extends Node
-class_name State
-
-signal state_transitioned
+extends State
 
 func enter() -> void:
 	pass
-	
+
 func exit() -> void:
 	pass
-	
+
 func initialize() -> void:
 	pass
 
