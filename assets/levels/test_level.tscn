@@ -8,7 +8,7 @@
 [node name="TestLevel" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_pghiu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27404, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 MAX_SPEED = 5.0
 THRUST_SPEED = 50.0
 
@@ -19,7 +19,7 @@ node = NodePath("../Player")
 transform = Transform3D(0.912149, -0.179439, 0.368492, -0.409859, -0.399345, 0.820085, 0, -0.899069, -0.437807, 0, 6, 0)
 
 [node name="Floor" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -10, 0, 5)
 
 [node name="Floor" parent="Floor" instance=ExtResource("3_fyxil")]
 
@@ -56,8 +56,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 10, 4.37114e-07)
 [node name="Floor12" parent="Floor" instance=ExtResource("3_fyxil")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -6.21176e-22, 1.42109e-14)
 
+[node name="Floor13" parent="Floor" instance=ExtResource("3_fyxil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, -2.18557e-07)
+
+[node name="Floor14" parent="Floor" instance=ExtResource("3_fyxil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -5, -2.18557e-07)
+
+[node name="Floor15" parent="Floor" instance=ExtResource("3_fyxil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -5, -2.18557e-07)
+
+[node name="Floor16" parent="Floor" instance=ExtResource("3_fyxil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -5, -2.18557e-07)
+
 [node name="Walls" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
 
 [node name="WallCurve" parent="Walls" instance=ExtResource("4_c2t1q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -10)

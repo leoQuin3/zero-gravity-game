@@ -5,7 +5,7 @@ class_name Player
 # Parameters
 @export var MAX_SPEED: float = 7
 @export var THRUST_SPEED: float = 100
-@export var DAMPING: float = 0.5
+@export var DAMPING: float = 1
 
 @export_category("Mouse Settings")
 @export var MOUSE_IS_CAPTURED: bool = true
@@ -14,11 +14,11 @@ class_name Player
 @export_category("Connecting Nodes")
 @export var cameraHead: Node3D
 
-func _ready():
+func _ready() -> void:
 	if MOUSE_IS_CAPTURED:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	# Calculate direction vector from keys and camera orientation
 	var inputVector: Vector2 = Input.get_vector("left", "right", "forward", "back")
 	var newDirection: = (cameraHead.global_transform.basis * Vector3(inputVector.x, 0 , inputVector.y)).normalized()
@@ -50,7 +50,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 # Handle mouse input
-func _unhandled_input(event):
+func _unhandled_input(event) -> void: 
 	if event is InputEventMouseMotion:
 		var newPitch = event.relative.y
 		var newYaw = event.relative.x
