@@ -3,12 +3,10 @@ extends State
 @export var parent: Player
 
 func enter() -> void:
-	#TODO: delete this print statement
-	print("entered state: " + str(self))
+	pass
 
 func exit() -> void:
-	#TODO: delete this print statement
-	print("bye bye!")
+	pass
 
 func initialize() -> void:
 	if parent.MOUSE_IS_CAPTURED:

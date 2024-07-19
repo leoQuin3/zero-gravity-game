@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c7s1aebr2tpxd"]
+[gd_scene load_steps=8 format=3 uid="uid://c7s1aebr2tpxd"]
 
 [ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
 [ext_resource type="Script" path="res://assets/scripts/state_machine.gd" id="2_fxhxo"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_grounded.gd" id="2_vlx2x"]
+[ext_resource type="PackedScene" uid="uid://dmyw1c3hj2inx" path="res://assets/utilities/fp_camera.tscn" id="2_w4o7x"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_floating.gd" id="3_vy3lq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spn12"]
@@ -20,10 +21,7 @@ shape = SubResource("CapsuleShape3D_spn12")
 [node name="PlayerMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_c8k0w")
 
-[node name="CameraHolder" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+[node name="CameraHolder" parent="." instance=ExtResource("2_w4o7x")]
 
 [node name="PlayerFSM" type="Node" parent="."]
 script = ExtResource("2_fxhxo")

@@ -35,12 +35,12 @@ func _unhandled_input(event) -> void:
 	currentState.handle_input(event)
 
 # Transition to new state.
-func on_state_changed(key: String) -> void:
+func on_state_changed(newState: String) -> void:
 	# Return if state does not exist or if already in said state
-	if !states.has(key) or currentState == states[key]:
+	if !states.has(newState) or currentState == states[newState]:
 		return
 		
 	# Leave current state and enter new state
 	currentState.exit()
-	currentState = states[key]
+	currentState = states[newState]
 	currentState.enter()
