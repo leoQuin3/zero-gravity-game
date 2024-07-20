@@ -60,25 +60,31 @@ func add_weapon_to_inventory(weapon: Weapon):
 
 # Use mouse wheel to scroll through inventory.
 func scroll_weapon_index(event: InputEventMouseButton):
-	if weaponInventory.is_empty() or weaponInventory.size() < 2:
+	# Get size of weapon array
+	var arraySize = weaponInventory.size()
+	
+	# If array is empty or has only one weapon, return
+	if arraySize < 2:
 		return
-		
+	
+	# Increment current index
 	if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 		currWeaponIndex += 1
 	elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 		currWeaponIndex -= 1
 	else:
 		return
-	
-	var arraySize = weaponInventory.size()
+		
+	# Keep index within array bounds
 	if currWeaponIndex >= arraySize:
 		currWeaponIndex = 0
 	elif currWeaponIndex < 0:
 		currWeaponIndex = arraySize - 1
-		
+	
+	#Equip weapon at current index
 	equip_weapon_at_index(currWeaponIndex)
 
-# Equip weapon at current weapon index.
+# Equip weapon at given index.
 #TODO: add safeguard if out of bounds
 func equip_weapon_at_index(index: int):
 	if currentWeapon:
