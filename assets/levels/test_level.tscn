@@ -13,6 +13,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_pghiu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7)
+MAX_SPEED = null
+MOUSE_IS_CAPTURED = null
+CAMERA_SENSITIVITY = null
 
 [node name="Debug" parent="." node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
 node = NodePath("../Player")

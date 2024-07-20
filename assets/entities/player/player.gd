@@ -1,8 +1,6 @@
 extends CharacterBody3D
 class_name Player
 
-signal input_key_pressed(event)
-
 # Parameters
 @export var MAX_SPEED: float = 7
 @export var THRUST_SPEED: float = 100
