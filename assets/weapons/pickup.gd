@@ -14,6 +14,7 @@ func _ready():
 		SPRITE.texture = itemSprite
 
 func _on_body_entered(body):
-	if body is Player:
+	if body is Player and item is Weapon:
+		print("giving weapon")
 		body.add_weapon_to_inventory(item)
 		queue_free()

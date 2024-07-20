@@ -21,17 +21,16 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 
 # Control camera rotation using mouse input. Pitch and yaw are passed in radians.
-func fp_camera_look(event: InputEvent, minPitch: float, maxPitch: float):
-	if event is InputEventMouseMotion:
-		var newPitch = event.relative.y
-		var newYaw = event.relative.x
-		
-		#Update camera pitch and player yaw
-		cameraHead.rotation.x -= newPitch * CAMERA_SENSITIVITY
-		self.rotation.y -= newYaw * CAMERA_SENSITIVITY
-		
-		# Cap camera pitch
-		cameraHead.rotation.x = clamp(cameraHead.rotation.x, minPitch, maxPitch)
+func fp_camera_look(event: InputEventMouseMotion, minPitch: float, maxPitch: float):
+	var newPitch = event.relative.y
+	var newYaw = event.relative.x
+	
+	#Update camera pitch and player yaw.
+	cameraHead.rotation.x -= newPitch * CAMERA_SENSITIVITY
+	self.rotation.y -= newYaw * CAMERA_SENSITIVITY
+	
+	# Cap camera pitch.
+	cameraHead.rotation.x = clamp(cameraHead.rotation.x, minPitch, maxPitch)
 
 # Move in all directions using input keys. Always facing in camera's direction.
 func player_control_move(delta: float):
@@ -51,43 +50,43 @@ func player_control_move(delta: float):
 # *** TODO: Figure how to pick up weapon, select weapon, and fire weapon. ***
 ####################
 
+# Append weapon to inventory.
 func add_weapon_to_inventory(weapon: Weapon):
 	weaponInventory.append(weapon)
-	equip_weapon(weapon)
-	print(weaponInventory)
-	print(currentWeapon)
-	print(currWeaponIndex)
+	
+	# If player had no weapons, equip their first weapon
+	if weaponInventory.size() == 1:
+		equip_weapon_at_index(0)
 
-#TODO: Fix issue where unable to switch weapons while able to shoot
-#NOTE: (Maybe try unhandled input over input? May have to add unhandled input method in FSM)
-func scroll_weapon_index(event: InputEvent):
-	if weaponInventory.is_empty():
+# Use mouse wheel to scroll through inventory.
+func scroll_weapon_index(event: InputEventMouseButton):
+	if weaponInventory.is_empty() or weaponInventory.size() < 2:
 		return
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			currWeaponIndex += 1
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			currWeaponIndex -= 1
-		elif event.button_index == MOUSE_BUTTON_MASK_LEFT:
-			print("fire in the hole")
-			return
 		
-		var inventorySize: int = weaponInventory.size()
-		if currWeaponIndex >= inventorySize:
-			currWeaponIndex = 0
-		elif currWeaponIndex < 0:
-			currWeaponIndex = inventorySize - 1
+	if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		currWeaponIndex += 1
+	elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		currWeaponIndex -= 1
+	else:
+		return
+	
+	var arraySize = weaponInventory.size()
+	if currWeaponIndex >= arraySize:
+		currWeaponIndex = 0
+	elif currWeaponIndex < 0:
+		currWeaponIndex = arraySize - 1
 		
-		var nextWeapon: Weapon = weaponInventory[currWeaponIndex]
-		equip_weapon(nextWeapon)
+	equip_weapon_at_index(currWeaponIndex)
 
-# TODO: this may cause bugs. Reimplement this.
-func equip_weapon(weapon: Weapon):
-	weaponHolder.remove_child(currentWeapon)
-	currentWeapon = weapon
-	currWeaponIndex = weaponInventory.find(currentWeapon)
+# Equip weapon at current weapon index.
+#TODO: add safeguard if out of bounds
+func equip_weapon_at_index(index: int):
+	if currentWeapon:
+		weaponHolder.remove_child(currentWeapon)
+	currentWeapon = weaponInventory[index]
 	weaponHolder.add_child(currentWeapon)
 
+# Call fire method on current weapon.
 func fire_weapon():
 	if currentWeapon:
 		currentWeapon.fire()

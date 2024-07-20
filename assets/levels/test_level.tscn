@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3yjmxpsn1ehs"]
+[gd_scene load_steps=8 format=3 uid="uid://c3yjmxpsn1ehs"]
 
 [ext_resource type="PackedScene" uid="uid://c7s1aebr2tpxd" path="res://assets/entities/player/player.tscn" id="1_pghiu"]
 [ext_resource type="PackedScene" uid="uid://co4j6w1gq4o7r" path="res://assets/utilities/debug_ui.tscn" id="2_47kv2"]
@@ -7,15 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://c815ps4cv3c4t" path="res://assets/environment/basic/wall_curve.tscn" id="4_c2t1q"]
 [ext_resource type="PackedScene" uid="uid://cmeo0wyc4wrcl" path="res://assets/weapons/pickup.tscn" id="5_sg1ao"]
 [ext_resource type="Texture2D" uid="uid://beogas7v0e1ub" path="res://assets/weapons/gun/gun-pickup.png" id="7_toeha"]
-[ext_resource type="PackedScene" uid="uid://cfguvox4elkmr" path="res://assets/weapons/grappling_gun/grappling_hook.tscn" id="8_n42i5"]
-[ext_resource type="Texture2D" uid="uid://dspbjwpvuti7a" path="res://assets/weapons/gun/crosshair.png" id="9_parcv"]
 
 [node name="TestLevel" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_pghiu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7)
 collision_mask = 24
-MAX_SPEED = 6.0
 THRUST_SPEED = 50.0
 
 [node name="Debug" parent="." node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
@@ -106,13 +103,11 @@ transform = Transform3D(1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, 0, 0, -1
 collision_layer = 8
 
 [node name="Pickup" parent="." instance=ExtResource("5_sg1ao")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0417422, 0.606768, -0.164417)
-collision_layer = 16
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 itemScene = ExtResource("2_rx1ms")
 itemSprite = ExtResource("7_toeha")
 
 [node name="Pickup2" parent="." instance=ExtResource("5_sg1ao")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.04174, 0.606768, -0.164417)
-collision_layer = 16
-itemScene = ExtResource("8_n42i5")
-itemSprite = ExtResource("9_parcv")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.8, 0)
+itemScene = ExtResource("2_rx1ms")
+itemSprite = ExtResource("7_toeha")

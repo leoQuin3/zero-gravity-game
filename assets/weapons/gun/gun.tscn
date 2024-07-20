@@ -4,53 +4,128 @@
 [ext_resource type="Texture2D" uid="uid://ba1c34axmiaj3" path="res://assets/weapons/gun/spritesheet_gun.png" id="1_wnwy4"]
 [ext_resource type="Texture2D" uid="uid://dspbjwpvuti7a" path="res://assets/weapons/gun/crosshair.png" id="2_gkxdt"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w5nos"]
-atlas = ExtResource("1_wnwy4")
-region = Rect2(0, 0, 1024, 1024)
+[sub_resource type="Animation" id="Animation_ume4w"]
+resource_name = "equip"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponSprite:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(192, 620), Vector2(192, 156)]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_772c8"]
-atlas = ExtResource("1_wnwy4")
-region = Rect2(1024, 0, 1024, 1024)
+[sub_resource type="Animation" id="Animation_p1evr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(192, 620)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mvngs"]
-atlas = ExtResource("1_wnwy4")
-region = Rect2(0, 1024, 1024, 1024)
+[sub_resource type="Animation" id="Animation_83v5i"]
+resource_name = "holster"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponSprite:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(192, 156), Vector2(192, 620)]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hfs7e"]
-atlas = ExtResource("1_wnwy4")
-region = Rect2(0, 0, 1024, 1024)
+[sub_resource type="Animation" id="Animation_nml3s"]
+resource_name = "shoot"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponSprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(192, 196), Vector2(192, 156)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 0]
+}
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_cl657"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w5nos")
-}],
-"loop": false,
-"name": &"idle",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_772c8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_772c8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mvngs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hfs7e")
-}],
-"loop": false,
-"name": &"shoot",
-"speed": 12.0
-}]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ftuh4"]
+_data = {
+"RESET": SubResource("Animation_p1evr"),
+"equip": SubResource("Animation_ume4w"),
+"holster": SubResource("Animation_83v5i"),
+"shoot": SubResource("Animation_nml3s")
+}
 
-[node name="Gun" type="Node3D" node_paths=PackedStringArray("animationSprite")]
+[node name="Gun" type="Node3D" node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("1_a8jbd")
-animationSprite = NodePath("GunCanvas/GunGUI/WeaponHolder/WeaponAnimSprite")
+animationPlayer = NodePath("GunCanvas/GunGUI/WeaponHolder/WeaponAnimations")
 
 [node name="GunCanvas" type="CanvasLayer" parent="."]
 
@@ -72,15 +147,21 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WeaponAnimSprite" type="AnimatedSprite2D" parent="GunCanvas/GunGUI/WeaponHolder"]
-position = Vector2(192, 156)
+[node name="WeaponSprite" type="Sprite2D" parent="GunCanvas/GunGUI/WeaponHolder"]
+position = Vector2(192, 620)
 scale = Vector2(0.65, 0.65)
-sprite_frames = SubResource("SpriteFrames_cl657")
-animation = &"idle"
+texture = ExtResource("1_wnwy4")
+hframes = 2
+vframes = 2
+frame = 2
+
+[node name="WeaponAnimations" type="AnimationPlayer" parent="GunCanvas/GunGUI/WeaponHolder"]
+libraries = {
+"": SubResource("AnimationLibrary_ftuh4")
+}
 
 [node name="Crosshair" type="Sprite2D" parent="GunCanvas/GunGUI"]
 position = Vector2(576, 320)
 texture = ExtResource("2_gkxdt")
 
-[node name="GunRaycast" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, -5)
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

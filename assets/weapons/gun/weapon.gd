@@ -2,12 +2,15 @@ extends Node3D
 class_name Weapon
 
 @export var bullet: PackedScene
-@export var animationSprite: AnimatedSprite2D
+@export var animationPlayer: AnimationPlayer
 
-#TODO: Fix pick up and firing before working on bullets
 
-#func _ready():
-	#animationSprite.play("idle")
+func _ready():
+	animationPlayer.play("equip")
 
 func fire():
-	animationSprite.play("shoot")
+	print("BAM!")
+	animationPlayer.play("shoot")
+
+func _on_child_entered_tree(node):
+	animationPlayer.play("equip")
