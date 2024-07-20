@@ -14,7 +14,7 @@ class_name Player
 
 var weaponInventory: Array
 var currentWeapon: Weapon
-var currWeaponIndex: int
+var currWeaponIndex: int = 0
 
 # Update player physics.
 func _physics_process(delta) -> void:
@@ -51,21 +51,43 @@ func player_control_move(delta: float):
 # *** TODO: Figure how to pick up weapon, select weapon, and fire weapon. ***
 ####################
 
-func add_weapon_to_inventory(item):
-	weaponInventory.append(item)
-	currentWeapon = item
+func add_weapon_to_inventory(weapon: Weapon):
+	weaponInventory.append(weapon)
+	equip_weapon(weapon)
 	print(weaponInventory)
 	print(currentWeapon)
+	print(currWeaponIndex)
 
-func scroll_select_weapon(event: InputEvent):
+#TODO: Fix issue where unable to switch weapons while able to shoot
+#NOTE: (Maybe try unhandled input over input? May have to add unhandled input method in FSM)
+func scroll_weapon_index(event: InputEvent):
 	if weaponInventory.is_empty():
 		return
-	if event is InputEventMouseButton and event.is_pressed():
-		if currWeaponIndex >= weaponInventory.size():
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			currWeaponIndex += 1
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			currWeaponIndex -= 1
+		elif event.button_index == MOUSE_BUTTON_MASK_LEFT:
+			print("fire in the hole")
+			return
+		
+		var inventorySize: int = weaponInventory.size()
+		if currWeaponIndex >= inventorySize:
 			currWeaponIndex = 0
-		print(currWeaponIndex)
-		match event.button_index:
-			MOUSE_BUTTON_WHEEL_UP:
-				currWeaponIndex += 1
-			MOUSE_BUTTON_WHEEL_DOWN:
-				currWeaponIndex -= 1
+		elif currWeaponIndex < 0:
+			currWeaponIndex = inventorySize - 1
+		
+		var nextWeapon: Weapon = weaponInventory[currWeaponIndex]
+		equip_weapon(nextWeapon)
+
+# TODO: this may cause bugs. Reimplement this.
+func equip_weapon(weapon: Weapon):
+	weaponHolder.remove_child(currentWeapon)
+	currentWeapon = weapon
+	currWeaponIndex = weaponInventory.find(currentWeapon)
+	weaponHolder.add_child(currentWeapon)
+
+func fire_weapon():
+	if currentWeapon:
+		currentWeapon.fire()
