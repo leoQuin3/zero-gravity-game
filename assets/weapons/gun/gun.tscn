@@ -1,27 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://d38s2ku27qr8f"]
+[gd_scene load_steps=9 format=3 uid="uid://dr7ay7ico0g8o"]
 
 [ext_resource type="Script" path="res://assets/weapons/gun/weapon.gd" id="1_a8jbd"]
-[ext_resource type="Texture2D" uid="uid://ba1c34axmiaj3" path="res://assets/weapons/gun/spritesheet_gun.png" id="1_gtbyb"]
-[ext_resource type="Texture2D" uid="uid://dspbjwpvuti7a" path="res://assets/weapons/gun/crosshair.png" id="2_brdul"]
-[ext_resource type="PackedScene" uid="uid://fa43emjjceq1" path="res://assets/weapons/bullet/bullet.tscn" id="2_f0ina"]
+[ext_resource type="Texture2D" uid="uid://ba1c34axmiaj3" path="res://assets/weapons/gun/spritesheet_gun.png" id="1_wnwy4"]
+[ext_resource type="Texture2D" uid="uid://dspbjwpvuti7a" path="res://assets/weapons/gun/crosshair.png" id="2_gkxdt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w5nos"]
-atlas = ExtResource("1_gtbyb")
+atlas = ExtResource("1_wnwy4")
 region = Rect2(0, 0, 1024, 1024)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_772c8"]
-atlas = ExtResource("1_gtbyb")
+atlas = ExtResource("1_wnwy4")
 region = Rect2(1024, 0, 1024, 1024)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mvngs"]
-atlas = ExtResource("1_gtbyb")
+atlas = ExtResource("1_wnwy4")
 region = Rect2(0, 1024, 1024, 1024)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hfs7e"]
-atlas = ExtResource("1_gtbyb")
+atlas = ExtResource("1_wnwy4")
 region = Rect2(0, 0, 1024, 1024)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_elnja"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_cl657"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -51,7 +50,6 @@ animations = [{
 
 [node name="Gun" type="Node3D" node_paths=PackedStringArray("animationSprite")]
 script = ExtResource("1_a8jbd")
-bullet = ExtResource("2_f0ina")
 animationSprite = NodePath("GunCanvas/GunGUI/WeaponHolder/WeaponAnimSprite")
 
 [node name="GunCanvas" type="CanvasLayer" parent="."]
@@ -77,11 +75,12 @@ grow_vertical = 2
 [node name="WeaponAnimSprite" type="AnimatedSprite2D" parent="GunCanvas/GunGUI/WeaponHolder"]
 position = Vector2(192, 156)
 scale = Vector2(0.65, 0.65)
-sprite_frames = SubResource("SpriteFrames_elnja")
+sprite_frames = SubResource("SpriteFrames_cl657")
 animation = &"idle"
 
 [node name="Crosshair" type="Sprite2D" parent="GunCanvas/GunGUI"]
 position = Vector2(576, 320)
-texture = ExtResource("2_brdul")
+texture = ExtResource("2_gkxdt")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="GunRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -5)

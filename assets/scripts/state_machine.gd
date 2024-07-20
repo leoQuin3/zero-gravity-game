@@ -1,4 +1,4 @@
-# General purpose class to build finite state machines
+# A General purpose finite state machine
 
 extends Node
 class_name StateMachine

@@ -1,3 +1,4 @@
+# Player properties and methods are defined here. They can be called by the State scripts.
 extends CharacterBody3D
 class_name Player
 
@@ -6,9 +7,20 @@ class_name Player
 @export var THRUST_SPEED: float = 100
 @export var MOUSE_IS_CAPTURED: bool = true
 @export var CAMERA_SENSITIVITY: float = 0.003
-@export var cameraHead: Node3D
 
-# Update player physics
+@export_category("Connect Nodes")
+@export var cameraHead: Node3D
+@export var weaponHolder: Node3D
+@export var playerHitbox: Area3D
+
+var weaponInventory: Dictionary
+var currentWeapon: Weapon
+
+# Connect signal emitted by Player hitbox.
+func _ready():
+	playerHitbox.connect("weapon_picked_up", Callable(self, "on_weapon_pickup"))
+
+# Update player physics.
 func _physics_process(delta) -> void:
 	move_and_slide()
 
@@ -38,3 +50,16 @@ func player_control_move(delta: float):
 	# Enforce maximum velocity
 	if velocity.length() > MAX_SPEED:
 		velocity = velocity.normalized() * MAX_SPEED
+
+####################
+# *** TODO: Figure how to pick up weapon, select weapon, and fire weapon. ***
+####################
+
+# Fire current weapon
+func weapon_fire():
+	if currentWeapon:
+		currentWeapon.fire()
+
+# Pass in weapon and add to dictionary. Called upon signal by PlayerHitbox. 
+func on_weapon_pickup(weapon: Weapon):
+	weaponInventory[weapon.name] = weapon

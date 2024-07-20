@@ -1,3 +1,4 @@
+# In state FLOATING, the player can move freely under zero gravity.
 extends State
 
 @export var parent: Player
