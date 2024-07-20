@@ -31,7 +31,7 @@ func _physics_process(delta) -> void:
 	currentState.update_physics(delta)
 
 # Read input
-func _unhandled_input(event) -> void:
+func _input(event) -> void:
 	currentState.handle_input(event)
 
 # Transition to new state.

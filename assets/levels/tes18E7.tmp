@@ -1,18 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3yjmxpsn1ehs"]
+[gd_scene load_steps=7 format=3 uid="uid://c3yjmxpsn1ehs"]
 
 [ext_resource type="PackedScene" uid="uid://c7s1aebr2tpxd" path="res://assets/entities/player/player.tscn" id="1_pghiu"]
 [ext_resource type="PackedScene" uid="uid://co4j6w1gq4o7r" path="res://assets/utilities/debug_ui.tscn" id="2_47kv2"]
 [ext_resource type="PackedScene" uid="uid://d38s2ku27qr8f" path="res://assets/weapons/gun/gun.tscn" id="2_rx1ms"]
 [ext_resource type="PackedScene" uid="uid://daub87gpr22y2" path="res://assets/environment/basic/wall.tscn" id="3_fyxil"]
 [ext_resource type="PackedScene" uid="uid://c815ps4cv3c4t" path="res://assets/environment/basic/wall_curve.tscn" id="4_c2t1q"]
+[ext_resource type="PackedScene" uid="uid://fa43emjjceq1" path="res://assets/weapons/bullet/bullet.tscn" id="6_1ow4y"]
 
 [node name="TestLevel" type="Node3D"]
 
-[node name="Gun" parent="." instance=ExtResource("2_rx1ms")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
 [node name="Player" parent="." instance=ExtResource("1_pghiu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Gun" parent="Player" instance=ExtResource("2_rx1ms")]
 
 [node name="Debug" parent="." node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
 node = NodePath("../Player")
@@ -81,3 +81,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0,
 
 [node name="Wall3" parent="Walls" instance=ExtResource("3_fyxil")]
 transform = Transform3D(1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, 0, 0, -15)
+
+[node name="Bullet" parent="." instance=ExtResource("6_1ow4y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.318482, 2.15163, -5)

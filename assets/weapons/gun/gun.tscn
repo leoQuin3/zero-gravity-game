@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://d38s2ku27qr8f"]
+
+[ext_resource type="Script" path="res://assets/weapons/gun/weapon.gd" id="1_a8jbd"]
+[ext_resource type="Texture2D" uid="uid://ba1c34axmiaj3" path="res://assets/weapons/gun/spritesheet_gun.png" id="1_gtbyb"]
+[ext_resource type="Texture2D" uid="uid://dspbjwpvuti7a" path="res://assets/weapons/gun/crosshair.png" id="2_brdul"]
+[ext_resource type="PackedScene" uid="uid://fa43emjjceq1" path="res://assets/weapons/bullet/bullet.tscn" id="2_f0ina"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5nos"]
+atlas = ExtResource("1_gtbyb")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_772c8"]
+atlas = ExtResource("1_gtbyb")
+region = Rect2(1024, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvngs"]
+atlas = ExtResource("1_gtbyb")
+region = Rect2(0, 1024, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfs7e"]
+atlas = ExtResource("1_gtbyb")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_elnja"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5nos")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_772c8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_772c8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvngs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfs7e")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 12.0
+}]
+
+[node name="Gun" type="Node3D" node_paths=PackedStringArray("animationSprite")]
+script = ExtResource("1_a8jbd")
+bullet = ExtResource("2_f0ina")
+animationSprite = NodePath("GunCanvas/GunGUI/WeaponHolder/WeaponAnimSprite")
+
+[node name="GunCanvas" type="CanvasLayer" parent="."]
+
+[node name="GunGUI" type="Control" parent="GunCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeaponHolder" type="Control" parent="GunCanvas/GunGUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WeaponAnimSprite" type="AnimatedSprite2D" parent="GunCanvas/GunGUI/WeaponHolder"]
+position = Vector2(192, 156)
+scale = Vector2(0.65, 0.65)
+sprite_frames = SubResource("SpriteFrames_elnja")
+animation = &"idle"
+
+[node name="Crosshair" type="Sprite2D" parent="GunCanvas/GunGUI"]
+position = Vector2(576, 320)
+texture = ExtResource("2_brdul")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
