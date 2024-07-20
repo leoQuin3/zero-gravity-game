@@ -1,10 +1,19 @@
-# A general purpose area node that can be used to represent weapons, ammo, etc.
+# A general purpose area used to represent items which can be picked up by Player.
 extends Area3D
 class_name Pickup
 
-@export var ITEM_SCENE: PackedScene
+@export var itemScene: PackedScene
+@export var itemSprite: CompressedTexture2D
+@onready var SPRITE: = get_node("PickupSprite3D")
 var item = null
 
 func _ready():
-	if ITEM_SCENE != null and ITEM_SCENE.can_instantiate():
-		item = ITEM_SCENE.instantiate()
+	if itemScene != null:
+		item = itemScene.instantiate()
+	if itemSprite:
+		SPRITE.texture = itemSprite
+
+func _on_body_entered(body):
+	if body is Player:
+		body.add_weapon_to_inventory(item)
+		queue_free()

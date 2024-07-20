@@ -11,14 +11,10 @@ class_name Player
 @export_category("Connect Nodes")
 @export var cameraHead: Node3D
 @export var weaponHolder: Node3D
-@export var playerHitbox: Area3D
 
-var weaponInventory: Dictionary
+var weaponInventory: Array
 var currentWeapon: Weapon
-
-# Connect signal emitted by Player hitbox.
-func _ready():
-	playerHitbox.connect("weapon_picked_up", Callable(self, "on_weapon_pickup"))
+var currWeaponIndex: int
 
 # Update player physics.
 func _physics_process(delta) -> void:
@@ -55,11 +51,21 @@ func player_control_move(delta: float):
 # *** TODO: Figure how to pick up weapon, select weapon, and fire weapon. ***
 ####################
 
-# Fire current weapon
-func weapon_fire():
-	if currentWeapon:
-		currentWeapon.fire()
+func add_weapon_to_inventory(item):
+	weaponInventory.append(item)
+	currentWeapon = item
+	print(weaponInventory)
+	print(currentWeapon)
 
-# Pass in weapon and add to dictionary. Called upon signal by PlayerHitbox. 
-func on_weapon_pickup(weapon: Weapon):
-	weaponInventory[weapon.name] = weapon
+func scroll_select_weapon(event: InputEvent):
+	if weaponInventory.is_empty():
+		return
+	if event is InputEventMouseButton and event.is_pressed():
+		if currWeaponIndex >= weaponInventory.size():
+			currWeaponIndex = 0
+		print(currWeaponIndex)
+		match event.button_index:
+			MOUSE_BUTTON_WHEEL_UP:
+				currWeaponIndex += 1
+			MOUSE_BUTTON_WHEEL_DOWN:
+				currWeaponIndex -= 1

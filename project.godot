@@ -63,6 +63,14 @@ sneak={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="player"
+3d_physics/layer_2="enemies"
+3d_physics/layer_3="bullets"
+3d_physics/layer_4="world"
+3d_physics/layer_5="pickups"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

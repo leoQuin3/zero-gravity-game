@@ -1,24 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7s1aebr2tpxd"]
+[gd_scene load_steps=7 format=3 uid="uid://c7s1aebr2tpxd"]
 
 [ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
-[ext_resource type="PackedScene" uid="uid://dr7ay7ico0g8o" path="res://assets/weapons/gun/gun.tscn" id="2_dth1k"]
 [ext_resource type="Script" path="res://assets/scripts/state_machine.gd" id="2_fxhxo"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_grounded.gd" id="2_vlx2x"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_floating.gd" id="3_vy3lq"]
-[ext_resource type="Script" path="res://assets/entities/player/PlayerHitbox.gd" id="5_jwkig"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spn12"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c8k0w"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ui5ve"]
-
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead", "weaponHolder", "playerHitbox")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead", "weaponHolder")]
 script = ExtResource("1_7lu1p")
-THRUST_SPEED = 75.0
 cameraHead = NodePath("CameraHolder")
 weaponHolder = NodePath("CameraHolder/WeaponHolder")
-playerHitbox = NodePath("PlayerHitbox")
 
 [node name="CameraHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -33,16 +27,6 @@ shape = SubResource("CapsuleShape3D_spn12")
 [node name="PlayerMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_c8k0w")
 
-[node name="PlayerHitbox" type="Area3D" parent="."]
-script = ExtResource("5_jwkig")
-
-[node name="PlayerHitCollision" type="CollisionShape3D" parent="PlayerHitbox"]
-shape = SubResource("CapsuleShape3D_ui5ve")
-
-[node name="Inventory" type="Node" parent="."]
-
-[node name="Gun" parent="Inventory" instance=ExtResource("2_dth1k")]
-
 [node name="PlayerFSM" type="Node" parent="."]
 script = ExtResource("2_fxhxo")
 initialState = NodePath("FLOATING")
@@ -53,5 +37,3 @@ parent = NodePath("../..")
 
 [node name="GROUNDED" type="Node" parent="PlayerFSM"]
 script = ExtResource("3_vy3lq")
-
-[connection signal="area_entered" from="PlayerHitbox" to="PlayerHitbox" method="_on_area_entered"]

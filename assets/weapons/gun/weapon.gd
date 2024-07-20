@@ -6,8 +6,8 @@ class_name Weapon
 
 #TODO: Fix pick up and firing before working on bullets
 
-func _ready():
-	animationSprite.play("idle")
+#func _ready():
+	#animationSprite.play("idle")
 
 func fire():
 	animationSprite.play("shoot")

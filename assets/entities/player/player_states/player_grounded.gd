@@ -21,3 +21,4 @@ func update_physics(delta) -> void:
 	
 func handle_input(event) -> void:
 	parent.fp_camera_look(event, deg_to_rad(-90), deg_to_rad(90))
+	parent.scroll_select_weapon(event)
