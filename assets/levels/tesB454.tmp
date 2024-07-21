@@ -7,14 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://c815ps4cv3c4t" path="res://assets/environment/basic/wall_curve.tscn" id="4_c2t1q"]
 [ext_resource type="PackedScene" uid="uid://cmeo0wyc4wrcl" path="res://assets/weapons/pickup.tscn" id="5_sg1ao"]
 [ext_resource type="Texture2D" uid="uid://beogas7v0e1ub" path="res://assets/weapons/gun/gun-pickup.png" id="7_toeha"]
-[ext_resource type="Texture2D" uid="uid://ba1c34axmiaj3" path="res://assets/weapons/gun/spritesheet_gun.png" id="8_dutcn"]
+[ext_resource type="Texture2D" uid="uid://c734skv8k1u8p" path="res://assets/weapons/bullet/bullet.png" id="8_qd8ey"]
 
 [node name="TestLevel" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_pghiu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7)
 collision_mask = 24
+MAX_SPEED = 7.0
 THRUST_SPEED = 50.0
+MOUSE_IS_CAPTURED = true
+CAMERA_SENSITIVITY = 0.003
 
 [node name="Debug" parent="." node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
 node = NodePath("../Player")
@@ -60,4 +63,4 @@ itemSprite = ExtResource("7_toeha")
 [node name="Pickup2" parent="." instance=ExtResource("5_sg1ao")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0364146, 0.8, 3.11351)
 itemScene = ExtResource("2_rx1ms")
-itemSprite = ExtResource("8_dutcn")
+itemSprite = ExtResource("8_qd8ey")

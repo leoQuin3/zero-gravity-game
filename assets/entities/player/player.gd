@@ -12,7 +12,11 @@ class_name Player
 @export var cameraHead: Node3D
 @export var weaponHolder: Node3D
 
+# Inventory
 var weaponInventory: Array
+var ammoInventory: Dictionary
+
+# Currently equipped weapon
 var currentWeapon: Weapon
 var currWeaponIndex: int = 0
 
@@ -53,6 +57,10 @@ func add_weapon_to_inventory(weapon: Weapon):
 	# If player had no weapons, equip their first weapon
 	if weaponInventory.size() == 1:
 		equip_weapon_at_index(0)
+
+##TODO: Implement ammunition system here and in ammo.gd.
+func add_ammo_to_inventory(ammo):
+	pass
 
 # Use mouse wheel to scroll through inventory.
 func scroll_weapon_index(event: InputEventMouseButton):
