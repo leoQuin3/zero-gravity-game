@@ -20,7 +20,7 @@ var currWeaponIndex: int = 0
 func _physics_process(delta) -> void:
 	move_and_slide()
 
-# Control camera rotation using mouse input. Pitch and yaw are passed in radians.
+# Control camera rotation using mouse input. Min and max pitch are in radians.
 func fp_camera_look(event: InputEventMouseMotion, minPitch: float, maxPitch: float):
 	var newPitch = event.relative.y
 	var newYaw = event.relative.x
@@ -45,10 +45,6 @@ func player_control_move(delta: float):
 	# Enforce maximum velocity
 	if velocity.length() > MAX_SPEED:
 		velocity = velocity.normalized() * MAX_SPEED
-
-####################
-# *** TODO: Figure how to pick up weapon, select weapon, and fire weapon. ***
-####################
 
 # Append weapon to inventory.
 func add_weapon_to_inventory(weapon: Weapon):

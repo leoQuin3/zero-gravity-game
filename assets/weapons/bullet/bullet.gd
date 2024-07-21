@@ -1,7 +1,7 @@
-extends Area3D
+extends Sprite3D
 class_name Bullet
 
-var INITIAL_VELOCITY: Vector3
+var initialVelocity: Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,4 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position += INITIAL_VELOCITY * delta
+	position += initialVelocity * delta
+
+func _on_bullet_hitbox_body_entered(body):
+	print(body)
