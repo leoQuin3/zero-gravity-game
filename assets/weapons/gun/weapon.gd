@@ -12,11 +12,10 @@ func _ready():
 	animationPlayer.play("equip")
 
 func fire():
-	if ammoAmount <= 0:
-		return
-	ammoAmount -= 1
-	animationPlayer.play("shoot")
-	print(ammoAmount)
+	if ammoAmount > 0:
+		ammoAmount -= 1
+		spawn_bullet()
+		animationPlayer.play("shoot")
 
 func add_ammo(amount: int):
 	ammoAmount += amount

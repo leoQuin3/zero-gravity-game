@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7s1aebr2tpxd"]
+[gd_scene load_steps=9 format=3 uid="uid://c7s1aebr2tpxd"]
 
 [ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
 [ext_resource type="Script" path="res://assets/entities/player/player_modules/camera_holder.gd" id="2_fd87b"]
@@ -6,15 +6,15 @@
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_grounded.gd" id="2_vlx2x"]
 [ext_resource type="Script" path="res://assets/entities/player/player_modules/weapon_holder.gd" id="3_gaq1t"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_floating.gd" id="3_vy3lq"]
-[ext_resource type="PackedScene" uid="uid://cfguvox4elkmr" path="res://assets/weapons/grappling_gun/grappling_hook.tscn" id="5_oiwg7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spn12"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c8k0w"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead", "weaponHolder")]
 script = ExtResource("1_7lu1p")
 cameraHead = NodePath("CameraHolder")
+weaponHolder = NodePath("CameraHolder/WeaponHolder")
 
 [node name="CameraHolder" type="Node3D" parent="." node_paths=PackedStringArray("parent")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -25,8 +25,6 @@ parent = NodePath("..")
 
 [node name="WeaponHolder" type="Node3D" parent="CameraHolder"]
 script = ExtResource("3_gaq1t")
-
-[node name="GrapplingHook" parent="CameraHolder/WeaponHolder" instance=ExtResource("5_oiwg7")]
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_spn12")

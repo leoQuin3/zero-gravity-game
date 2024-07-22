@@ -1,6 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfguvox4elkmr"]
+[gd_scene load_steps=3 format=3 uid="uid://cfguvox4elkmr"]
 
 [ext_resource type="Script" path="res://assets/weapons/gun/weapon.gd" id="1_dhsii"]
+[ext_resource type="Texture2D" uid="uid://dspbjwpvuti7a" path="res://assets/weapons/gun/crosshair.png" id="3_omvds"]
 
 [node name="GrapplingHook" type="Node3D"]
 script = ExtResource("1_dhsii")
+
+[node name="GrappleCanvas" type="CanvasLayer" parent="."]
+
+[node name="GrappleGUI" type="Control" parent="GrappleCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Sprite2D" parent="GrappleCanvas/GrappleGUI"]
+position = Vector2(576, 320)
+rotation = 0.785397
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_omvds")
