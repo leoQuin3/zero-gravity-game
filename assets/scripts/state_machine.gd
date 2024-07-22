@@ -34,8 +34,11 @@ func _physics_process(delta) -> void:
 func _input(event) -> void:
 	currentState.handle_input(event)
 
-# Transition to new state.
+# Transition to new state. Called by signal state_transitioned.
 func on_state_changed(newState: String) -> void:
+	# Set newState to uppercase
+	newState = newState.to_upper()
+	
 	# Return if state does not exist or if already in said state
 	if !states.has(newState) or currentState == states[newState]:
 		return

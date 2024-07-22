@@ -34,7 +34,6 @@ script = ExtResource("3_gaq1t")
 [node name="GrappleHolder" type="Node3D" parent="CameraHolder" node_paths=PackedStringArray("raycast")]
 script = ExtResource("5_2nbur")
 raycast = NodePath("GrappleRaycast")
-grappleSpeed = 25.0
 
 [node name="GrappleRaycast" type="RayCast3D" parent="CameraHolder/GrappleHolder"]
 target_position = Vector3(0, 0, -25)
@@ -51,19 +50,16 @@ mesh = SubResource("CapsuleMesh_c8k0w")
 script = ExtResource("2_fxhxo")
 initialState = NodePath("FLOATING")
 
-[node name="FLOATING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "weaponHolder", "grappleHolder")]
+[node name="FLOATING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "weaponHolder")]
 script = ExtResource("2_vlx2x")
 player = NodePath("../..")
 cameraHolder = NodePath("../../CameraHolder")
 weaponHolder = NodePath("../../CameraHolder/WeaponHolder")
-grappleHolder = NodePath("../../CameraHolder/GrappleHolder")
 
 [node name="GROUNDED" type="Node" parent="PlayerFSM"]
 script = ExtResource("3_vy3lq")
 
-[node name="GRAPPLING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "grappleHook", "weaponHolder", "cameraHolder")]
+[node name="GRAPPLING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "grappleHook")]
 script = ExtResource("9_u80e6")
 player = NodePath("../..")
 grappleHook = NodePath("../../CameraHolder/GrappleHolder")
-weaponHolder = NodePath("../../CameraHolder/WeaponHolder")
-cameraHolder = NodePath("../../CameraHolder")

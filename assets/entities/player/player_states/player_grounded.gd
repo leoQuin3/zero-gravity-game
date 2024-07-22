@@ -4,12 +4,7 @@ extends State
 @export var player: Player
 @export var cameraHolder: Node3D
 @export var weaponHolder: Node3D
-
-func enter() -> void:
-	pass
-
-func exit() -> void:
-	pass
+@export var grappleHolder: GrapplingHook
 
 func initialize() -> void:
 	if cameraHolder.MOUSE_IS_CAPTURED:
@@ -19,7 +14,7 @@ func update(delta) -> void:
 	pass
 	
 func update_physics(delta) -> void:
-	player.player_control_move(delta)
+	player.player_control_move(delta, player.MAX_SPEED)
 	
 func handle_input(event) -> void:
 	# Handle mouse input
@@ -31,4 +26,5 @@ func handle_input(event) -> void:
 		weaponHolder.scroll_weapon_index(event)
 		weaponHolder.fire_weapon(event)
 		
-	
+	if grappleHolder.can_grapple() and Input.is_action_just_pressed("grapple"):
+		emit_signal("state_transitioned", "GRAPPLING")

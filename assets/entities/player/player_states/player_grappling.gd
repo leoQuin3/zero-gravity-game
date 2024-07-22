@@ -2,23 +2,32 @@ extends State
 
 @export var player: Player
 @export var grappleHook: GrapplingHook
+@export var weaponHolder: Node3D
+@export var cameraHolder: Node3D
 
-func enter() -> void:
-	pass
+var targetPosition: Vector3
 
-func exit() -> void:
-	pass
+func enter():
+	grappleHook.grapple(player)
 
 func initialize() -> void:
-	pass
+	if cameraHolder.MOUSE_IS_CAPTURED:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func update(delta) -> void:
-	pass
+	if player.is_on_floor() or player.is_on_wall() or player.is_on_ceiling():
+		emit_signal("state_transitioned", "FLOATING")
 
 func update_physics(delta) -> void:
-	var grapplePoint: Vector3
-	if Input.is_action_just_pressed("grapple"):
-		pass
-
+	if grappleHook.can_grapple() and Input.is_action_just_pressed("grapple"):
+		grappleHook.grapple(player)
+	
 func handle_input(event) -> void:
-	pass
+	# Handle mouse input
+	if event is InputEventMouseMotion:
+		cameraHolder.fp_camera_look(event, deg_to_rad(-90), deg_to_rad(90))
+		
+	# Handle mouse click
+	if event is InputEventMouseButton and event.is_pressed():
+		weaponHolder.scroll_weapon_index(event)
+		weaponHolder.fire_weapon(event)

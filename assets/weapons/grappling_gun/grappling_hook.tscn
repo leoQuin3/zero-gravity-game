@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://cfguvox4elkmr"]
 
-[ext_resource type="Script" path="res://assets/entities/player/player_modules/grappling_holder.gd" id="1_0b05r"]
+[ext_resource type="Script" path="res://assets/entities/player/player_modules/grappling_holder.gd" id="1_7qwla"]
 
 [node name="GrapplingHook" type="Node3D" node_paths=PackedStringArray("raycast")]
-script = ExtResource("1_0b05r")
+script = ExtResource("1_7qwla")
 raycast = NodePath("GrappleRaycast")
 
 [node name="GrappleRaycast" type="RayCast3D" parent="."]

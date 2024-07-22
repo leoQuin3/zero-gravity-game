@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" path="res://assets/utilities/playerDebug.gd" id="1_xtnas"]
 
-[node name="Debug" type="CanvasLayer" node_paths=PackedStringArray("InputArrow", "InputLabel", "VelocityArrow", "VelocityLabel")]
+[node name="Debug" type="CanvasLayer" node_paths=PackedStringArray("InputArrow", "InputLabel", "VelocityArrow", "VelocityLabel", "StateLabel")]
 script = ExtResource("1_xtnas")
 InputArrow = NodePath("InputArrow")
 InputLabel = NodePath("InputLabel")
 VelocityArrow = NodePath("VelocityArrow")
 VelocityLabel = NodePath("VelocityLabel")
+StateLabel = NodePath("stateLabel")
 
 [node name="InputArrow" type="Node2D" parent="."]
 position = Vector2(128, 128)
@@ -38,3 +39,12 @@ offset_top = 128.0
 offset_right = 1024.0
 offset_bottom = 151.0
 text = "(0,0)"
+
+[node name="stateLabel" type="Label" parent="."]
+offset_left = 64.0
+offset_top = 512.0
+offset_right = 192.0
+offset_bottom = 576.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "State: "

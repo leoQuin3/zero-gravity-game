@@ -13,7 +13,7 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 
 # Move in all directions using input keys. Always facing in camera's direction.
-func player_control_move(delta: float):
+func player_control_move(delta: float, maxSpeed: float):
 	# Calculate direction vector from keys and camera orientation
 	var inputVector: Vector2 = Input.get_vector("left", "right", "forward", "back")
 	var newDirection: = (cameraHead.global_transform.basis * Vector3(inputVector.x, 0 , inputVector.y)).normalized()
@@ -23,5 +23,5 @@ func player_control_move(delta: float):
 		velocity += newDirection * THRUST_SPEED * delta
 	
 	# Enforce maximum velocity
-	if velocity.length() > MAX_SPEED:
-		velocity = velocity.normalized() * MAX_SPEED
+	if velocity.length() > maxSpeed:
+		velocity = velocity.normalized() * maxSpeed
