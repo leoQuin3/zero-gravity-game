@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://co4j6w1gq4o7r"]
 
-[ext_resource type="Script" path="res://assets/entities/player/playerDebug.gd" id="1_yytru"]
+[ext_resource type="Script" path="res://assets/utilities/playerDebug.gd" id="1_yytru"]
 
 [node name="Debug" type="CanvasLayer" node_paths=PackedStringArray("InputArrow", "InputLabel", "VelocityArrow", "VelocityLabel")]
 script = ExtResource("1_yytru")

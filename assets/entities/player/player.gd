@@ -2,6 +2,8 @@
 extends CharacterBody3D
 class_name Player
 
+#TODO: Revamp player scene by composition
+
 # Parameters
 @export var MAX_SPEED: float = 7
 @export var THRUST_SPEED: float = 100
