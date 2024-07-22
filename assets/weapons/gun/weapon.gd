@@ -8,6 +8,8 @@ class_name Weapon
 @export var BULLET_SPEED: float = 25
 @export var ammoAmount: int = 10
 
+#TODO: Finish structuring weapon class, implementing rounds and ammo system
+
 func _ready():
 	animationPlayer.play("equip")
 

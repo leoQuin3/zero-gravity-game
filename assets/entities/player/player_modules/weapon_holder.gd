@@ -35,6 +35,7 @@ func scroll_weapon_index(event: InputEventMouseButton):
 	elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 		currWeaponIndex -= 1
 	else:
+		# If event is neither wheep up or wheel down, ignore and terminate.
 		return
 		
 	# Keep index within array bounds
@@ -43,17 +44,20 @@ func scroll_weapon_index(event: InputEventMouseButton):
 	elif currWeaponIndex < 0:
 		currWeaponIndex = arraySize - 1
 	
-	#Equip weapon at current index
+	# Equip weapon at current index
 	equip_weapon_at_index(currWeaponIndex)
 
 # Equip weapon at given index.
 func equip_weapon_at_index(index: int):
+	# Remove previously equipped weapon from WeaponHolder.
 	if currentWeapon:
 		self.remove_child(currentWeapon)
+		
+	# Get weapon from array and add to WeaponHolder
 	currentWeapon = weaponInventory[index]
 	self.add_child(currentWeapon)
 
-# Call fire method on current weapon.
-func fire_weapon():
-	if currentWeapon:
+# Call fire method of current weapon.
+func fire_weapon(event: InputEventMouseButton):
+	if currentWeapon and event.button_index == MOUSE_BUTTON_LEFT:
 		currentWeapon.fire()
