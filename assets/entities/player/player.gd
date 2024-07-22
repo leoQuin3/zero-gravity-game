@@ -59,8 +59,8 @@ func add_weapon_to_inventory(weapon: Weapon):
 		equip_weapon_at_index(0)
 
 ##TODO: Implement ammunition system here and in ammo.gd.
-func add_ammo_to_inventory(ammo):
-	pass
+func add_ammo_to_inventory(amount):
+	currentWeapon.add_ammo(amount)
 
 # Use mouse wheel to scroll through inventory.
 func scroll_weapon_index(event: InputEventMouseButton):
@@ -89,7 +89,7 @@ func scroll_weapon_index(event: InputEventMouseButton):
 	equip_weapon_at_index(currWeaponIndex)
 
 # Equip weapon at given index.
-#TODO: add safeguard if out of bounds
+##TODO: add safeguard if out of bounds
 func equip_weapon_at_index(index: int):
 	if currentWeapon:
 		weaponHolder.remove_child(currentWeapon)

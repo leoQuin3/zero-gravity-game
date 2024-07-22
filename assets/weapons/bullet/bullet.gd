@@ -1,3 +1,4 @@
+# A projectile emitted by a weapon
 extends Area3D
 class_name Bullet
 

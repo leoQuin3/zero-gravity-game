@@ -1,13 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3yjmxpsn1ehs"]
+[gd_scene load_steps=5 format=3 uid="uid://c3yjmxpsn1ehs"]
 
 [ext_resource type="PackedScene" uid="uid://c7s1aebr2tpxd" path="res://assets/entities/player/player.tscn" id="1_pghiu"]
 [ext_resource type="PackedScene" uid="uid://co4j6w1gq4o7r" path="res://assets/utilities/debug_ui.tscn" id="2_47kv2"]
-[ext_resource type="PackedScene" uid="uid://dr7ay7ico0g8o" path="res://assets/weapons/gun/gun.tscn" id="2_rx1ms"]
 [ext_resource type="PackedScene" uid="uid://daub87gpr22y2" path="res://assets/environment/basic/wall.tscn" id="3_fyxil"]
 [ext_resource type="PackedScene" uid="uid://c815ps4cv3c4t" path="res://assets/environment/basic/wall_curve.tscn" id="4_c2t1q"]
-[ext_resource type="PackedScene" uid="uid://cmeo0wyc4wrcl" path="res://assets/weapons/pickup.tscn" id="5_sg1ao"]
-[ext_resource type="Texture2D" uid="uid://beogas7v0e1ub" path="res://assets/weapons/gun/gun-pickup.png" id="7_toeha"]
-[ext_resource type="Texture2D" uid="uid://ba1c34axmiaj3" path="res://assets/weapons/gun/spritesheet_gun.png" id="8_dutcn"]
 
 [node name="TestLevel" type="Node3D"]
 
@@ -51,13 +47,3 @@ collision_mask = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -2.13163e-14, 3)
 collision_layer = 8
 collision_mask = 0
-
-[node name="Pickup" parent="." instance=ExtResource("5_sg1ao")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15746, 0.8, 3.11351)
-itemScene = ExtResource("2_rx1ms")
-itemSprite = ExtResource("7_toeha")
-
-[node name="Pickup2" parent="." instance=ExtResource("5_sg1ao")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0364146, 0.8, 3.11351)
-itemScene = ExtResource("2_rx1ms")
-itemSprite = ExtResource("8_dutcn")
