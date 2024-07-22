@@ -1,13 +1,9 @@
 extends CharacterBody3D
 class_name Player
 
-#TODO: Revamp player scene by composition
-
 # Parameters
 @export var MAX_SPEED: float = 7
 @export var THRUST_SPEED: float = 100
-#@export var MOUSE_IS_CAPTURED: bool = true
-#@export var CAMERA_SENSITIVITY: float = 0.003
 
 @export_category("Connect Nodes")
 @export var cameraHead: Node3D
