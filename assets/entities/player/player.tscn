@@ -31,7 +31,8 @@ script = ExtResource("3_gaq1t")
 
 [node name="GrappleHolder" type="Node3D" parent="CameraHolder"]
 
-[node name="GrapplingHook" parent="CameraHolder/GrappleHolder" instance=ExtResource("5_oiwg7")]
+[node name="GrapplingHook" parent="CameraHolder/GrappleHolder" node_paths=PackedStringArray("player") instance=ExtResource("5_oiwg7")]
+player = NodePath("../../..")
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_spn12")
