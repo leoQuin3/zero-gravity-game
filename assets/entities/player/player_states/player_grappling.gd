@@ -7,21 +7,26 @@ extends State
 
 var targetPosition: Vector3
 
-func enter():
-	grappleHook.grapple(player)
-
+# Set mouse capture
 func initialize() -> void:
 	if cameraHolder.MOUSE_IS_CAPTURED:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+# Move towards target
+func enter():
+	grappleHook.grapple(player)
+
+# Switch state to floating if colliding
 func update(delta) -> void:
 	if player.is_on_floor() or player.is_on_wall() or player.is_on_ceiling():
 		emit_signal("state_transitioned", "FLOATING")
 
+# Grapple
 func update_physics(delta) -> void:
-	if grappleHook.can_grapple() and Input.is_action_just_pressed("grapple"):
+	if grappleHook.can_grapple() and Input.is_action_pressed("grapple"):
 		grappleHook.grapple(player)
-	
+
+# Handle mouse input
 func handle_input(event) -> void:
 	# Handle mouse input
 	if event is InputEventMouseMotion:

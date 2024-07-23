@@ -2,11 +2,7 @@ extends Node3D
 class_name GrapplingHook
 
 @export var raycast: RayCast3D
-@export var grappleSpeed: float = 10
-
-#TODO:
-#	1) Define methods for state machine to use
-#	3) Once in state GRAPPLING, call these methods
+@export var grappleSpeed: float = 30
 
 # Get position to move towards
 func get_grapple_point() -> Vector3:
@@ -19,6 +15,10 @@ func can_grapple() -> bool:
 # Move player towards grappling position
 func grapple(player: Player) -> void:
 	var targetPosition: Vector3 = get_grapple_point()
-	var newVelocity: Vector3 = (targetPosition - player.position).normalized() * grappleSpeed
+	var targetDirection: Vector3 = (targetPosition - player.position).normalized()
 	
-	player.velocity = newVelocity
+	player.velocity = targetDirection * grappleSpeed
+
+# Allow player to strafe left and right while grappling
+func player_grapple_move(player:Player, event: Input):
+	pass
