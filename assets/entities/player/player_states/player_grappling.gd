@@ -11,28 +11,38 @@ var targetPosition: Vector3
 func initialize() -> void:
 	if cameraHolder.MOUSE_IS_CAPTURED:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+# Set target position
+func enter() -> void:
+	targetPosition = grappleHook.get_grapple_point()
 
-# Move towards target
-func enter():
-	grappleHook.grapple(player)
-
-# Switch state to floating if colliding
+# Reset grapple holder's orientation
+func exit() -> void:
+	grappleHook.rotation = Vector3.ZERO
+	
+# Switch state to FLOATING if colliding
 func update(delta) -> void:
+	#FIXME: Transition state when within certain distance from target position.
 	if player.is_on_floor() or player.is_on_wall() or player.is_on_ceiling():
 		emit_signal("state_transitioned", "FLOATING")
 
-# Grapple
+# Grapple and strafe
 func update_physics(delta) -> void:
-	if grappleHook.can_grapple() and Input.is_action_pressed("grapple"):
-		grappleHook.grapple(player)
-
+	grappleHook.grapple(player, targetPosition)
+	grappleHook.player_grapple_strafe(player, targetPosition)
+	
 # Handle mouse input
 func handle_input(event) -> void:
-	# Handle mouse input
+	# Look around
 	if event is InputEventMouseMotion:
 		cameraHolder.fp_camera_look(event, deg_to_rad(-90), deg_to_rad(90))
 		
-	# Handle mouse click
+	# Shoot and select weapon
 	if event is InputEventMouseButton and event.is_pressed():
 		weaponHolder.scroll_weapon_index(event)
 		weaponHolder.fire_weapon(event)
+	
+	#FIXME: Maybe add timer to prevent cancelling too early.
+	## Cancel grappling
+	#if Input.is_action_pressed("grapple"):
+		#emit_signal("state_transitioned", "FLOATING")

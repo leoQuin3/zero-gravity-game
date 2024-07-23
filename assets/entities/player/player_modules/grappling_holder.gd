@@ -13,12 +13,20 @@ func can_grapple() -> bool:
 	return raycast.is_colliding()
 
 # Move player towards grappling position
-func grapple(player: Player) -> void:
-	var targetPosition: Vector3 = get_grapple_point()
+func grapple(player: Player, targetPosition: Vector3) -> void:
+	# Set velocity towards targetPosition
 	var targetDirection: Vector3 = (targetPosition - player.position).normalized()
-	
 	player.velocity = targetDirection * grappleSpeed
-
-# Allow player to strafe left and right while grappling
-func player_grapple_move(player:Player, event: Input):
-	pass
+	
+# Allow player to strafe left and right
+func player_grapple_strafe(player:Player, targetPosition: Vector3):
+	# Point grapple holder to target position
+	self.look_at(targetPosition, Vector3.UP)
+	
+	# Get input and grapple holder's basis
+	var inputAxis: int = Input.get_axis("left", "right")
+	var directionVector: Vector3 = (self.global_transform.basis * Vector3(inputAxis, 0, 0)).normalized()
+	
+	# Update player velocity
+	if inputAxis:
+		player.velocity += directionVector * grappleSpeed

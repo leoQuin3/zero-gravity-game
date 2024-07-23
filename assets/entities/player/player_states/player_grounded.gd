@@ -17,14 +17,15 @@ func update_physics(delta) -> void:
 	player.player_control_move(delta, player.MAX_SPEED)
 	
 func handle_input(event) -> void:
-	# Handle mouse input
+	# Look around
 	if event is InputEventMouseMotion:
 		cameraHolder.fp_camera_look(event, deg_to_rad(-90), deg_to_rad(90))
 		
-	# Handle mouse click
+	# Look around
 	if event is InputEventMouseButton and event.is_pressed():
 		weaponHolder.scroll_weapon_index(event)
 		weaponHolder.fire_weapon(event)
-		
+	
+	# Grapple
 	if grappleHolder.can_grapple() and Input.is_action_just_pressed("grapple"):
 		emit_signal("state_transitioned", "GRAPPLING")
