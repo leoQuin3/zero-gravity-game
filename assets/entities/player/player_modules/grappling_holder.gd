@@ -2,6 +2,8 @@ extends Node3D
 class_name GrapplingHook
 
 @export var raycast: RayCast3D
+@export var grappleCursor: Sprite2D
+@export var camera: Camera3D
 @export var grappleSpeed: float = 15
 @export var strafeSpeed: float = 15
 @export var cancelDistance: float = 2
@@ -22,8 +24,6 @@ func grapple(player: Player, targetPosition: Vector3) -> void:
 	
 # Allow player to strafe left and right
 func player_grapple_strafe(player:Player, targetPosition: Vector3):
-	var oldVelocity: = player.velocity
-	
 	# Point grapple holder to target position
 	self.look_at(targetPosition, Vector3.UP)
 	
@@ -35,3 +35,6 @@ func player_grapple_strafe(player:Player, targetPosition: Vector3):
 	#FIXME: If grapple() isnt being called, player will dramatically accelerate
 	if inputAxis:
 		player.velocity += (directionVector * strafeSpeed)
+
+func update_cursor_position(targetPosition: Vector3):
+	grappleCursor.position = camera.unproject_position(targetPosition)

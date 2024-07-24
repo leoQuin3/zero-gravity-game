@@ -15,11 +15,13 @@ func initialize() -> void:
 	
 # Set target position
 func enter() -> void:
+	grappleHolder.grappleCursor.show() #FIXME: Use signals to call instead.
 	targetPosition = grappleHolder.get_grapple_point()
 	canCancel = false
 
 # Reset grapple holder's orientation
 func exit() -> void:
+	grappleHolder.grappleCursor.hide() #FIXME: Use signals to call instead.
 	grappleHolder.rotation = Vector3.ZERO
 	canCancel = false
 	
@@ -28,6 +30,8 @@ func update(delta) -> void:
 	#Change state when within range of target position
 	if player.global_position.distance_to(targetPosition) < grappleHolder.cancelDistance:
 		emit_signal("state_transitioned", "FLOATING")
+	
+	grappleHolder.update_cursor_position(targetPosition)
 
 # Grapple and strafe
 func update_physics(delta) -> void:

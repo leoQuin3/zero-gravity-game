@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7s1aebr2tpxd"]
+[gd_scene load_steps=13 format=3 uid="uid://c7s1aebr2tpxd"]
 
 [ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
 [ext_resource type="Script" path="res://assets/entities/player/player_modules/camera_holder.gd" id="2_fd87b"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_floating.gd" id="3_vy3lq"]
 [ext_resource type="PackedScene" uid="uid://bch0i0j0ljf14" path="res://assets/weapons/gun/gun.tscn" id="4_vpo5n"]
 [ext_resource type="Script" path="res://assets/entities/player/player_modules/grappling_holder.gd" id="5_2nbur"]
+[ext_resource type="Texture2D" uid="uid://dugyo4en2gocg" path="res://assets/weapons/grappling_gun/grapple_cursor.png" id="6_1rius"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_grappling.gd" id="9_u80e6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spn12"]
@@ -32,15 +33,21 @@ script = ExtResource("3_gaq1t")
 [node name="Gun" parent="CameraHolder/WeaponHolder" instance=ExtResource("4_vpo5n")]
 BULLET_SPEED = 75.0
 
-[node name="GrappleHolder" type="Node3D" parent="CameraHolder" node_paths=PackedStringArray("raycast")]
+[node name="GrappleHolder" type="Node3D" parent="CameraHolder" node_paths=PackedStringArray("raycast", "grappleCursor", "camera")]
 script = ExtResource("5_2nbur")
 raycast = NodePath("GrappleRaycast")
-grappleSpeed = 10.0
+grappleCursor = NodePath("GrappleCanvas/GrappleCursor")
+camera = NodePath("../PlayerCamera")
 
 [node name="GrappleRaycast" type="RayCast3D" parent="CameraHolder/GrappleHolder"]
 target_position = Vector3(0, 0, -50)
 collision_mask = 8
 collide_with_areas = true
+
+[node name="GrappleCanvas" type="CanvasLayer" parent="CameraHolder/GrappleHolder"]
+
+[node name="GrappleCursor" type="Sprite2D" parent="CameraHolder/GrappleHolder/GrappleCanvas"]
+texture = ExtResource("6_1rius")
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_spn12")
