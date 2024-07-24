@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://0dxq6ir0kria"]
+
+[ext_resource type="Texture2D" uid="uid://y0qp2y54myj2" path="res://assets/entities/atdo/atdo-spritesheet.png" id="1_54o46"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b3ry5"]
+
+[node name="ATDO" type="CharacterBody3D"]
+
+[node name="AtdoSprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.0014
+billboard = 1
+texture = ExtResource("1_54o46")
+hframes = 7
+frame = 6
+
+[node name="AtdoCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_b3ry5")

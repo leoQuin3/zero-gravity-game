@@ -18,3 +18,5 @@ shape = SubResource("SphereShape3D_wqs2w")
 billboard = 1
 texture_filter = 0
 texture = ExtResource("1_mfcue")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

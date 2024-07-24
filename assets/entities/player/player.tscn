@@ -32,6 +32,7 @@ script = ExtResource("3_gaq1t")
 
 [node name="Gun" parent="CameraHolder/WeaponHolder" instance=ExtResource("4_vpo5n")]
 BULLET_SPEED = 75.0
+ammoAmount = 100
 
 [node name="GrappleHolder" type="Node3D" parent="CameraHolder" node_paths=PackedStringArray("raycast", "grappleCursor", "camera")]
 script = ExtResource("5_2nbur")
