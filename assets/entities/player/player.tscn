@@ -30,6 +30,7 @@ parent = NodePath("..")
 script = ExtResource("3_gaq1t")
 
 [node name="Gun" parent="CameraHolder/WeaponHolder" instance=ExtResource("4_vpo5n")]
+BULLET_SPEED = 75.0
 
 [node name="GrappleHolder" type="Node3D" parent="CameraHolder" node_paths=PackedStringArray("raycast")]
 script = ExtResource("5_2nbur")
@@ -61,9 +62,9 @@ grappleHolder = NodePath("../../CameraHolder/GrappleHolder")
 [node name="GROUNDED" type="Node" parent="PlayerFSM"]
 script = ExtResource("3_vy3lq")
 
-[node name="GRAPPLING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "grappleHook", "weaponHolder", "cameraHolder")]
+[node name="GRAPPLING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "weaponHolder", "grappleHolder")]
 script = ExtResource("9_u80e6")
 player = NodePath("../..")
-grappleHook = NodePath("../../CameraHolder/GrappleHolder")
-weaponHolder = NodePath("../../CameraHolder/WeaponHolder")
 cameraHolder = NodePath("../../CameraHolder")
+weaponHolder = NodePath("../../CameraHolder/WeaponHolder")
+grappleHolder = NodePath("../../CameraHolder/GrappleHolder")
