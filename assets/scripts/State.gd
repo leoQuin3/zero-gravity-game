@@ -1,7 +1,7 @@
 extends Node
 class_name State
 
-signal state_transitioned
+signal state_transitioned(newState: String)
 
 var fsm: StateMachine
 

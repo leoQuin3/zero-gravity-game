@@ -1,15 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://0dxq6ir0kria"]
+[gd_scene load_steps=10 format=3 uid="uid://0dxq6ir0kria"]
 
 [ext_resource type="Texture2D" uid="uid://y0qp2y54myj2" path="res://assets/entities/atdo/atdo-spritesheet.png" id="1_54o46"]
 [ext_resource type="Script" path="res://assets/entities/atdo/atdo.gd" id="1_scxd1"]
 [ext_resource type="Script" path="res://assets/scripts/state_machine.gd" id="2_7t88j"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/atdo_weapon.gd" id="2_rouoh"]
-[ext_resource type="PackedScene" uid="uid://fa43emjjceq1" path="res://assets/weapons/bullet/bullet.tscn" id="3_et1wf"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_attack.gd" id="3_ojtr3"]
-[ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_idle.gd" id="6_d7tm7"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_b3ry5"]
-radius = 1.23
 
 [sub_resource type="Animation" id="Animation_b6vqe"]
 resource_name = "IDLE"
@@ -32,6 +27,9 @@ _data = {
 "IDLE": SubResource("Animation_b6vqe")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_b3ry5"]
+radius = 1.23
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_gt0r8"]
 radius = 15.0
 
@@ -40,8 +38,14 @@ collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_scxd1")
 
-[node name="AtdoCollision" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_b3ry5")
+[node name="WeaponHolder" type="Node3D" parent="." node_paths=PackedStringArray("animationPlayer")]
+script = ExtResource("2_rouoh")
+animationPlayer = NodePath("../AtdoAnimations")
+
+[node name="AtdoAnimations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8ferq")
+}
 
 [node name="AtdoSprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00533104, 0, 0)
@@ -51,15 +55,8 @@ texture = ExtResource("1_54o46")
 hframes = 7
 frame = 6
 
-[node name="AtdoAnimations" type="AnimationPlayer" parent="AtdoSprite3D"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_8ferq")
-}
-
-[node name="WeaponHolder" type="Node3D" parent="."]
-script = ExtResource("2_rouoh")
-bullet = ExtResource("3_et1wf")
+[node name="AtdoCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_b3ry5")
 
 [node name="DetectionArea" type="Area3D" parent="."]
 collision_layer = 0
@@ -68,24 +65,14 @@ input_ray_pickable = false
 [node name="DetectionCollision" type="CollisionShape3D" parent="DetectionArea"]
 shape = SubResource("SphereShape3D_gt0r8")
 
-[node name="DetectionRaycast" type="RayCast3D" parent="."]
-
 [node name="EnemyFSM" type="Node" parent="."]
 script = ExtResource("2_7t88j")
-initialState = NodePath("IDLE")
+initialState = NodePath("CHASE")
 
 [node name="ATTACK" type="Node" parent="EnemyFSM"]
 
-[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "raycast")]
+[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy")]
 script = ExtResource("3_ojtr3")
 enemy = NodePath("../..")
-detectionArea = NodePath("../../DetectionArea")
-raycast = NodePath("../../DetectionRaycast")
 
-[node name="IDLE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea")]
-script = ExtResource("6_d7tm7")
-enemy = NodePath("../..")
-detectionArea = NodePath("../../DetectionArea")
-
-[connection signal="body_entered" from="DetectionArea" to="EnemyFSM/CHASE" method="_on_detection_area_body_entered"]
-[connection signal="body_entered" from="DetectionArea" to="EnemyFSM/IDLE" method="_on_detection_area_body_entered"]
+[node name="IDLE" type="Node" parent="EnemyFSM"]

@@ -16,6 +16,7 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c8k0w"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead")]
+collision_mask = 10
 script = ExtResource("1_7lu1p")
 MAX_SPEED = 10.0
 cameraHead = NodePath("CameraHolder")

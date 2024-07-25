@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://0dxq6ir0kria"]
+
+[ext_resource type="Texture2D" uid="uid://y0qp2y54myj2" path="res://assets/entities/atdo/atdo-spritesheet.png" id="1_54o46"]
+[ext_resource type="Script" path="res://assets/entities/atdo/atdo.gd" id="1_scxd1"]
+[ext_resource type="Script" path="res://assets/scripts/state_machine.gd" id="2_7t88j"]
+[ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_attack.gd" id="3_ojtr3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b3ry5"]
+radius = 1.23
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gt0r8"]
+radius = 15.0
+
+[node name="ATDO" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_scxd1")
+
+[node name="AtdoSprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.0035
+billboard = 1
+texture = ExtResource("1_54o46")
+hframes = 7
+frame = 6
+
+[node name="AtdoCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_b3ry5")
+
+[node name="EnemyFSM" type="Node" parent="."]
+script = ExtResource("2_7t88j")
+initialState = NodePath("ATTACK")
+
+[node name="CHASE" type="Node" parent="EnemyFSM"]
+
+[node name="ATTACK" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy")]
+script = ExtResource("3_ojtr3")
+enemy = NodePath("../..")
+
+[node name="IDLE" type="Node" parent="EnemyFSM"]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_gt0r8")

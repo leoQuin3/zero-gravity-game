@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3yjmxpsn1ehs"]
+[gd_scene load_steps=9 format=3 uid="uid://c3yjmxpsn1ehs"]
 
 [ext_resource type="PackedScene" uid="uid://c7s1aebr2tpxd" path="res://assets/entities/player/player.tscn" id="1_pghiu"]
 [ext_resource type="PackedScene" uid="uid://co4j6w1gq4o7r" path="res://assets/utilities/debug_ui.tscn" id="2_47kv2"]
 [ext_resource type="PackedScene" uid="uid://daub87gpr22y2" path="res://assets/environment/basic/wall.tscn" id="3_fyxil"]
 [ext_resource type="PackedScene" uid="uid://c815ps4cv3c4t" path="res://assets/environment/basic/wall_curve.tscn" id="4_c2t1q"]
+[ext_resource type="PackedScene" uid="uid://0dxq6ir0kria" path="res://assets/entities/atdo/atdo.tscn" id="5_fcggj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8o476"]
 
@@ -16,8 +17,8 @@ material = SubResource("StandardMaterial3D_ad450")
 [node name="TestLevel" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_pghiu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-collision_mask = 24
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8)
+collision_mask = 26
 THRUST_SPEED = 50.0
 
 [node name="Debug" parent="." node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
@@ -62,3 +63,7 @@ shape = SubResource("SphereShape3D_8o476")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GrapplePoint"]
 mesh = SubResource("SphereMesh_scdr1")
+
+[node name="ATDO" parent="." instance=ExtResource("5_fcggj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -11)
+collision_mask = 13
