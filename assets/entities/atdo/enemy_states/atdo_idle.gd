@@ -12,12 +12,13 @@ func exit() -> void:
 func update(delta) -> void:
 	pass
 
+# Wonder randomly
 func update_physics(delta) -> void:
 	pass
 
-func handle_input(event) -> void:
-	pass
-
+# Get player within detection area
 func _on_detection_area_body_entered(body):
-		#FIXME: If there's a way to pass player to next state, write it here.
-		emit_signal("state_transitioned", "CHASE")
+	#TODO: Add raycast to switch state to chase if player isn't obscured by a wall
+	
+	#FIXME: If there's a way to pass player to next state, write it here.
+	emit_signal("state_transitioned", "CHASE")
