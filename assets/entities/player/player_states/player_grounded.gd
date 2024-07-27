@@ -21,7 +21,7 @@ func handle_input(event) -> void:
 	if event is InputEventMouseMotion:
 		cameraHolder.fp_camera_look(event, deg_to_rad(-90), deg_to_rad(90))
 		
-	# Look around
+	# Equip and use weapon
 	if event is InputEventMouseButton and event.is_pressed():
 		weaponHolder.scroll_weapon_index(event)
 		weaponHolder.fire_weapon(event)

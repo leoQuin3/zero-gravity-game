@@ -3,7 +3,7 @@ class_name State
 
 signal state_transitioned(newState: String)
 
-var fsm: StateMachine
+@export var fsm: StateMachine
 
 func enter() -> void:
 	pass

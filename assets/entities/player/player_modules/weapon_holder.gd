@@ -1,3 +1,5 @@
+# This node will hold collected weapons in an array, and any equipped weapon is added as a child.
+
 extends Node3D
 
 var weaponInventory: Array

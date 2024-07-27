@@ -7,6 +7,7 @@ class_name StateMachine
 
 var states: Dictionary
 var currentState: State
+var previousState: State
 
 # Initialize states to dictionary
 func _ready() -> void:
@@ -44,6 +45,13 @@ func on_state_changed(newState: String) -> void:
 		return
 		
 	# Leave current state and enter new state
+	previousState = currentState
 	currentState.exit()
 	currentState = states[newState]
 	currentState.enter()
+
+func get_current_state() -> State:
+	return currentState
+
+func get_previous_state() -> State:
+	return previousState

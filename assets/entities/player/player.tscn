@@ -35,20 +35,20 @@ script = ExtResource("3_gaq1t")
 BULLET_SPEED = 75.0
 ammoAmount = 100
 
-[node name="GrappleHolder" type="Node3D" parent="CameraHolder" node_paths=PackedStringArray("raycast", "grappleCursor", "camera")]
+[node name="GrappleHook" type="Node3D" parent="CameraHolder" node_paths=PackedStringArray("raycast", "grappleCursor", "camera")]
 script = ExtResource("5_2nbur")
 raycast = NodePath("GrappleRaycast")
 grappleCursor = NodePath("GrappleCanvas/GrappleCursor")
 camera = NodePath("../PlayerCamera")
 
-[node name="GrappleRaycast" type="RayCast3D" parent="CameraHolder/GrappleHolder"]
+[node name="GrappleRaycast" type="RayCast3D" parent="CameraHolder/GrappleHook"]
 target_position = Vector3(0, 0, -50)
 collision_mask = 8
 collide_with_areas = true
 
-[node name="GrappleCanvas" type="CanvasLayer" parent="CameraHolder/GrappleHolder"]
+[node name="GrappleCanvas" type="CanvasLayer" parent="CameraHolder/GrappleHook"]
 
-[node name="GrappleCursor" type="Sprite2D" parent="CameraHolder/GrappleHolder/GrappleCanvas"]
+[node name="GrappleCursor" type="Sprite2D" parent="CameraHolder/GrappleHook/GrappleCanvas"]
 texture = ExtResource("6_1rius")
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
@@ -66,7 +66,7 @@ script = ExtResource("2_vlx2x")
 player = NodePath("../..")
 cameraHolder = NodePath("../../CameraHolder")
 weaponHolder = NodePath("../../CameraHolder/WeaponHolder")
-grappleHolder = NodePath("../../CameraHolder/GrappleHolder")
+grappleHolder = NodePath("../../CameraHolder/GrappleHook")
 
 [node name="GROUNDED" type="Node" parent="PlayerFSM"]
 script = ExtResource("3_vy3lq")
@@ -76,4 +76,4 @@ script = ExtResource("9_u80e6")
 player = NodePath("../..")
 cameraHolder = NodePath("../../CameraHolder")
 weaponHolder = NodePath("../../CameraHolder/WeaponHolder")
-grappleHolder = NodePath("../../CameraHolder/GrappleHolder")
+grappleHolder = NodePath("../../CameraHolder/GrappleHook")

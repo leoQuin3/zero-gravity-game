@@ -1,3 +1,8 @@
+# This node is the grappling hook, allowing the player to move toward a position
+# and move around while doing so.
+
+# The action assigned is "grapple" (Q) in the GRAPPLING state script.
+
 extends Node3D
 class_name GrapplingHook
 
@@ -17,7 +22,7 @@ func can_grapple() -> bool:
 	return raycast.is_colliding()
 
 # Move player towards grappling position
-func grapple(player: Player, targetPosition: Vector3) -> void:
+func grapple_towards(player: Player, targetPosition: Vector3) -> void:
 	# Set velocity towards targetPosition
 	var targetDirection: Vector3 = (targetPosition - player.position).normalized()
 	player.velocity = targetDirection * grappleSpeed
@@ -36,5 +41,7 @@ func player_grapple_strafe(player:Player, targetPosition: Vector3):
 	if inputAxis:
 		player.velocity += (directionVector * strafeSpeed)
 
+# Show cursor where player is moving towards
+#FIXME: When player looks away from target position, the cursor still appears.
 func update_cursor_position(targetPosition: Vector3):
 	grappleCursor.position = camera.unproject_position(targetPosition)
