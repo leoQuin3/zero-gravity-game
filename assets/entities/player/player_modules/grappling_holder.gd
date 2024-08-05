@@ -4,12 +4,14 @@
 extends Node3D
 class_name GrapplingHook
 
-@export var raycast: RayCast3D
-@export var grappleCursor: Sprite2D
-@export var camera: Camera3D
 @export var grappleSpeed: float = 15
 @export var strafeSpeed: float = 15
 @export var cancelDistance: float = 2
+
+@export_category("Connect Nodes")
+@export var raycast: RayCast3D
+@export var grappleCursor: Sprite2D
+@export var camera: Camera3D
 
 # Get position to move towards
 func get_grapple_point() -> Vector3:
@@ -36,7 +38,6 @@ func player_grapple_strafe(player:Player, targetPosition: Vector3):
 	var directionVector: Vector3 = (self.global_transform.basis * Vector3(inputAxis, 0, 0)).normalized()
 	
 	# Update player velocity
-	
 	if inputAxis:
 		player.velocity += (directionVector * strafeSpeed)
 

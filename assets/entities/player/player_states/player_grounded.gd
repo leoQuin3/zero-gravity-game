@@ -6,7 +6,7 @@ extends State
 
 @export var player: Player
 @export var cameraHolder: Node3D
-@export var weaponHolder: Node3D
+@export var weaponInventory: Node3D
 @export var grappleHolder: GrapplingHook
 
 func initialize() -> void:
@@ -26,8 +26,8 @@ func handle_input(event) -> void:
 		
 	# Equip and use weapon
 	if event is InputEventMouseButton and event.is_pressed():
-		weaponHolder.scroll_weapon_index(event)
-		weaponHolder.fire_weapon(event)
+		weaponInventory.scroll_weapon_select(event)
+		weaponInventory.fire_weapon(event)
 	
 	# Grapple
 	if grappleHolder.can_grapple() and Input.is_action_just_pressed("grapple"):

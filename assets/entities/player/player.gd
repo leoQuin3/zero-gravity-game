@@ -2,9 +2,7 @@ extends CharacterBody3D
 class_name Player
 
 #TODO: Refactor player futher using composition
-#	1) Pull out WeaponHolder and GrappleHook
 #	2) Use signals or exported variables to pass in each other
-#	3) 
 
 #TODO: Implement the following:
 #	1) Add "dash" function to Player

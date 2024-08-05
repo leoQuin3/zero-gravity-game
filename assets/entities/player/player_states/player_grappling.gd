@@ -28,12 +28,13 @@ func exit() -> void:
 	grappleHolder.rotation = Vector3.ZERO
 	canCancel = false
 	
-# Switch state to FLOATING if colliding
+# Update every frame
 func update(delta) -> void:
 	#Change state when within range of target position
 	if player.global_position.distance_to(targetPosition) < grappleHolder.cancelDistance:
 		emit_signal("state_transitioned", "FLOATING")
 	
+	# Update cursor on screen
 	grappleHolder.update_cursor_position(targetPosition)
 
 # Grapple and strafe
@@ -47,9 +48,9 @@ func handle_input(event) -> void:
 	if event is InputEventMouseMotion:
 		cameraHolder.fp_camera_look(event, deg_to_rad(-90), deg_to_rad(90))
 		
-	# Shoot and select weapon
+	# Equip and use weapon
 	if event is InputEventMouseButton and event.is_pressed():
-		weaponHolder.scroll_weapon_index(event)
+		weaponHolder.scroll_weapon_select(event)
 		weaponHolder.fire_weapon(event)
 	
 	# Cancel grappling
