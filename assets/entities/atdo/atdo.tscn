@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://0dxq6ir0kria"]
+[gd_scene load_steps=13 format=3 uid="uid://0dxq6ir0kria"]
 
 [ext_resource type="Texture2D" uid="uid://y0qp2y54myj2" path="res://assets/entities/atdo/atdo-spritesheet.png" id="1_54o46"]
 [ext_resource type="Script" path="res://assets/entities/atdo/atdo.gd" id="1_scxd1"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://fa43emjjceq1" path="res://assets/weapons/bullet/bullet.tscn" id="3_et1wf"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_attack.gd" id="3_ojtr3"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/atdo_weapon_holder.gd" id="3_vmnra"]
+[ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/atdo_detection_area.gd" id="4_4677x"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_idle.gd" id="6_d7tm7"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gt0r8"]
@@ -54,6 +55,7 @@ debug_shape_thickness = 5
 [node name="DetectionArea" type="Area3D" parent="."]
 collision_layer = 0
 input_ray_pickable = false
+script = ExtResource("4_4677x")
 
 [node name="DetectionCollision" type="CollisionShape3D" parent="DetectionArea"]
 shape = SubResource("SphereShape3D_gt0r8")

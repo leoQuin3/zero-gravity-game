@@ -1,5 +1,8 @@
 extends State
 
+#TODO: Implement the following:
+#	1) Dash around using "dash" action
+
 @export var player: Player
 @export var cameraHolder: Node3D
 @export var weaponHolder: Node3D

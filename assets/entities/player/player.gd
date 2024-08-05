@@ -1,6 +1,14 @@
 extends CharacterBody3D
 class_name Player
 
+#TODO: Refactor player futher using composition
+#	1) Pull out WeaponHolder and GrappleHook
+#	2) Use signals or exported variables to pass in each other
+#	3) 
+
+#TODO: Implement the following:
+#	1) Add "dash" function to Player
+
 # Parameters
 @export var MAX_SPEED: float = 7
 @export var THRUST_SPEED: float = 100
@@ -25,3 +33,7 @@ func player_control_move(delta: float, maxSpeed: float):
 	# Enforce maximum velocity
 	if velocity.length() > maxSpeed:
 		velocity = velocity.normalized() * maxSpeed
+
+#TODO: Use timer to increase maximum speed of player, and restore default speed on timeout.
+func player_dash():
+	pass

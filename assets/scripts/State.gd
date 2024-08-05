@@ -1,3 +1,5 @@
+# General purpose class where all the main logic can be written per frame.
+
 extends Node
 class_name State
 

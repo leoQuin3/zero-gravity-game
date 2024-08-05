@@ -1,6 +1,4 @@
-# This node is the grappling hook, allowing the player to move toward a position
-# and move around while doing so.
-
+# This node is the grappling hook, allowing the player to move toward a position.
 # The action assigned is "grapple" (Q) in the GRAPPLING state script.
 
 extends Node3D
@@ -28,6 +26,7 @@ func grapple_towards(player: Player, targetPosition: Vector3) -> void:
 	player.velocity = targetDirection * grappleSpeed
 	
 # Allow player to strafe left and right
+#BUG: If grapple() isnt being called, player will dramatically accelerate
 func player_grapple_strafe(player:Player, targetPosition: Vector3):
 	# Point grapple holder to target position
 	self.look_at(targetPosition, Vector3.UP)
@@ -37,7 +36,7 @@ func player_grapple_strafe(player:Player, targetPosition: Vector3):
 	var directionVector: Vector3 = (self.global_transform.basis * Vector3(inputAxis, 0, 0)).normalized()
 	
 	# Update player velocity
-	#FIXME: If grapple() isnt being called, player will dramatically accelerate
+	
 	if inputAxis:
 		player.velocity += (directionVector * strafeSpeed)
 

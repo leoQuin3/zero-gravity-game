@@ -55,6 +55,7 @@ texture = ExtResource("6_1rius")
 shape = SubResource("CapsuleShape3D_spn12")
 
 [node name="PlayerMesh" type="MeshInstance3D" parent="."]
+editor_description = "Not really needed, but it helps with visibility in the editor."
 mesh = SubResource("CapsuleMesh_c8k0w")
 
 [node name="PlayerFSM" type="Node" parent="."]

@@ -5,6 +5,7 @@ class_name ATDO
 # Parameters
 @export var SPEED: float = 150.0
 @export var weaponHolder: Node3D
+
 var health: int = 100
 
 #NOTE: Maybe create base class for all enemies? First implement ATDO, and figure out from there.
@@ -19,9 +20,10 @@ func chase_player(playerPosition: Vector3, delta: float) -> void:
 	# Get direction vector and apply velocity
 	var directionVector: Vector3 = (playerPosition - self.global_position).normalized()
 	self.velocity = directionVector * SPEED * delta
-
+	
 # Attack player
 func attack_player(playerPosition: Vector3, delta: float) -> void:
+	#TODO: Implement shooting at player
 	print("PEW PEW PEW")
 
 # Idle

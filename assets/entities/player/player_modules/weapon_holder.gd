@@ -1,4 +1,4 @@
-# This node will hold collected weapons in an array, and any equipped weapon is added as a child.
+# This node will hold collected weapons, and allow the player to equip them.
 
 extends Node3D
 
@@ -13,7 +13,7 @@ func _ready():
 	for weapon in get_children():
 		if weapon is Weapon:
 			add_weapon_to_inventory(weapon)
-			
+	
 # Append weapon to inventory.
 func add_weapon_to_inventory(weapon: Weapon):
 	weaponInventory.append(weapon)
