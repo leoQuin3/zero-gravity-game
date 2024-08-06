@@ -16,12 +16,13 @@ var inventorySize: int = 0
 
 # Add pre-existing weapons in WeaponHolder to inventory.
 func _ready():
-	for weapon in weaponHolder.get_children():
+	for weapon in get_children():
 		if weapon is Weapon:
 			add_weapon(weapon)
-			weaponHolder.remove_child(weapon)
+			remove_child(weapon)
 	
 	# Equip first weapon
+	currentWeapon = weaponInventory[0]
 	equip_weapon_at_index(0)
 
 # Append weapon to inventory.
@@ -62,5 +63,5 @@ func equip_weapon_at_index(index: int):
 
 # Call fire method of current weapon.
 func fire_weapon(event: InputEventMouseButton):
-	if event.button_index == MOUSE_BUTTON_LEFT:
+	if currentWeapon and event.button_index == MOUSE_BUTTON_LEFT:
 		currentWeapon.fire()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bch0i0j0ljf14"]
+[gd_scene load_steps=10 format=3 uid="uid://cu0n10xksgcr1"]
 
 [ext_resource type="Script" path="res://assets/weapons/gun/weapon.gd" id="1_a8jbd"]
 [ext_resource type="Texture2D" uid="uid://ba1c34axmiaj3" path="res://assets/weapons/gun/spritesheet_gun.png" id="1_wnwy4"]
@@ -114,6 +114,7 @@ _data = {
 
 [node name="Gun" type="Node3D" node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("1_a8jbd")
+bulletDamage = 100
 bullet = ExtResource("2_shomo")
 animationPlayer = NodePath("GunCanvas/GunGUI/WeaponHolder/WeaponAnimations")
 

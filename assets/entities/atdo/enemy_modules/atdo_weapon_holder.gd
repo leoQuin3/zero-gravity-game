@@ -1,20 +1,19 @@
 extends Node3D
 
+@export var bulletSpeed: float = 25
+
+@export_category("Connect Node and Scene")
 @export var bullet: PackedScene
-@export var BULLET_SPEED: float = 25
 @export var raycast: RayCast3D
 
-#TODO: Finish structuring weapon class, implementing rounds and ammo system
-
+# Fire projectile
 func fire():
-	spawn_bullet()
-	#FIXME: Add animations
-
-func spawn_bullet():
+	# Instantiate bullet
 	var newBullet: Bullet = bullet.instantiate()
-	newBullet.initialVelocity = -self.global_transform.basis.z * BULLET_SPEED
+	
+	# Initialize
+	newBullet.initialVelocity = -self.global_transform.basis.z * bulletSpeed
 	newBullet.global_position = self.global_position
+	
+	# Add bullet as child to tree scene
 	get_tree().root.add_child(newBullet)
-
-func get_ray_collider() -> Variant:
-	return raycast.get_collider()

@@ -1,30 +1,20 @@
 extends State
 
 @export var enemy: ATDO
-@export var detectionArea: Area3D
-@export var weaponHolder: Node3D
-@export var raycast: RayCast3D
-
-var prevState: State
 var player: Player
 
-#TODO: use signal to pass in player from previous state
-
 func enter() -> void:
-	pass
+	enemy.velocity = Vector3.ZERO
 	
 func exit() -> void:
 	pass
 
 # Update every frame
 func update(delta) -> void:
-	# Return until player is detected
-	if !player:
-		return
+	pass
 	
-	# Follow Player
-	weaponHolder.look_at(player.global_position, Vector3.UP, true)
-	
+# Process physics
 func update_physics(delta) -> void:
-	# Move towards player
-	enemy.chase_player(player.global_position, delta)
+	# Follow player
+	enemy.follow_player(player.global_position, delta)
+	pass

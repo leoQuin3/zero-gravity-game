@@ -1,11 +1,9 @@
 extends CharacterBody3D
 class_name Player
 
-#TODO: Refactor player futher using composition
-#	2) Use signals or exported variables to pass in each other
-
 #TODO: Implement the following:
 #	1) Add "dash" function to Player
+#	2) Improve how components communicate with eachother (signals)
 
 # Parameters
 @export var MAX_SPEED: float = 7

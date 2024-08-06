@@ -5,7 +5,7 @@ extends State
 
 @export var player: Player
 @export var cameraHolder: Node3D
-@export var weaponHolder: Node3D
+@export var weaponInventory: Node3D
 @export var grappleHolder: GrapplingHook
 
 var targetPosition: Vector3
@@ -50,10 +50,9 @@ func handle_input(event) -> void:
 		
 	# Equip and use weapon
 	if event is InputEventMouseButton and event.is_pressed():
-		weaponHolder.scroll_weapon_select(event)
-		weaponHolder.fire_weapon(event)
+		weaponInventory.scroll_weapon_select(event)
+		weaponInventory.fire_weapon(event)
 	
 	# Cancel grappling
-	#TODO: Maybe add timer to prevent cancelling too early?
 	if Input.is_action_just_pressed("grapple"):
 		emit_signal("state_transitioned", "FLOATING")

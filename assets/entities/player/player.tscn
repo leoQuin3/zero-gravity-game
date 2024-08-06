@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7s1aebr2tpxd"]
+[gd_scene load_steps=13 format=3 uid="uid://c7s1aebr2tpxd"]
 
 [ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
 [ext_resource type="Script" path="res://assets/entities/player/player_modules/camera_holder.gd" id="2_fd87b"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_grounded.gd" id="2_vlx2x"]
 [ext_resource type="Script" path="res://assets/entities/player/player_modules/weapon_holder.gd" id="3_gaq1t"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_floating.gd" id="3_vy3lq"]
+[ext_resource type="PackedScene" uid="uid://cu0n10xksgcr1" path="res://assets/weapons/gun/gun.tscn" id="4_vpo5n"]
 [ext_resource type="Script" path="res://assets/entities/player/player_modules/grappling_holder.gd" id="5_2nbur"]
 [ext_resource type="Texture2D" uid="uid://dugyo4en2gocg" path="res://assets/weapons/grappling_gun/grapple_cursor.png" id="6_1rius"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_grappling.gd" id="9_u80e6"]
@@ -44,9 +45,6 @@ collide_with_areas = true
 [node name="GrappleHook" type="Node3D" parent="." node_paths=PackedStringArray("raycast", "grappleCursor", "camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("5_2nbur")
-grappleSpeed = 20.0
-strafeSpeed = 20.0
-cancelDistance = 3.0
 raycast = NodePath("../CameraHolder/GrappleRaycast")
 grappleCursor = NodePath("GrappleCanvas/GrappleCursor")
 camera = NodePath("../CameraHolder/PlayerCamera")
@@ -61,6 +59,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("3_gaq1t")
 weaponHolder = NodePath("../CameraHolder/Holder")
 
+[node name="Gun" parent="WeaponInventory" instance=ExtResource("4_vpo5n")]
+ammoAmount = 100
+
 [node name="PlayerFSM" type="Node" parent="."]
 script = ExtResource("2_fxhxo")
 initialState = NodePath("FLOATING")
@@ -72,11 +73,10 @@ cameraHolder = NodePath("../../CameraHolder")
 weaponInventory = NodePath("../../WeaponInventory")
 grappleHolder = NodePath("../../GrappleHook")
 
-[node name="GRAPPLING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "weaponHolder", "grappleHolder")]
+[node name="GRAPPLING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "grappleHolder")]
 script = ExtResource("9_u80e6")
 player = NodePath("../..")
 cameraHolder = NodePath("../../CameraHolder")
-weaponHolder = NodePath("../../WeaponInventory")
 grappleHolder = NodePath("../../GrappleHook")
 
 [node name="GROUNDED" type="Node" parent="PlayerFSM"]
