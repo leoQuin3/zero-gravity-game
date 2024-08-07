@@ -70,37 +70,27 @@ script = ExtResource("5_lf1k5")
 [node name="DetectionCollision" type="CollisionShape3D" parent="DetectionArea"]
 shape = SubResource("SphereShape3D_gt0r8")
 
-[node name="NavRaycasts" type="Node3D" parent="." node_paths=PackedStringArray("frontRay", "topRay", "bottomRay", "leftRay", "rightRay")]
+[node name="NavRaycasts" type="Node3D" parent="." node_paths=PackedStringArray("frontRay", "topRay", "bottomRay")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("6_8f0vy")
 frontRay = NodePath("FrontRay")
 topRay = NodePath("TopRay")
 bottomRay = NodePath("BottomRay")
-leftRay = NodePath("LeftRay")
-rightRay = NodePath("RightRay")
 
 [node name="FrontRay" type="RayCast3D" parent="NavRaycasts"]
 exclude_parent = false
-target_position = Vector3(0, 0, -3)
+target_position = Vector3(0, 0, -5)
 collision_mask = 8
 debug_shape_thickness = 5
 
 [node name="TopRay" type="RayCast3D" parent="NavRaycasts"]
 exclude_parent = false
-target_position = Vector3(0, 3, 0)
+target_position = Vector3(0, 5, 0)
 collision_mask = 8
 
 [node name="BottomRay" type="RayCast3D" parent="NavRaycasts"]
 exclude_parent = false
-target_position = Vector3(0, -3, 0)
-collision_mask = 8
-
-[node name="LeftRay" type="RayCast3D" parent="NavRaycasts"]
-target_position = Vector3(-3, 0, 0)
-collision_mask = 8
-
-[node name="RightRay" type="RayCast3D" parent="NavRaycasts"]
-target_position = Vector3(3, 0, 0)
+target_position = Vector3(0, -5, 0)
 collision_mask = 8
 
 [node name="EnemyFSM" type="Node" parent="."]

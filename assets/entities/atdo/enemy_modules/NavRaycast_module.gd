@@ -1,12 +1,22 @@
 extends Node3D
 
-#FIXME: Declare multiple raycasts to determine direction
+signal obstacle_detected(obstacleDir: Vector3)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+# Each raycast for each direction
+@export var frontRay: RayCast3D
+@export var topRay: RayCast3D
+@export var bottomRay: RayCast3D
+@export var leftRay: RayCast3D
+@export var rightRay: RayCast3D
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Calculate direction of obstacle
 func _process(delta):
-	pass
+	var xDirection: int =  int(rightRay.is_colliding()) - int(leftRay.is_colliding())
+	var yDirection: int =  int(topRay.is_colliding()) - int(bottomRay.is_colliding())
+	var zDirection: int =  int(frontRay.is_colliding())
+	
+	var obstacleDir: Vector3 = Vector3(xDirection, yDirection, zDirection)
+	
+	# Emit signal returning the obstacle direction
+	if obstacleDir:
+		emit_signal("obstacle_detected", obstacleDir)

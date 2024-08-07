@@ -7,6 +7,8 @@ extends State
 var direction: Vector3 = Vector3(0, 0, 0)
 var speed: float
 
+#TODO: Implement raycasts to avoid obstacles
+
 func initialize() -> void:
 	detectionArea.connect("player_detected", Callable(self, "on_player_detected"))
 	speed = enemy.speed

@@ -11,12 +11,14 @@ class_name ATDO
 # Update physics
 func _physics_process(delta):
 	move_and_slide()
-	
+
+# Aim raycasts toward direction, parallel to floor
+func _process(delta):
+	var lookAngle: float = atan2(self.velocity.x, self.velocity.z) + PI
+	navRaycasts.rotation.y = lookAngle
+
 # Move toward Player
 func follow_player(playerPosition: Vector3, delta: float) -> void:
-	# Look at player
-	navRaycasts.look_at(playerPosition)
-	
 	# Get direction vector and apply velocity
 	var directionVector: Vector3 = (playerPosition - self.global_position).normalized()
 	self.velocity = directionVector * speed * delta

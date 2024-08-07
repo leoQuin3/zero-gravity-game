@@ -7,6 +7,8 @@ var direction: Vector3
 var speed: float
 var player: Player
 
+#TODO: Implement raycasts to avoid obstacles
+
 func initialize():
 	detectionArea.connect("player_detected", Callable(self, "on_player_detected"))
 
