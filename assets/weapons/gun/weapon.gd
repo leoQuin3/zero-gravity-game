@@ -10,6 +10,7 @@ class_name Weapon
 @export var animationPlayer: AnimationPlayer
 
 #TODO: Finish structuring weapon class, implementing rounds and ammo system
+#BUG: Sprite gets stuck midframe, or doesn't move at all, when player immediately shoots during equip animation.
 
 func _ready():
 	animationPlayer.play("equip")

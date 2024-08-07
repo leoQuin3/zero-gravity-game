@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://0dxq6ir0kria"]
+[gd_scene load_steps=16 format=3 uid="uid://0dxq6ir0kria"]
 
 [ext_resource type="Texture2D" uid="uid://y0qp2y54myj2" path="res://assets/entities/atdo/atdo-spritesheet.png" id="1_54o46"]
 [ext_resource type="Script" path="res://assets/entities/atdo/atdo.gd" id="1_scxd1"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_attack.gd" id="3_ojtr3"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/atdo_weapon_holder.gd" id="3_vmnra"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/detection_module.gd" id="5_lf1k5"]
+[ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/NavRaycast_module.gd" id="6_8f0vy"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_idle.gd" id="6_d7tm7"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g0uxe"]
@@ -40,10 +41,11 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_b3ry5"]
 radius = 1.29878
 
-[node name="ATDO" type="CharacterBody3D"]
+[node name="ATDO" type="CharacterBody3D" node_paths=PackedStringArray("navRaycasts")]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 13
 script = ExtResource("1_scxd1")
+navRaycasts = NodePath("NavRaycast")
 
 [node name="Health" type="Node3D" parent="."]
 script = ExtResource("2_vgu8e")
@@ -58,22 +60,24 @@ shape = SubResource("SphereShape3D_g0uxe")
 [node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("raycast")]
 script = ExtResource("3_vmnra")
 bullet = ExtResource("3_et1wf")
-raycast = NodePath("WeaponRaycast")
+raycast = NodePath("")
 
-[node name="WeaponRaycast" type="RayCast3D" parent="Weapon"]
-target_position = Vector3(0, 0, 25)
-collision_mask = 9
-debug_shape_thickness = 5
-
-[node name="Detection" type="Node3D" parent="."]
-script = ExtResource("5_lf1k5")
-
-[node name="DetectionArea" type="Area3D" parent="Detection"]
+[node name="DetectionArea" type="Area3D" parent="."]
 collision_layer = 0
 input_ray_pickable = false
+script = ExtResource("5_lf1k5")
 
-[node name="DetectionCollision" type="CollisionShape3D" parent="Detection/DetectionArea"]
+[node name="DetectionCollision" type="CollisionShape3D" parent="DetectionArea"]
 shape = SubResource("SphereShape3D_gt0r8")
+
+[node name="NavRaycast" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("6_8f0vy")
+
+[node name="RayCast3D" type="RayCast3D" parent="NavRaycast"]
+target_position = Vector3(0, 0, 3)
+collision_mask = 8
+debug_shape_thickness = 5
 
 [node name="EnemyFSM" type="Node" parent="."]
 script = ExtResource("2_7t88j")
@@ -81,17 +85,17 @@ initialState = NodePath("IDLE")
 
 [node name="ATTACK" type="Node" parent="EnemyFSM"]
 
-[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "fsm")]
+[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "fsm")]
 script = ExtResource("3_ojtr3")
 enemy = NodePath("../..")
+detectionArea = NodePath("../../DetectionArea")
 fsm = NodePath("..")
 
-[node name="IDLE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("detectionArea", "directionTimer", "enemy", "fsm")]
+[node name="IDLE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "directionTimer", "fsm")]
 script = ExtResource("6_d7tm7")
-SPEED = 200.0
-detectionArea = NodePath("../../Detection/DetectionArea")
-directionTimer = NodePath("DirectionTimer")
 enemy = NodePath("../..")
+detectionArea = NodePath("../../DetectionArea")
+directionTimer = NodePath("DirectionTimer")
 fsm = NodePath("..")
 
 [node name="DirectionTimer" type="Timer" parent="EnemyFSM/IDLE"]
@@ -114,5 +118,6 @@ libraries = {
 [node name="AtdoCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_b3ry5")
 
+[connection signal="health_ran_out" from="Health" to="." method="_on_health_health_ran_out"]
 [connection signal="area_entered" from="Health/Hitbox" to="Health" method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="EnemyFSM/IDLE/DirectionTimer" to="EnemyFSM/IDLE" method="_on_direction_timer_timeout"]

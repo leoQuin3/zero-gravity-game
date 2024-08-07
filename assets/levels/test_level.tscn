@@ -24,10 +24,6 @@ THRUST_SPEED = 50.0
 [node name="Debug" parent="Player" node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
 node = NodePath("..")
 
-[node name="ATDO" parent="." instance=ExtResource("5_fcggj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -11)
-collision_mask = 13
-
 [node name="GrapplePoint" type="StaticBody3D" parent="."]
 transform = Transform3D(3.4433, 0, 0, 0, 3.4433, 0, 0, 0, 3.4433, 0, 14, -8)
 collision_layer = 8
@@ -199,3 +195,6 @@ collision_mask = 0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.912149, -0.179439, 0.368492, -0.409859, -0.399345, 0.820085, 0, -0.899069, -0.437807, 0, 6, 0)
+
+[node name="ATDO" parent="." instance=ExtResource("5_fcggj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -11)

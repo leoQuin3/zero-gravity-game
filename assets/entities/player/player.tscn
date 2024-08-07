@@ -73,10 +73,11 @@ cameraHolder = NodePath("../../CameraHolder")
 weaponInventory = NodePath("../../WeaponInventory")
 grappleHolder = NodePath("../../GrappleHook")
 
-[node name="GRAPPLING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "grappleHolder")]
+[node name="GRAPPLING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "weaponInventory", "grappleHolder")]
 script = ExtResource("9_u80e6")
 player = NodePath("../..")
 cameraHolder = NodePath("../../CameraHolder")
+weaponInventory = NodePath("../../WeaponInventory")
 grappleHolder = NodePath("../../GrappleHook")
 
 [node name="GROUNDED" type="Node" parent="PlayerFSM"]

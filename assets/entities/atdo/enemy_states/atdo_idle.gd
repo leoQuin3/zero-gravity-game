@@ -1,35 +1,38 @@
 extends State
 
-@export var SPEED: float = 10
-
+@export var enemy: ATDO
 @export var detectionArea: Area3D
 @export var directionTimer: Timer
-@export var enemy: ATDO
 
-var direction: Vector3
+var direction: Vector3 = Vector3(0, 0, 0)
+var speed: float
 
 func initialize() -> void:
 	detectionArea.connect("player_detected", Callable(self, "on_player_detected"))
+	speed = enemy.speed
+	direction = randomize_vector()
 
+# Set parameters and start timer
 func enter() -> void:
-	direction = Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)).normalized()
-	
+	detectionArea.connect("player_detected", Callable(self, "on_player_detected"))
 	directionTimer.start()
-	
+
+# Stop timer when leaving state
 func exit() -> void:
-	pass
+	directionTimer.stop()
+	detectionArea.disconnect("player_detected", Callable(self, "on_player_detected"))
 
-func update(delta) -> void:
-	pass
-
-# TODO: Wonder randomly
+# Update physics
 func update_physics(delta) -> void:
-	enemy.velocity = direction * SPEED * delta
-	pass
+	enemy.velocity = direction * speed * delta
 
-func on_player_detected(player: Player):
-	print(str(player) + " has been detected!")
+# Randomly change direction upon timeout
+func _on_direction_timer_timeout():
+	direction = randomize_vector()
+
+# Change state
+func on_player_detected(body):
 	emit_signal("state_transitioned", "CHASE")
 
-func _on_direction_timer_timeout():
-	direction = Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1))
+func randomize_vector():
+	return Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)).normalized()

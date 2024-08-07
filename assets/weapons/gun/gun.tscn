@@ -114,7 +114,6 @@ _data = {
 
 [node name="Gun" type="Node3D" node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("1_a8jbd")
-bulletDamage = 100
 bullet = ExtResource("2_shomo")
 animationPlayer = NodePath("GunCanvas/GunGUI/WeaponHolder/WeaponAnimations")
 

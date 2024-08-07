@@ -1,5 +1,7 @@
 extends Node3D
 
+signal shots_fired
+
 @export var bulletSpeed: float = 25
 
 @export_category("Connect Node and Scene")
@@ -17,3 +19,6 @@ func fire():
 	
 	# Add bullet as child to tree scene
 	get_tree().root.add_child(newBullet)
+	
+	# Emit signal
+	emit_signal("shots_fired")
