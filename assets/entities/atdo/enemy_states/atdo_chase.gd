@@ -3,6 +3,7 @@ extends State
 @export var enemy: ATDO
 @export var detectionArea: Area3D
 @export var raycast: RayCast3D
+@export var stateTimer: Timer
 
 var direction: Vector3
 var speed: float
@@ -14,6 +15,9 @@ var player: Player
 func initialize():
 	detectionArea.connect("player_detected", Callable(self, "on_player_detected"))
 
+func enter():
+	stateTimer.start()
+	
 ## Update every frame
 #func update(delta) -> void:
 	##TODO: Use raycast to avoid obstacles
@@ -30,3 +34,6 @@ func update_physics(delta) -> void:
 # Get player
 func on_player_detected(player):
 	self.player = player
+
+func _on_chase_time_timeout():
+	emit_signal("state_transitioned", "ATTACK")

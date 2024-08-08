@@ -10,7 +10,7 @@ class_name Weapon
 @export var animationPlayer: AnimationPlayer
 @export var weaponOwner: CollisionObject3D
 
-#TODO: Finish structuring weapon class, implementing rounds and ammo system
+#TODO: Generalize weapon system (Use ATDO's example), and extend to player's gun
 #BUG: Sprite gets stuck midframe, or doesn't move at all, when player immediately shoots during equip animation.
 
 func _ready():

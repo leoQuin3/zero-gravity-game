@@ -79,13 +79,13 @@ debug_shape_thickness = 5
 script = ExtResource("2_7t88j")
 initialState = NodePath("IDLE")
 
-[node name="ATTACK" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "weapon", "weaponTimer", "stateTime", "fsm")]
+[node name="ATTACK" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "weapon", "weaponTimer", "stateTimer", "fsm")]
 script = ExtResource("3_ojtr3")
 enemy = NodePath("../..")
 detectionArea = NodePath("../../DetectionArea")
 weapon = NodePath("../../Weapon")
 weaponTimer = NodePath("WeaponTimer")
-stateTime = NodePath("AttackTime")
+stateTimer = NodePath("AttackTime")
 fsm = NodePath("..")
 
 [node name="WeaponTimer" type="Timer" parent="EnemyFSM/ATTACK"]
@@ -95,12 +95,16 @@ one_shot = true
 [node name="AttackTime" type="Timer" parent="EnemyFSM/ATTACK"]
 one_shot = true
 
-[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "raycast", "fsm")]
+[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "raycast", "stateTimer", "fsm")]
 script = ExtResource("8_2mr4d")
 enemy = NodePath("../..")
 detectionArea = NodePath("../../DetectionArea")
 raycast = NodePath("../../Raycast")
+stateTimer = NodePath("ChaseTime")
 fsm = NodePath("..")
+
+[node name="ChaseTime" type="Timer" parent="EnemyFSM/CHASE"]
+one_shot = true
 
 [node name="IDLE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "directionTimer", "fsm")]
 script = ExtResource("6_d7tm7")
@@ -134,4 +138,5 @@ shape = SubResource("SphereShape3D_b3ry5")
 [connection signal="shots_fired" from="Weapon" to="EnemyFSM/ATTACK" method="_on_weapon_shots_fired"]
 [connection signal="timeout" from="EnemyFSM/ATTACK/WeaponTimer" to="EnemyFSM/ATTACK" method="_on_weapon_timer_timeout"]
 [connection signal="timeout" from="EnemyFSM/ATTACK/AttackTime" to="EnemyFSM/ATTACK" method="_on_attack_time_timeout"]
+[connection signal="timeout" from="EnemyFSM/CHASE/ChaseTime" to="EnemyFSM/CHASE" method="_on_chase_time_timeout"]
 [connection signal="timeout" from="EnemyFSM/IDLE/DirectionTimer" to="EnemyFSM/IDLE" method="_on_direction_timer_timeout"]

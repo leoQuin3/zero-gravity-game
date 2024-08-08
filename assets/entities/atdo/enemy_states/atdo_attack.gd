@@ -4,14 +4,16 @@ extends State
 @export var detectionArea: Area3D
 @export var weapon: Node3D
 @export var weaponTimer: Timer
-@export var stateTime: Timer
+@export var stateTimer: Timer
 
 var player: Player
 
 enum STATES {READY, FIRING}
 var currentWeaponState: STATES
 
-#TODO: Clean up logic and structure of this enemy's attack behaviour (Refactor, rework signals better, etc)
+#TODO: 
+#	1) Clean up code and improve enemy's attack behaviour (Refactor, rework signals better, etc)
+#	2) BUG: ATDO will shoot and chase for inconsistent amount of seconds (check signals and cancel timers?)
 
 # Connect detection area's signal
 func initialize() -> void:
@@ -23,7 +25,7 @@ func enter() -> void:
 	currentWeaponState = STATES.READY
 	
 	# Start state timer
-	stateTime.start()
+	stateTimer.start()
 
 # Update weapon orientation
 func update(delta) -> void:
