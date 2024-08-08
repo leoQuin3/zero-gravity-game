@@ -6,7 +6,7 @@ signal shots_fired
 
 @export_category("Connect Node and Scene")
 @export var bullet: PackedScene
-@export var raycast: RayCast3D
+@export var shooter: CollisionObject3D
 
 # Fire projectile
 func fire():
@@ -19,6 +19,10 @@ func fire():
 	
 	# Add bullet as child to tree scene
 	get_tree().root.add_child(newBullet)
+	
+	# Exclude shooter from collision mask
+	var enemyCollisionLayer = shooter.get_collision_layer()
+	newBullet.shooterCollisionLayer = enemyCollisionLayer
 	
 	# Emit signal
 	emit_signal("shots_fired")

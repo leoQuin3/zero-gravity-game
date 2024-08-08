@@ -8,8 +8,8 @@
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_attack.gd" id="3_ojtr3"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/atdo_weapon_holder.gd" id="3_vmnra"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/detection_module.gd" id="5_lf1k5"]
+[ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/NavRaycast_module.gd" id="6_8f0vy"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_idle.gd" id="6_d7tm7"]
-[ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_chase.gd" id="8_2mr4d"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g0uxe"]
 radius = 1.51395
@@ -41,14 +41,14 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_b3ry5"]
 radius = 1.29878
 
-[node name="ATDO" type="CharacterBody3D"]
+[node name="ATDO" type="CharacterBody3D" node_paths=PackedStringArray("navRaycasts")]
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_scxd1")
+navRaycasts = NodePath("NavRaycasts")
 
-[node name="Health" type="Node3D" parent="." node_paths=PackedStringArray("parent")]
+[node name="Health" type="Node3D" parent="."]
 script = ExtResource("2_vgu8e")
-parent = NodePath("..")
 
 [node name="Hitbox" type="Area3D" parent="Health"]
 collision_layer = 0
@@ -57,10 +57,9 @@ collision_mask = 4
 [node name="HitboxCollision" type="CollisionShape3D" parent="Health/Hitbox"]
 shape = SubResource("SphereShape3D_g0uxe")
 
-[node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("shooter")]
+[node name="Weapon" type="Node3D" parent="."]
 script = ExtResource("3_vmnra")
 bullet = ExtResource("3_et1wf")
-shooter = NodePath("..")
 
 [node name="DetectionArea" type="Area3D" parent="."]
 collision_layer = 0
@@ -70,36 +69,49 @@ script = ExtResource("5_lf1k5")
 [node name="DetectionCollision" type="CollisionShape3D" parent="DetectionArea"]
 shape = SubResource("SphereShape3D_gt0r8")
 
-[node name="Raycast" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, -50)
-collision_mask = 9
+[node name="NavRaycasts" type="Node3D" parent="." node_paths=PackedStringArray("frontRay", "topRay", "bottomRay", "leftRay", "rightRay")]
+script = ExtResource("6_8f0vy")
+frontRay = NodePath("FrontRay")
+topRay = NodePath("TopRay")
+bottomRay = NodePath("BottomRay")
+leftRay = NodePath("LeftRay")
+rightRay = NodePath("RightRay")
+
+[node name="FrontRay" type="RayCast3D" parent="NavRaycasts"]
+exclude_parent = false
+target_position = Vector3(0, 0, -3)
+collision_mask = 8
 debug_shape_thickness = 5
+
+[node name="TopRay" type="RayCast3D" parent="NavRaycasts"]
+exclude_parent = false
+target_position = Vector3(0, 3, 0)
+collision_mask = 8
+
+[node name="BottomRay" type="RayCast3D" parent="NavRaycasts"]
+exclude_parent = false
+target_position = Vector3(0, -3, 0)
+collision_mask = 8
+
+[node name="LeftRay" type="RayCast3D" parent="NavRaycasts"]
+target_position = Vector3(-3, 0, 0)
+collision_mask = 8
+
+[node name="RightRay" type="RayCast3D" parent="NavRaycasts"]
+target_position = Vector3(3, 0, 0)
+collision_mask = 8
 
 [node name="EnemyFSM" type="Node" parent="."]
 script = ExtResource("2_7t88j")
 initialState = NodePath("IDLE")
 
-[node name="ATTACK" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "weapon", "weaponTimer", "stateTime", "fsm")]
+[node name="ATTACK" type="Node" parent="EnemyFSM"]
+
+[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "navRaycasts", "fsm")]
 script = ExtResource("3_ojtr3")
 enemy = NodePath("../..")
 detectionArea = NodePath("../../DetectionArea")
-weapon = NodePath("../../Weapon")
-weaponTimer = NodePath("WeaponTimer")
-stateTime = NodePath("AttackTime")
-fsm = NodePath("..")
-
-[node name="WeaponTimer" type="Timer" parent="EnemyFSM/ATTACK"]
-wait_time = 0.5
-one_shot = true
-
-[node name="AttackTime" type="Timer" parent="EnemyFSM/ATTACK"]
-one_shot = true
-
-[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "raycast", "fsm")]
-script = ExtResource("8_2mr4d")
-enemy = NodePath("../..")
-detectionArea = NodePath("../../DetectionArea")
-raycast = NodePath("../../Raycast")
+navRaycasts = NodePath("../../NavRaycasts")
 fsm = NodePath("..")
 
 [node name="IDLE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "directionTimer", "fsm")]
@@ -131,7 +143,4 @@ shape = SubResource("SphereShape3D_b3ry5")
 
 [connection signal="health_ran_out" from="Health" to="." method="_on_health_health_ran_out"]
 [connection signal="area_entered" from="Health/Hitbox" to="Health" method="_on_hitbox_area_entered"]
-[connection signal="shots_fired" from="Weapon" to="EnemyFSM/ATTACK" method="_on_weapon_shots_fired"]
-[connection signal="timeout" from="EnemyFSM/ATTACK/WeaponTimer" to="EnemyFSM/ATTACK" method="_on_weapon_timer_timeout"]
-[connection signal="timeout" from="EnemyFSM/ATTACK/AttackTime" to="EnemyFSM/ATTACK" method="_on_attack_time_timeout"]
 [connection signal="timeout" from="EnemyFSM/IDLE/DirectionTimer" to="EnemyFSM/IDLE" method="_on_direction_timer_timeout"]

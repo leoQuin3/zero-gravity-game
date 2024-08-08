@@ -2,30 +2,50 @@ extends State
 
 @export var enemy: ATDO
 @export var detectionArea: Area3D
+@export var weapon: Node3D
+@export var weaponTimer: Timer
+@export var stateTime: Timer
 
-var direction: Vector3
-var speed: float
 var player: Player
 
-#TODO: Implement raycasts to avoid obstacles
+enum STATES {READY, FIRING}
+var currentWeaponState: STATES
 
-func initialize():
+#TODO: Clean up logic and structure of this enemy's attack behaviour (Refactor, rework signals better, etc)
+
+# Connect detection area's signal
+func initialize() -> void:
 	detectionArea.connect("player_detected", Callable(self, "on_player_detected"))
 
+# Initialize enemy and weapon
 func enter() -> void:
-	detectionArea.connect("player_detected", Callable(self, "on_player_detected"))
+	enemy.velocity = Vector3.ZERO
+	currentWeaponState = STATES.READY
 	
-func exit() -> void:
-	detectionArea.disconnect("player_detected", Callable(self, "on_player_detected"))
+	# Start state timer
+	stateTime.start()
 
-# Update every frame
+# Update weapon orientation
 func update(delta) -> void:
-	pass
+	weapon.look_at(player.global_position)
 	
-# Process physics
-func update_physics(delta) -> void:
-	# Follow player
-	enemy.follow_player(player.global_position, delta)
+	# If weapon is ready, fire
+	if currentWeaponState == STATES.READY:
+		weapon.fire()
 
-func on_player_detected(player):
+# Get player
+func on_player_detected(player) -> void:
 	self.player = player
+
+# Set weapon state to ready after cooldown
+func _on_weapon_timer_timeout():
+	currentWeaponState = STATES.READY
+
+# Cooldown after firing
+func _on_weapon_shots_fired():
+	currentWeaponState = STATES.FIRING
+	weaponTimer.start()
+
+# Switch state after state timer runs out
+func _on_attack_time_timeout():
+	emit_signal("state_transitioned", "CHASE")

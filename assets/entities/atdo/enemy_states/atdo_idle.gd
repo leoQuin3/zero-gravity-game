@@ -9,20 +9,19 @@ var speed: float
 
 #TODO: Implement raycasts to avoid obstacles
 
+# Connect detection area's signal and speed
 func initialize() -> void:
 	detectionArea.connect("player_detected", Callable(self, "on_player_detected"))
 	speed = enemy.speed
-	direction = randomize_vector()
 
 # Set parameters and start timer
 func enter() -> void:
-	detectionArea.connect("player_detected", Callable(self, "on_player_detected"))
 	directionTimer.start()
+	direction = randomize_vector()
 
 # Stop timer when leaving state
 func exit() -> void:
 	directionTimer.stop()
-	detectionArea.disconnect("player_detected", Callable(self, "on_player_detected"))
 
 # Update physics
 func update_physics(delta) -> void:
@@ -34,7 +33,8 @@ func _on_direction_timer_timeout():
 
 # Change state
 func on_player_detected(body):
-	emit_signal("state_transitioned", "CHASE")
+	emit_signal("state_transitioned", "ATTACK")
 
 func randomize_vector():
+	randomize()
 	return Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)).normalized()
