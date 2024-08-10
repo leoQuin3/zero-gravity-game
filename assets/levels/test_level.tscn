@@ -202,4 +202,4 @@ collision_mask = 0
 transform = Transform3D(0.912149, -0.179439, 0.368492, -0.409859, -0.399345, 0.820085, 0, -0.899069, -0.437807, 0, 6, 0)
 
 [node name="ATDO" parent="." instance=ExtResource("5_fcggj")]
-transform = Transform3D(-0.991282, 0, -0.131755, 0, 1, 0, 0.131755, 0, -0.991282, 0, 3, -11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90735e-06, 8.17015, -18.5321)

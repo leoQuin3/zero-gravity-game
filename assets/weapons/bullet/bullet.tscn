@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c734skv8k1u8p" path="res://assets/weapons/bullet/bullet.png" id="1_mfcue"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wqs2w"]
-radius = 0.15
+radius = 0.204957
 
 [node name="Bullet" type="Area3D"]
 collision_layer = 4
@@ -15,6 +15,7 @@ script = ExtResource("1_5xqub")
 shape = SubResource("SphereShape3D_wqs2w")
 
 [node name="BulletSprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.02
 billboard = 1
 texture_filter = 0
 texture = ExtResource("1_mfcue")

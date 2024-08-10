@@ -14,6 +14,7 @@ var currentWeaponState: STATES
 #TODO: 
 #	1) Clean up code and improve enemy's attack behaviour (Refactor, rework signals better, etc)
 #	2) BUG: ATDO will shoot and chase for inconsistent amount of seconds (check signals and cancel timers?)
+#	3) Let enemy shoot ONLY IF in line of sight (ie. raycast is detecting Player)
 
 # Connect detection area's signal
 func initialize() -> void:
@@ -51,3 +52,4 @@ func _on_weapon_shots_fired():
 # Switch state after state timer runs out
 func _on_attack_time_timeout():
 	emit_signal("state_transitioned", "CHASE")
+	#print("Switch state to CHASE")

@@ -22,8 +22,9 @@ func _ready():
 			remove_child(weapon)
 	
 	# Equip first weapon
-	currentWeapon = weaponInventory[0]
-	equip_weapon_at_index(0)
+	if !weaponInventory.is_empty():
+		currentWeapon = weaponInventory[0]
+		equip_weapon_at_index(0)
 
 # Append weapon to inventory.
 func add_weapon(weapon: Weapon):

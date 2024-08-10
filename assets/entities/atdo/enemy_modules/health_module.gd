@@ -6,6 +6,8 @@ signal health_ran_out
 
 @export var parent: CollisionObject3D
 
+#TODO: Make Health module as reusable scene
+
 # Health amount
 @export var health: int = 100:
 	set(amount):
@@ -19,8 +21,13 @@ signal health_ran_out
 # Change health
 func _on_hitbox_area_entered(area):
 	if area is Bullet:
-		if area.shooterCollisionLayer == parent.get_collision_layer():
+		# If bullet is shot by self, return
+		if area.shooter == parent:
 			return
+		
+		# Get bullet damage
 		var bulletDamage: int = area.damage
-		health -= bulletDamage
+		
+		# emit signal, and decrease health
 		emit_signal("damage_taken", bulletDamage)
+		health -= bulletDamage

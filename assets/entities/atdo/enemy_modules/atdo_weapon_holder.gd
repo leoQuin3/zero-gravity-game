@@ -21,8 +21,7 @@ func fire():
 	get_tree().root.add_child(newBullet)
 	
 	# Exclude shooter from collision mask
-	var enemyCollisionLayer = shooter.get_collision_layer()
-	newBullet.shooterCollisionLayer = enemyCollisionLayer
+	newBullet.shooter = shooter
 	
 	# Emit signal
 	emit_signal("shots_fired")

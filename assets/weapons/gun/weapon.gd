@@ -8,7 +8,7 @@ class_name Weapon
 @export_category("Connect Node and Scene")
 @export var bullet: PackedScene
 @export var animationPlayer: AnimationPlayer
-@export var weaponOwner: CollisionObject3D
+@export var shooter: CollisionObject3D
 
 #TODO: Generalize weapon system (Use ATDO's example), and extend to player's gun
 #BUG: Sprite gets stuck midframe, or doesn't move at all, when player immediately shoots during equip animation.
@@ -38,7 +38,6 @@ func spawn_bullet():
 	newBullet.global_position = self.global_position
 	
 	# Exclude shooter from collision mask
-	var enemyCollisionLayer = weaponOwner.get_collision_layer()
-	newBullet.shooterCollisionLayer = enemyCollisionLayer
+	newBullet.shooter = shooter
 	
 	get_tree().root.add_child(newBullet)

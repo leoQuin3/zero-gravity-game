@@ -37,3 +37,4 @@ func on_player_detected(player):
 
 func _on_chase_time_timeout():
 	emit_signal("state_transitioned", "ATTACK")
+	#print("Switch state to ATTACK")
