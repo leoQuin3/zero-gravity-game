@@ -1,8 +1,6 @@
 extends State
 
-#TODO: Implement the following
-#	1) Player moves along floor without drifting off. (Play test this feature)
-#	2) Dash around using "dash" action
+#TODO: Player moves along floor without drifting off. (Play test this feature)
 
 func enter() -> void:
 	pass

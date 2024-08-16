@@ -1,8 +1,7 @@
 # In state FLOATING, the player can move freely under zero gravity.
 extends State
 
-#TODO: Implement the following:
-#	1) Dash around using "dash" action
+#TODO: Define dash() function to allow player to quickly strafe
 
 @export var player: Player
 @export var cameraHolder: Node3D

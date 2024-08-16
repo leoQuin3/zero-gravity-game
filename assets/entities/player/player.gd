@@ -31,5 +31,5 @@ func player_control_move(delta: float, maxSpeed: float):
 		velocity = velocity.normalized() * maxSpeed
 
 #TODO: Use timer to increase maximum speed of player, and restore default speed on timeout.
-func player_dash():
+func dash():
 	pass

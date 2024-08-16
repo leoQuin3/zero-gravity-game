@@ -49,7 +49,7 @@ func on_state_changed(newState: String) -> void:
 	currentState.exit()
 	currentState = states[newState]
 	currentState.enter()
-
+	
 func get_current_state() -> State:
 	return currentState
 

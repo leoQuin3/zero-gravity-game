@@ -3,16 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://y0qp2y54myj2" path="res://assets/entities/atdo/atdo-spritesheet.png" id="1_54o46"]
 [ext_resource type="Script" path="res://assets/entities/atdo/atdo.gd" id="1_scxd1"]
 [ext_resource type="Script" path="res://assets/scripts/state_machine.gd" id="2_7t88j"]
-[ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/health_module.gd" id="2_vgu8e"]
+[ext_resource type="PackedScene" uid="uid://cvha343b7514d" path="res://assets/modules/health.tscn" id="2_v4k0d"]
 [ext_resource type="PackedScene" uid="uid://fa43emjjceq1" path="res://assets/weapons/bullet/bullet.tscn" id="3_et1wf"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_attack.gd" id="3_ojtr3"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/atdo_weapon_holder.gd" id="3_vmnra"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_modules/detection_module.gd" id="5_lf1k5"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_idle.gd" id="6_d7tm7"]
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_chase.gd" id="8_2mr4d"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_g0uxe"]
-radius = 1.51395
+[ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_strafe.gd" id="10_qboat"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gt0r8"]
 radius = 25.0
@@ -41,36 +39,28 @@ _data = {
 [sub_resource type="SphereShape3D" id="SphereShape3D_b3ry5"]
 radius = 1.29878
 
-[node name="ATDO" type="CharacterBody3D"]
+[node name="ATDO" type="CharacterBody3D" groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 13
 script = ExtResource("1_scxd1")
 
-[node name="Health" type="Node3D" parent="." node_paths=PackedStringArray("parent")]
-script = ExtResource("2_vgu8e")
-parent = NodePath("..")
-
-[node name="Hitbox" type="Area3D" parent="Health"]
-collision_layer = 0
-collision_mask = 4
-
-[node name="HitboxCollision" type="CollisionShape3D" parent="Health/Hitbox"]
-shape = SubResource("SphereShape3D_g0uxe")
+[node name="Health" parent="." node_paths=PackedStringArray("host") instance=ExtResource("2_v4k0d")]
+host = NodePath("..")
 
 [node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("shooter")]
 script = ExtResource("3_vmnra")
 bullet = ExtResource("3_et1wf")
 shooter = NodePath("..")
 
-[node name="DetectionArea" type="Area3D" parent="."]
+[node name="Detection" type="Area3D" parent="."]
 collision_layer = 0
 input_ray_pickable = false
 script = ExtResource("5_lf1k5")
 
-[node name="DetectionCollision" type="CollisionShape3D" parent="DetectionArea"]
+[node name="DetectionCollision" type="CollisionShape3D" parent="Detection"]
 shape = SubResource("SphereShape3D_gt0r8")
 
-[node name="Raycast" type="RayCast3D" parent="."]
+[node name="RaySight" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -50)
 collision_mask = 9
 debug_shape_thickness = 5
@@ -79,45 +69,49 @@ debug_shape_thickness = 5
 script = ExtResource("2_7t88j")
 initialState = NodePath("IDLE")
 
-[node name="ATTACK" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "weapon", "weaponTimer", "stateTimer", "fsm")]
+[node name="ATTACK" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detection", "raycast", "weapon", "stateTimer", "cooldownTimer", "fsm")]
 script = ExtResource("3_ojtr3")
 enemy = NodePath("../..")
-detectionArea = NodePath("../../DetectionArea")
+detection = NodePath("../../Detection")
+raycast = NodePath("../../RaySight")
 weapon = NodePath("../../Weapon")
-weaponTimer = NodePath("WeaponTimer")
-stateTimer = NodePath("AttackTime")
+stateTimer = NodePath("AttackStateTimer")
+cooldownTimer = NodePath("Cooldown")
 fsm = NodePath("..")
 
-[node name="WeaponTimer" type="Timer" parent="EnemyFSM/ATTACK"]
+[node name="Cooldown" type="Timer" parent="EnemyFSM/ATTACK"]
 wait_time = 0.5
+
+[node name="AttackStateTimer" type="Timer" parent="EnemyFSM/ATTACK"]
 one_shot = true
 
-[node name="AttackTime" type="Timer" parent="EnemyFSM/ATTACK"]
-one_shot = true
-
-[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "raycast", "stateTimer", "fsm")]
+[node name="CHASE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detection", "raycast", "stateTimer", "fsm")]
 script = ExtResource("8_2mr4d")
 enemy = NodePath("../..")
-detectionArea = NodePath("../../DetectionArea")
-raycast = NodePath("../../Raycast")
-stateTimer = NodePath("ChaseTime")
+detection = NodePath("../../Detection")
+raycast = NodePath("../../RaySight")
+stateTimer = NodePath("ChaseStateTimer")
 fsm = NodePath("..")
 
-[node name="ChaseTime" type="Timer" parent="EnemyFSM/CHASE"]
-one_shot = true
+[node name="ChaseStateTimer" type="Timer" parent="EnemyFSM/CHASE"]
 
-[node name="IDLE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "directionTimer", "fsm")]
+[node name="IDLE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detection", "directionTimer", "fsm")]
 script = ExtResource("6_d7tm7")
 enemy = NodePath("../..")
-detectionArea = NodePath("../../DetectionArea")
-directionTimer = NodePath("DirectionTimer")
+detection = NodePath("../../Detection")
+directionTimer = NodePath("Direction")
 fsm = NodePath("..")
 
-[node name="DirectionTimer" type="Timer" parent="EnemyFSM/IDLE"]
+[node name="Direction" type="Timer" parent="EnemyFSM/IDLE"]
+wait_time = 2.0
+
+[node name="STRAFE" type="Node" parent="EnemyFSM"]
+script = ExtResource("10_qboat")
+
+[node name="StrafeStateTimer" type="Timer" parent="EnemyFSM/STRAFE"]
 wait_time = 2.0
 
 [node name="AtdoSprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00533104, 0, 0)
 pixel_size = 0.004
 billboard = 1
 texture = ExtResource("1_54o46")
@@ -134,9 +128,7 @@ libraries = {
 shape = SubResource("SphereShape3D_b3ry5")
 
 [connection signal="health_ran_out" from="Health" to="." method="_on_health_health_ran_out"]
-[connection signal="area_entered" from="Health/Hitbox" to="Health" method="_on_hitbox_area_entered"]
-[connection signal="shots_fired" from="Weapon" to="EnemyFSM/ATTACK" method="_on_weapon_shots_fired"]
-[connection signal="timeout" from="EnemyFSM/ATTACK/WeaponTimer" to="EnemyFSM/ATTACK" method="_on_weapon_timer_timeout"]
-[connection signal="timeout" from="EnemyFSM/ATTACK/AttackTime" to="EnemyFSM/ATTACK" method="_on_attack_time_timeout"]
-[connection signal="timeout" from="EnemyFSM/CHASE/ChaseTime" to="EnemyFSM/CHASE" method="_on_chase_time_timeout"]
-[connection signal="timeout" from="EnemyFSM/IDLE/DirectionTimer" to="EnemyFSM/IDLE" method="_on_direction_timer_timeout"]
+[connection signal="timeout" from="EnemyFSM/ATTACK/Cooldown" to="EnemyFSM/ATTACK" method="_on_cooldown_timeout"]
+[connection signal="timeout" from="EnemyFSM/ATTACK/AttackStateTimer" to="EnemyFSM/ATTACK" method="_on_attack_state_timeout"]
+[connection signal="timeout" from="EnemyFSM/CHASE/ChaseStateTimer" to="EnemyFSM/CHASE" method="_on_chase_state_timer_timeout"]
+[connection signal="timeout" from="EnemyFSM/IDLE/Direction" to="EnemyFSM/IDLE" method="_on_direction_timer_timeout"]

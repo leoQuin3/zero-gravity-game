@@ -1,7 +1,6 @@
 extends State
 
-#TODO: Implement the following:
-#	1) Dash around using "dash" action
+#TODO: Implement dash()
 
 @export var player: Player
 @export var cameraHolder: Node3D
@@ -18,13 +17,13 @@ func initialize() -> void:
 	
 # Set target position
 func enter() -> void:
-	grappleHolder.grappleCursor.show() #FIXME: Use signals to call instead.
+	grappleHolder.grappleCursor.show()
 	targetPosition = grappleHolder.get_grapple_point()
 	canCancel = false
 
 # Reset grapple holder's orientation
 func exit() -> void:
-	grappleHolder.grappleCursor.hide() #FIXME: Use signals to call instead.
+	grappleHolder.grappleCursor.hide()
 	grappleHolder.rotation = Vector3.ZERO
 	canCancel = false
 	
