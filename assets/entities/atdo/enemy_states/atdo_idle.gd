@@ -6,8 +6,6 @@ extends State
 var direction: Vector3 = Vector3(0, 0, 0)
 var speed: float
 
-#FIXME: Need to pass in player from one state to another
-
 # Initialize properties
 func initialize() -> void:
 	speed = enemy.speed
@@ -30,8 +28,8 @@ func update_physics(delta) -> void:
 
 # Randomly change direction upon timeout
 func _on_direction_timer_timeout():
-	direction = randomize_vector()
 	directionTimer.wait_time = randf_range(0.5, 2)
+	direction = randomize_vector()
 
 # Generate random vector (normalized)
 func randomize_vector():

@@ -4,8 +4,8 @@
 extends Node3D
 class_name GrapplingHook
 
-@export var grappleSpeed: float = 15
-@export var strafeSpeed: float = 15
+@export var grappleSpeed: float = 500
+@export var strafeSpeed: float = 500
 @export var cancelDistance: float = 2
 
 @export_category("Connect Nodes")
@@ -22,17 +22,17 @@ func can_grapple() -> bool:
 	return raycast.is_colliding()
 
 # Move player towards grappling position
-func grapple_towards(player: Player, targetPosition: Vector3) -> void:
+func grapple_towards(player: Player, targetPosition: Vector3, delta) -> void:
 	# Set velocity towards targetPosition
 	var targetDirection: Vector3 = (targetPosition - player.position).normalized()
-	player.velocity = targetDirection * grappleSpeed
+	player.velocity = targetDirection * grappleSpeed * delta
 	
 	# Update cursor
 	update_cursor_position(targetPosition)
 	
 # Allow player to strafe left and right
 #BUG: If grapple() isnt being called, player will dramatically accelerate
-func player_grapple_strafe(player:Player, targetPosition: Vector3):
+func player_grapple_strafe(player:Player, targetPosition: Vector3, delta):
 	# Point grapple holder to target position
 	self.look_at(targetPosition, Vector3.UP)
 	
@@ -42,9 +42,22 @@ func player_grapple_strafe(player:Player, targetPosition: Vector3):
 	
 	# Update player velocity
 	if inputAxis:
-		player.velocity += (directionVector * strafeSpeed)
+		player.velocity += (directionVector * strafeSpeed * delta)
 
 # Show cursor where player is moving towards
-#FIXME: When player looks away from target position, the cursor still appears.
 func update_cursor_position(targetPosition: Vector3):
+	# Get vectors
+	var targetDirection: = (targetPosition - self.global_position)
+	var playerDirection: = self.camera.global_transform.basis.z
+	
+	# Calculate dot product
+	var perpDotProduct: float = targetDirection.dot(playerDirection)
+	
+	# Project cursor on target position
 	grappleCursor.position = camera.unproject_position(targetPosition)
+	
+	# Show cursor if facing target position
+	if perpDotProduct < 0:
+		grappleCursor.show()
+	else:
+		grappleCursor.hide()
