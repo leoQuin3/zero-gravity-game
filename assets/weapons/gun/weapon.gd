@@ -12,6 +12,7 @@ class_name Weapon
 
 #TODO: Generalize weapon system (Use ATDO's example), and extend to player's gun
 #BUG: Sprite gets stuck midframe, or doesn't move at all, when player immediately shoots during equip animation.
+#BUG: Bullet sometimes isnt deleted when health reaches zero
 
 func _ready():
 	animationPlayer.play("equip")

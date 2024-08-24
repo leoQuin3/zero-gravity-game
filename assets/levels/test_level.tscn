@@ -15,17 +15,16 @@ albedo_color = Color(0.312965, 0.658143, 0, 1)
 material = SubResource("StandardMaterial3D_ad450")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c202i"]
-size = Vector3(29, 28.703, 1)
+size = Vector3(30, 30, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_sa5ce"]
-size = Vector3(29, 29, 1)
+size = Vector3(30, 30, 1)
 
 [node name="TestLevel" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_pghiu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.57002, 6.89546)
 collision_mask = 26
-THRUST_SPEED = 50.0
 
 [node name="Debug" parent="Player" node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
 node = NodePath("..")
@@ -45,16 +44,16 @@ mesh = SubResource("SphereMesh_scdr1")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -10, 0, 2)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -5, -2.18557e-07)
 collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 13.8515, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 13.703, -0.5)
 shape = SubResource("BoxShape3D_c202i")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 14, -0.499999)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 13.7, -0.499999)
 mesh = SubResource("BoxMesh_sa5ce")
 
 [node name="Wall" type="Node3D" parent="."]
@@ -95,7 +94,4 @@ collision_mask = 0
 transform = Transform3D(0.912149, -0.179439, 0.368492, -0.409859, -0.399345, 0.820085, 0, -0.899069, -0.437807, 0, 6, 0)
 
 [node name="ATDO" parent="." instance=ExtResource("5_fcggj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91573, 8.17015, -18.5321)
-
-[node name="ATDO2" parent="." instance=ExtResource("5_fcggj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.81808, 8.17015, -18.5321)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.57, -21.4028)

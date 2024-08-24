@@ -2,11 +2,12 @@ extends Node3D
 
 signal shots_fired
 
+@export var bullet: PackedScene
 @export var bulletSpeed: float = 25
 
 @export_category("Connect Node and Scene")
-@export var bullet: PackedScene
 @export var shooter: CollisionObject3D
+@export var shooterHitbox: HealthModule
 
 # Fire projectile
 func fire():
@@ -20,7 +21,7 @@ func fire():
 	# Add bullet as child to tree scene
 	get_tree().root.add_child(newBullet)
 	
-	# Exclude shooter from collision mask
+	# Exclude shooter and their hitbox from detection
 	newBullet.shooter = shooter
 	
 	# Emit signal

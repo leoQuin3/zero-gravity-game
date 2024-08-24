@@ -1,13 +1,11 @@
 extends CharacterBody3D
 class_name Player
 
-#TODO: Implement the following:
-#	1) Add "dash" function to Player
-#	2) Improve how components communicate with eachother (signals)
+#TODO: Add "dash" function to Player
 
 # Parameters
-@export var MAX_SPEED: float = 7
-@export var THRUST_SPEED: float = 100
+@export var maxSpeed: float = 10
+@export var thrustSpeed: float = 100
 
 @export_category("Connect Nodes")
 @export var cameraHead: Node3D
@@ -24,12 +22,12 @@ func player_control_move(delta: float, maxSpeed: float):
 	
 	# Accelerate player
 	if inputVector:
-		velocity += newDirection * THRUST_SPEED * delta
+		velocity += newDirection * thrustSpeed * delta
 	
 	# Enforce maximum velocity
 	if velocity.length() > maxSpeed:
 		velocity = velocity.normalized() * maxSpeed
 
 #TODO: Use timer to increase maximum speed of player, and restore default speed on timeout.
-func dash():
+func dash(delta: float, dashSpeed: float):
 	pass

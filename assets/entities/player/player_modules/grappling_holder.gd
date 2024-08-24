@@ -27,6 +27,9 @@ func grapple_towards(player: Player, targetPosition: Vector3) -> void:
 	var targetDirection: Vector3 = (targetPosition - player.position).normalized()
 	player.velocity = targetDirection * grappleSpeed
 	
+	# Update cursor
+	update_cursor_position(targetPosition)
+	
 # Allow player to strafe left and right
 #BUG: If grapple() isnt being called, player will dramatically accelerate
 func player_grapple_strafe(player:Player, targetPosition: Vector3):

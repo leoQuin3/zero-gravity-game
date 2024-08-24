@@ -1,15 +1,12 @@
 extends Area3D
 
-signal player_detected(player: Player)
+signal player_detected
 
-var entityDetected
-
-# Connect signal
-func _ready():
-	self.connect("body_entered", Callable(self, "_on_entity_entered"))
+# Player being observed
+var player: Player
 
 # Get Player node and send signal
-func _on_entity_entered(body):
+func _on_body_entered(body):
 	if body is Player:
-		entityDetected = body
-		emit_signal("player_detected", body)
+		player = body
+		emit_signal("player_detected")

@@ -16,7 +16,7 @@ func update(delta) -> void:
 	pass
 	
 func update_physics(delta) -> void:
-	player.player_control_move(delta, player.MAX_SPEED)
+	player.player_control_move(delta, player.maxSpeed)
 	
 func handle_input(event) -> void:
 	# Look around

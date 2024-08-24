@@ -1,6 +1,7 @@
 extends State
 
 #TODO: Implement dash()
+#NOTE: If GRAPPLING is set as initial state, player with move towards (0,0,0)
 
 @export var player: Player
 @export var cameraHolder: Node3D
@@ -33,9 +34,6 @@ func update(delta) -> void:
 	if player.global_position.distance_to(targetPosition) < grappleHolder.cancelDistance:
 		emit_signal("state_transitioned", "FLOATING")
 	
-	# Update cursor on screen
-	grappleHolder.update_cursor_position(targetPosition)
-
 # Grapple and strafe
 func update_physics(delta) -> void:
 	grappleHolder.grapple_towards(player, targetPosition)

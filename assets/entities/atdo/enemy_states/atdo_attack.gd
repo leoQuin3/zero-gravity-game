@@ -1,45 +1,48 @@
 extends State
 
 @export var enemy: ATDO
-@export var detection: Area3D
 @export var raycast: RayCast3D
 @export var weapon: Node3D
+@export var detectionArea: Area3D
 
 @export var stateTimer: Timer
 @export var cooldownTimer: Timer
 
 var player: Player
 
-#TODO: Let enemy shoot ONLY IF in line of sight (ie. raycast is detecting Player)
-
-# Connect detection area's signal
-func initialize() -> void:
-	detection.connect("player_detected", Callable(self, "on_player_detected"))
-
-# Get player
-func on_player_detected(player) -> void:
-	self.player = player
-
-# Update orientation
-func update(delta) -> void:
-	enemy.look_at(player.global_position)
-	
-# Initialize
+# Initialize state
 func enter() -> void:
-	enemy.look_at(player.global_position)
+	# Get player, if detected
+	if detectionArea.player:
+		self.player = detectionArea.player
+	# Otherwise, return to IDLE
+	else:
+		emit_signal("state_transitioned", "IDLE")
+		return
+	
+	# Freeze and look at player
 	enemy.velocity = Vector3.ZERO
+	enemy.look_at(player.global_position)
 	
 	# Start timers
 	stateTimer.start()
 	cooldownTimer.start()
+	
+	# Shoot
+	weapon.fire()
 
 # Stop cooldownTimer when exiting state
 func exit():
 	cooldownTimer.stop()
 
-# Fire again after cooldown, if state timer is still running
+# Focus at player
+func update(delta) -> void:
+	enemy.look_at(player.global_position)
+
+# Fire again after cooldown
 func _on_cooldown_timeout():
-	if !stateTimer.is_stopped():
+	# Fire if state timer hasn't stopped, and if raycast is touching player
+	if !stateTimer.is_stopped() and (raycast.is_colliding() and raycast.get_collider() is Player):
 		weapon.fire()
 
 # Change state
