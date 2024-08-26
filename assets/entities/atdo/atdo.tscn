@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://0dxq6ir0kria"]
+[gd_scene load_steps=18 format=3 uid="uid://0dxq6ir0kria"]
 
 [ext_resource type="Texture2D" uid="uid://y0qp2y54myj2" path="res://assets/entities/atdo/atdo-spritesheet.png" id="1_54o46"]
 [ext_resource type="Script" path="res://assets/entities/atdo/atdo.gd" id="1_scxd1"]
@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://assets/entities/atdo/enemy_states/atdo_strafe.gd" id="10_qboat"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8ospu"]
-radius = 24.0
+radius = 40.0
 
 [sub_resource type="Animation" id="Animation_b6vqe"]
 resource_name = "IDLE"
@@ -31,9 +31,42 @@ tracks/0/keys = {
 "values": []
 }
 
+[sub_resource type="Animation" id="Animation_a4y62"]
+resource_name = "ATTACK"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AtdoSprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.125),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [5, 3, 0]
+}
+
+[sub_resource type="Animation" id="Animation_1uli8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AtdoSprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ferq"]
 _data = {
-"IDLE": SubResource("Animation_b6vqe")
+"ATTACK": SubResource("Animation_a4y62"),
+"IDLE": SubResource("Animation_b6vqe"),
+"RESET": SubResource("Animation_1uli8")
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_b3ry5"]
@@ -50,9 +83,10 @@ stateMachine = NodePath("EnemyFSM")
 script = ExtResource("2_7t88j")
 initialState = NodePath("IDLE")
 
-[node name="IDLE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "directionTimer", "fsm")]
+[node name="IDLE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "directionTimer", "fsm")]
 script = ExtResource("6_d7tm7")
 enemy = NodePath("../..")
+detectionArea = NodePath("../../Detection")
 directionTimer = NodePath("Direction")
 fsm = NodePath("..")
 
@@ -85,20 +119,24 @@ wait_time = 0.35
 [node name="AttackStateTimer" type="Timer" parent="EnemyFSM/ATTACK"]
 one_shot = true
 
-[node name="STRAFE" type="Node" parent="EnemyFSM"]
+[node name="STRAFE" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "detectionArea", "stateTimer")]
 script = ExtResource("10_qboat")
+enemy = NodePath("../..")
+detectionArea = NodePath("../../Detection")
+stateTimer = NodePath("StrafeStateTimer")
 
 [node name="StrafeStateTimer" type="Timer" parent="EnemyFSM/STRAFE"]
-wait_time = 2.0
+one_shot = true
 
 [node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("shooter", "shooterHitbox")]
 script = ExtResource("3_vmnra")
 bullet = ExtResource("3_et1wf")
+bulletSpeed = 15.0
 shooter = NodePath("..")
 shooterHitbox = NodePath("../Health")
 
 [node name="RaySight" type="RayCast3D" parent="Weapon"]
-target_position = Vector3(0, 0, -50)
+target_position = Vector3(0, 0, -100)
 collision_mask = 9
 debug_shape_thickness = 5
 
@@ -130,6 +168,7 @@ shape = SubResource("SphereShape3D_b3ry5")
 [connection signal="timeout" from="EnemyFSM/CHASE/ChaseStateTimer" to="EnemyFSM/CHASE" method="_on_chase_state_timer_timeout"]
 [connection signal="timeout" from="EnemyFSM/ATTACK/Cooldown" to="EnemyFSM/ATTACK" method="_on_cooldown_timeout"]
 [connection signal="timeout" from="EnemyFSM/ATTACK/AttackStateTimer" to="EnemyFSM/ATTACK" method="_on_attack_state_timeout"]
+[connection signal="timeout" from="EnemyFSM/STRAFE/StrafeStateTimer" to="EnemyFSM/STRAFE" method="_on_strafe_state_timer_timeout"]
 [connection signal="health_ran_out" from="Health" to="." method="_on_health_health_ran_out"]
 [connection signal="body_entered" from="Detection" to="Detection" method="_on_body_entered"]
 [connection signal="player_detected" from="Detection" to="EnemyFSM/IDLE" method="_on_detection_player_detected"]

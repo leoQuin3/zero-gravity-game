@@ -12,6 +12,7 @@ func initialize() -> void:
 	if cameraHolder.MOUSE_IS_CAPTURED:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+func update_physics(delta) -> void:
 	player.player_control_move(delta, player.maxSpeed)
 	
 func handle_input(event) -> void:

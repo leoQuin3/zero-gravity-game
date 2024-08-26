@@ -4,8 +4,8 @@
 extends Node3D
 class_name GrapplingHook
 
-@export var grappleSpeed: float = 500
-@export var strafeSpeed: float = 500
+@export var grappleSpeed: float = 900
+@export var strafeSpeed: float = 900
 @export var cancelDistance: float = 2
 
 @export_category("Connect Nodes")
@@ -26,9 +26,6 @@ func grapple_towards(player: Player, targetPosition: Vector3, delta) -> void:
 	# Set velocity towards targetPosition
 	var targetDirection: Vector3 = (targetPosition - player.position).normalized()
 	player.velocity = targetDirection * grappleSpeed * delta
-	
-	# Update cursor
-	update_cursor_position(targetPosition)
 	
 # Allow player to strafe left and right
 #BUG: If grapple() isnt being called, player will dramatically accelerate

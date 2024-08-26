@@ -9,12 +9,14 @@ extends State
 @export var cooldownTimer: Timer
 
 var player: Player
+const maxPlayerDist: int = 45
 
 # Initialize state
 func enter() -> void:
 	# Get player, if detected
 	if detectionArea.player:
 		self.player = detectionArea.player
+	
 	# Otherwise, return to IDLE
 	else:
 		emit_signal("state_transitioned", "IDLE")
@@ -25,12 +27,13 @@ func enter() -> void:
 	enemy.look_at(player.global_position)
 	
 	# Start timers
+	stateTimer.wait_time += randf_range(0, 1)
 	stateTimer.start()
 	cooldownTimer.start()
 	
 	# Shoot
 	weapon.fire()
-
+	
 # Stop cooldownTimer when exiting state
 func exit():
 	cooldownTimer.stop()
@@ -47,5 +50,9 @@ func _on_cooldown_timeout():
 
 # Change state
 func _on_attack_state_timeout():
-	emit_signal("state_transitioned", "CHASE")
-
+	# If player is far away, move toward player
+	if enemy.global_position.distance_squared_to(player.global_position) > maxPlayerDist ** 2:
+		emit_signal("state_transitioned", "CHASE")
+	# Otherwise, move to the side
+	else:
+		emit_signal("state_transitioned", "STRAFE")

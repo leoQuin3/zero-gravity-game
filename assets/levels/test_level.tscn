@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c3yjmxpsn1ehs"]
+[gd_scene load_steps=14 format=3 uid="uid://c3yjmxpsn1ehs"]
 
 [ext_resource type="PackedScene" uid="uid://c7s1aebr2tpxd" path="res://assets/entities/player/player.tscn" id="1_pghiu"]
 [ext_resource type="PackedScene" uid="uid://co4j6w1gq4o7r" path="res://assets/utilities/debug_ui.tscn" id="2_47kv2"]
@@ -19,6 +19,17 @@ size = Vector3(30, 30, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_sa5ce"]
 size = Vector3(30, 30, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k3wmg"]
+
+[sub_resource type="Sky" id="Sky_3n0f8"]
+sky_material = SubResource("ProceduralSkyMaterial_k3wmg")
+
+[sub_resource type="Environment" id="Environment_lq4ny"]
+background_mode = 2
+background_color = Color(0.136826, 0.136826, 0.136826, 1)
+background_energy_multiplier = 0.59
+sky = SubResource("Sky_3n0f8")
 
 [node name="TestLevel" type="Node3D"]
 
@@ -95,3 +106,12 @@ transform = Transform3D(0.912149, -0.179439, 0.368492, -0.409859, -0.399345, 0.8
 
 [node name="ATDO" parent="." instance=ExtResource("5_fcggj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.57, -21.4028)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lq4ny")
+
+[node name="ATDO2" parent="." instance=ExtResource("5_fcggj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 9, -30)
+
+[node name="ATDO3" parent="." instance=ExtResource("5_fcggj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 13, -16)

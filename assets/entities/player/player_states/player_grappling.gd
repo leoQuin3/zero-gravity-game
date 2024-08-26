@@ -38,6 +38,7 @@ func update(delta) -> void:
 func update_physics(delta) -> void:
 	grappleHolder.grapple_towards(player, targetPosition, delta)
 	grappleHolder.player_grapple_strafe(player, targetPosition, delta)
+	grappleHolder.update_cursor_position(targetPosition)
 	
 # Handle mouse input
 func handle_input(event) -> void:

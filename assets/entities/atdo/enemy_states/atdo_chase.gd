@@ -7,6 +7,7 @@ extends State
 
 var direction: Vector3
 var player: Player
+const maxPlayerDist: int = 60
 
 #TODO: Figure how to establish navigation in 3D space.
 
@@ -34,9 +35,9 @@ func update_physics(delta) -> void:
 
 # When state timer finishes
 func _on_chase_state_timer_timeout():
-	# If raycast detects player, ATTACK
-	if raycast.is_colliding() and raycast.get_collider() is Player:
-		emit_signal("state_transitioned", "ATTACK")
-	else:
-		# Otherwise, keep chasing
+	# If player is far away, move toward player
+	if enemy.global_position.distance_squared_to(player.global_position) > maxPlayerDist ** 2:
 		emit_signal("state_transitioned", "CHASE")
+	# Otherwise, move to the side
+	else:
+		emit_signal("state_transitioned", "STRAFE")

@@ -152,6 +152,7 @@ libraries = {
 
 [node name="Crosshair" type="Sprite2D" parent="GunCanvas/GunGUI"]
 position = Vector2(576, 320)
+scale = Vector2(1.25, 1.25)
 texture = ExtResource("2_gkxdt")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

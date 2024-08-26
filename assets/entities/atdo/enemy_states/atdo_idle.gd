@@ -1,6 +1,7 @@
 extends State
 
 @export var enemy: ATDO
+@export var detectionArea: Area3D
 @export var directionTimer: Timer
 
 var direction: Vector3 = Vector3(0, 0, 0)
@@ -38,3 +39,4 @@ func randomize_vector():
 
 func _on_detection_player_detected():
 	emit_signal("state_transitioned", "ATTACK")
+	detectionArea.disconnect("player_detected", Callable(self, "_on_detection_player_detected"))
