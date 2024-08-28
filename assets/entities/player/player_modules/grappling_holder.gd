@@ -1,10 +1,9 @@
-# This node is the grappling hook, allowing the player to move toward a position.
-# The action assigned is "grapple" (Q) in the GRAPPLING state script.
+# This module allows the player to move toward a position.
 
 extends Node3D
 class_name GrapplingHook
 
-@export var grappleSpeed: float = 900
+@export var grappleSpeed: float = 25
 @export var strafeSpeed: float = 900
 @export var cancelDistance: float = 2
 
@@ -22,13 +21,13 @@ func can_grapple() -> bool:
 	return raycast.is_colliding()
 
 # Move player towards grappling position
-func grapple_towards(player: Player, targetPosition: Vector3, delta) -> void:
+func grapple_towards(player: Player, targetPosition: Vector3) -> void:
 	# Set velocity towards targetPosition
 	var targetDirection: Vector3 = (targetPosition - player.position).normalized()
-	player.velocity = targetDirection * grappleSpeed * delta
+	player.velocity = targetDirection * grappleSpeed
 	
 # Allow player to strafe left and right
-#BUG: If grapple() isnt being called, player will dramatically accelerate
+#BUG: If grapple_towards() isnt being called, player will dramatically accelerate
 func player_grapple_strafe(player:Player, targetPosition: Vector3, delta):
 	# Point grapple holder to target position
 	self.look_at(targetPosition, Vector3.UP)

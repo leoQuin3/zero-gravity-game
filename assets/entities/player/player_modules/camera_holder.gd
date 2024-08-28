@@ -1,3 +1,4 @@
+# The camera module that allows the player to look around
 extends Node3D
 
 @export var parent: Player

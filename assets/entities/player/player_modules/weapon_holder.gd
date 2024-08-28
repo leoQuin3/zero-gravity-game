@@ -1,4 +1,4 @@
-# This node will hold collected weapons, and allow the player to equip them.
+# This module will hold collected weapons, and allow the player to equip them.
 extends Node3D
 
 # Node to hold weapon

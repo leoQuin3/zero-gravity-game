@@ -7,6 +7,7 @@ extends State
 @export var cameraHolder: Node3D
 @export var weaponInventory: Node3D
 @export var grappleHolder: GrapplingHook
+@export var jetpack: Jetpack
 
 func initialize() -> void:
 	if cameraHolder.MOUSE_IS_CAPTURED:
@@ -14,7 +15,7 @@ func initialize() -> void:
 
 func update_physics(delta) -> void:
 	if Input.is_action_just_pressed("dash"):
-		player.player_dash()
+		jetpack.player_dash()
 	
 	# Player move
 	player.player_control_move(delta)

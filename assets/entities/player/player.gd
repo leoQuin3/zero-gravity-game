@@ -6,13 +6,6 @@ class_name Player
 # Parameters
 @export var speed: float = 10
 @export var thrustSpeed: float = 100
-@export var dashSpeed: float = 3
-
-var defaultSpeed: float = speed
-var defaultThrustSpeed: float = thrustSpeed
-
-var isDashing: bool = false
-var canDash: bool = true
 
 @export_category("Connect Nodes")
 @export var cameraHead: Node3D
@@ -36,29 +29,3 @@ func player_control_move(delta: float):
 	# Enforce maximum velocity
 	if velocity.length() > speed:
 		velocity = velocity.normalized() * speed
-
-func player_dash():
-	# If cannot dash, terminate
-	if !canDash:
-		return
-	
-	# Increase speed
-	speed = defaultSpeed * dashSpeed
-	thrustSpeed = defaultThrustSpeed * dashSpeed
-	isDashing = true
-	canDash = false
-	
-	# Begin timer
-	dashTimer.start()
-
-func _on_dash_timer_timeout():
-	# Restore speed
-	speed = defaultSpeed
-	thrustSpeed = defaultThrustSpeed
-	isDashing = false
-	
-	# Start cooldown timer
-	dashCooldownTimer.start()
-
-func _on_dash_cooldown_timeout():
-	canDash = true
