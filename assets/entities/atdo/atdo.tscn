@@ -15,22 +15,6 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_8ospu"]
 radius = 40.0
 
-[sub_resource type="Animation" id="Animation_b6vqe"]
-resource_name = "IDLE"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AtdoSprite3D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-
 [sub_resource type="Animation" id="Animation_a4y62"]
 resource_name = "ATTACK"
 length = 0.2
@@ -45,6 +29,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [5, 3, 0]
+}
+
+[sub_resource type="Animation" id="Animation_b6vqe"]
+resource_name = "IDLE"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AtdoSprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_1uli8"]

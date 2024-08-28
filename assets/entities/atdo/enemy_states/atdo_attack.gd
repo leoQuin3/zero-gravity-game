@@ -11,6 +11,8 @@ extends State
 var player: Player
 const maxPlayerDist: int = 45
 
+#TODO: Play animation when entering state and shooting
+
 # Initialize state
 func enter() -> void:
 	# Get player, if detected

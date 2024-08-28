@@ -104,11 +104,11 @@ collision_mask = 0
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.912149, -0.179439, 0.368492, -0.409859, -0.399345, 0.820085, 0, -0.899069, -0.437807, 0, 6, 0)
 
-[node name="ATDO" parent="." instance=ExtResource("5_fcggj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.57, -21.4028)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lq4ny")
+
+[node name="ATDO" parent="." instance=ExtResource("5_fcggj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.57, -21.4028)
 
 [node name="ATDO2" parent="." instance=ExtResource("5_fcggj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 9, -30)

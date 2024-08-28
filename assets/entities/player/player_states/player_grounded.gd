@@ -13,7 +13,11 @@ func initialize() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func update_physics(delta) -> void:
-	player.player_control_move(delta, player.maxSpeed)
+	if Input.is_action_just_pressed("dash"):
+		player.player_dash()
+	
+	# Player move
+	player.player_control_move(delta)
 	
 func handle_input(event) -> void:
 	# Look around

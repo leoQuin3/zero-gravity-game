@@ -29,6 +29,7 @@ func update_physics(delta) -> void:
 
 # Randomly change direction upon timeout
 func _on_direction_timer_timeout():
+	#TODO: Look at certain direction when moving, using sprite frame
 	directionTimer.wait_time = randf_range(0.5, 2)
 	direction = randomize_vector()
 

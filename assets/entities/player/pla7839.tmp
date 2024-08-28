@@ -15,12 +15,11 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c8k0w"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead", "dashTimer", "dashCooldownTimer") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead", "dashCooldownTimer") groups=["Player"]]
 collision_mask = 10
 script = ExtResource("1_7lu1p")
 cameraHead = NodePath("CameraHolder")
-dashTimer = NodePath("DashTimer")
-dashCooldownTimer = NodePath("DashCooldown")
+dashCooldownTimer = NodePath("DashTimer")
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_spn12")
@@ -64,6 +63,9 @@ weaponHolder = NodePath("../CameraHolder/Holder")
 ammoAmount = 100
 shooter = NodePath("../..")
 
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="PlayerFSM" type="Node" parent="."]
 script = ExtResource("2_fxhxo")
 initialState = NodePath("FLOATING")
@@ -85,13 +87,4 @@ grappleHolder = NodePath("../../GrappleHook")
 [node name="GROUNDED" type="Node" parent="PlayerFSM"]
 script = ExtResource("3_vy3lq")
 
-[node name="DashTimer" type="Timer" parent="."]
-wait_time = 0.25
-one_shot = true
-
-[node name="DashCooldown" type="Timer" parent="."]
-wait_time = 0.35
-one_shot = true
-
-[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
-[connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_cooldown_timeout"]
