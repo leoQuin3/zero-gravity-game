@@ -7,7 +7,7 @@ extends State
 
 var direction: Vector3
 var player: Player
-const maxPlayerDist: int = 60
+const maxPlayerDist: int = 25
 
 #TODO: Figure how to establish navigation in 3D space.
 
@@ -16,14 +16,16 @@ func enter():
 	# Get player, if detected
 	if detectionArea.player:
 		self.player = detectionArea.player
+	
 	# Otherwise, return to IDLE
 	else:
 		emit_signal("state_transitioned", "IDLE")
 		return
 	
 	# Begin state timer (with random time)
-	stateTimer.wait_time += randf_range(0, 1)
 	stateTimer.start()
+	
+	print("Chasing")
 	
 # Process physics
 func update_physics(delta) -> void:

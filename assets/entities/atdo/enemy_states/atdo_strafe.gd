@@ -23,16 +23,23 @@ func enter() -> void:
 	# Start state timer
 	stateTimer.wait_time += randf_range(0, 1)
 	stateTimer.start()
+	
+	#TEMP: Debug strafing
+	print("Strafing")
 
+# Update every frame
 func update(delta) -> void:
 	enemy.look_at(player.global_position)
 
+# Update physics
 func update_physics(delta) -> void:
 	enemy.velocity = strafeVector * delta
 
+# Switch state
 func _on_strafe_state_timer_timeout():
 	emit_signal("state_transitioned", "ATTACK")
 
+# Generate random sign (1, -1)
 func random_sign():
 	randomize()
 	if randi() % 2 == 0:

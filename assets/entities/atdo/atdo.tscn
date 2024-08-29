@@ -102,6 +102,7 @@ detectionArea = NodePath("../../Detection")
 fsm = NodePath("..")
 
 [node name="ChaseStateTimer" type="Timer" parent="EnemyFSM/CHASE"]
+wait_time = 2.0
 
 [node name="ATTACK" type="Node" parent="EnemyFSM" node_paths=PackedStringArray("enemy", "raycast", "weapon", "detectionArea", "stateTimer", "cooldownTimer", "fsm")]
 script = ExtResource("3_ojtr3")
@@ -114,7 +115,7 @@ cooldownTimer = NodePath("Cooldown")
 fsm = NodePath("..")
 
 [node name="Cooldown" type="Timer" parent="EnemyFSM/ATTACK"]
-wait_time = 0.35
+wait_time = 0.5
 
 [node name="AttackStateTimer" type="Timer" parent="EnemyFSM/ATTACK"]
 one_shot = true
@@ -171,4 +172,3 @@ shape = SubResource("SphereShape3D_b3ry5")
 [connection signal="timeout" from="EnemyFSM/STRAFE/StrafeStateTimer" to="EnemyFSM/STRAFE" method="_on_strafe_state_timer_timeout"]
 [connection signal="health_ran_out" from="Health" to="." method="_on_health_health_ran_out"]
 [connection signal="body_entered" from="Detection" to="Detection" method="_on_body_entered"]
-[connection signal="player_detected" from="Detection" to="EnemyFSM/IDLE" method="_on_detection_player_detected"]

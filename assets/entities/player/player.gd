@@ -1,8 +1,6 @@
 extends CharacterBody3D
 class_name Player
 
-#TODO: Use component to give player Dashing ability instead of hard coding it.
-
 # Parameters
 @export var speed: float = 10
 @export var thrustSpeed: float = 100

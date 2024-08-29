@@ -20,6 +20,9 @@ func enter() -> void:
 	grappleHolder.grappleCursor.show()
 	targetPosition = grappleHolder.get_grapple_point()
 	canCancel = false
+	
+	# Position cursor
+	grappleHolder.update_cursor_position(targetPosition)
 
 # Reset grapple holder's orientation
 func exit() -> void:

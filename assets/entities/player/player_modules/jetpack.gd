@@ -16,7 +16,7 @@ class_name Jetpack
 var isDashing: bool = false
 var canDash: bool = true
 
-# Increase player speed
+# Dash
 func player_dash():
 	# If unable to dash, don't continue
 	if !canDash:

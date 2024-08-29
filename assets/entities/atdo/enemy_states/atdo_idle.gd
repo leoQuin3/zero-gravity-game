@@ -19,6 +19,11 @@ func enter() -> void:
 	# Start timers
 	directionTimer.start()
 	
+	# Connect signal
+	detectionArea.connect("player_detected", Callable(self, "_on_player_detected"))
+	
+	print("Idling")
+	
 # Stop timer when leaving state
 func exit() -> void:
 	directionTimer.stop()
@@ -30,7 +35,7 @@ func update_physics(delta) -> void:
 # Randomly change direction upon timeout
 func _on_direction_timer_timeout():
 	#TODO: Look at certain direction when moving, using sprite frame
-	directionTimer.wait_time = randf_range(0.5, 2)
+	directionTimer.wait_time += randf_range(0, 1)
 	direction = randomize_vector()
 
 # Generate random vector (normalized)
@@ -38,6 +43,8 @@ func randomize_vector():
 	randomize()
 	return Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)).normalized()
 
-func _on_detection_player_detected():
+func _on_player_detected():
+	#TEMP: Debug signal
+	print("Player detected!")
 	emit_signal("state_transitioned", "ATTACK")
-	detectionArea.disconnect("player_detected", Callable(self, "_on_detection_player_detected"))
+	detectionArea.disconnect("player_detected", Callable(self, "_on_player_detected"))

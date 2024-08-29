@@ -57,15 +57,6 @@ camera = NodePath("../CameraHolder/PlayerCamera")
 visible = false
 texture = ExtResource("6_1rius")
 
-[node name="WeaponInventory" type="Node3D" parent="." node_paths=PackedStringArray("weaponHolder")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-script = ExtResource("3_gaq1t")
-weaponHolder = NodePath("../CameraHolder/Holder")
-
-[node name="Gun" parent="WeaponInventory" node_paths=PackedStringArray("shooter") instance=ExtResource("4_vpo5n")]
-ammoAmount = 100
-shooter = NodePath("../..")
-
 [node name="Jetpack" type="Node3D" parent="." node_paths=PackedStringArray("player", "dashTimer", "dashCooldownTimer")]
 script = ExtResource("7_gogbm")
 player = NodePath("..")
@@ -80,6 +71,15 @@ one_shot = true
 [node name="DashCooldown" type="Timer" parent="Jetpack"]
 wait_time = 0.35
 one_shot = true
+
+[node name="WeaponInventory" type="Node3D" parent="." node_paths=PackedStringArray("weaponHolder")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("3_gaq1t")
+weaponHolder = NodePath("../CameraHolder/Holder")
+
+[node name="Gun" parent="WeaponInventory" node_paths=PackedStringArray("shooter") instance=ExtResource("4_vpo5n")]
+ammoAmount = 100
+shooter = NodePath("../..")
 
 [node name="PlayerFSM" type="Node" parent="."]
 script = ExtResource("2_fxhxo")
