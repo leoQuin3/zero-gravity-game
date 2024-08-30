@@ -25,9 +25,6 @@ func enter():
 	# Begin state timer
 	stateTimer.start()
 	
-	#TEMP: Debug chase
-	print("Chasing")
-	
 # Look at and follow player
 func update_physics(delta) -> void:
 	enemy.follow_player(player.global_position, delta)

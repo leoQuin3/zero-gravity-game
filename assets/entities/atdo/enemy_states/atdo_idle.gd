@@ -22,9 +22,6 @@ func enter() -> void:
 	# Connect signal
 	detectionArea.connect("player_detected", Callable(self, "_on_player_detected"))
 	
-	#TEMP debug idle
-	print("Idling")
-	
 # Stop timer when leaving state
 func exit() -> void:
 	directionTimer.stop()
@@ -45,7 +42,5 @@ func randomize_vector():
 	return Vector3(randf_range(-1, 1), randf_range(-1, 1), randf_range(-1, 1)).normalized()
 
 func _on_player_detected():
-	#TEMP: Debug signal
-	print("Player detected!")
 	emit_signal("state_transitioned", "ATTACK")
 	detectionArea.disconnect("player_detected", Callable(self, "_on_player_detected"))

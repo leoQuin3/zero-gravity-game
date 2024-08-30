@@ -28,8 +28,8 @@ func update_physics(delta) -> void:
 	# Get projection of distance onto enemy x-basis vector
 	var distanceVector = player.global_position - enemy.global_position
 	var strafeProjection = distanceVector.project(enemy.transform.basis.x)
-	
 	const strafeThreshhold: float = 1
+	
 	if strafeProjection.length() > strafeThreshhold:
 		enemy.velocity = -strafeProjection.normalized() * speed * delta
 	
