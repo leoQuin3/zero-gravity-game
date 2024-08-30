@@ -171,3 +171,9 @@ shape = SubResource("BoxShape3D_m7xn0")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall5"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.5, 0)
 mesh = SubResource("PlaneMesh_0x7vh")
+
+[node name="ATDO2" parent="." instance=ExtResource("5_fcggj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5296, 9.92461, -16.2284)
+
+[node name="ATDO3" parent="." instance=ExtResource("5_fcggj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 9.90226, -26)

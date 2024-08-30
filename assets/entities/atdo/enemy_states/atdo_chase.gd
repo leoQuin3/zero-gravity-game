@@ -7,7 +7,7 @@ extends State
 
 var direction: Vector3
 var player: Player
-const maxPlayerDist: int = 25
+const maxPlayerDist: int = 30
 
 #TODO: Figure how to establish navigation in 3D space.
 
@@ -22,24 +22,23 @@ func enter():
 		emit_signal("state_transitioned", "IDLE")
 		return
 	
-	# Begin state timer (with random time)
+	# Begin state timer
 	stateTimer.start()
 	
+	#TEMP: Debug chase
 	print("Chasing")
 	
-# Process physics
+# Look at and follow player
 func update_physics(delta) -> void:
-	# Move towards player
 	enemy.follow_player(player.global_position, delta)
-	
-	# Look at player
 	enemy.look_at(player.global_position)
 
 # When state timer finishes
 func _on_chase_state_timer_timeout():
-	# If player is far away, move toward player
+	# If player is too far, move toward player
 	if enemy.global_position.distance_squared_to(player.global_position) > maxPlayerDist ** 2:
 		emit_signal("state_transitioned", "CHASE")
-	# Otherwise, move to the side
+	
+	# Otherwise, strafe
 	else:
 		emit_signal("state_transitioned", "STRAFE")

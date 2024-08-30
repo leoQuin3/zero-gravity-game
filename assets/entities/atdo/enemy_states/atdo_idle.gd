@@ -22,6 +22,7 @@ func enter() -> void:
 	# Connect signal
 	detectionArea.connect("player_detected", Callable(self, "_on_player_detected"))
 	
+	#TEMP debug idle
 	print("Idling")
 	
 # Stop timer when leaving state

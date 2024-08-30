@@ -127,6 +127,7 @@ detectionArea = NodePath("../../Detection")
 stateTimer = NodePath("StrafeStateTimer")
 
 [node name="StrafeStateTimer" type="Timer" parent="EnemyFSM/STRAFE"]
+wait_time = 2.0
 one_shot = true
 
 [node name="Weapon" type="Node3D" parent="." node_paths=PackedStringArray("shooter", "shooterHitbox")]

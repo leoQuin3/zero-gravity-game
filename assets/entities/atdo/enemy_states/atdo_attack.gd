@@ -29,6 +29,7 @@ func enter() -> void:
 	
 	# Fire weapon
 	weapon.fire()
+	#TEMP: Debug attack
 	print("ATTACK!")
 	
 # Stop cooldownTimer when exiting state
