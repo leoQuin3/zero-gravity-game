@@ -8,8 +8,15 @@ class_name CameraHolder
 @export var MOUSE_IS_CAPTURED: bool = true
 @export var CAMERA_SENSITIVITY: float = 0.003
 
+var mouseFirstTime: bool = true
+
 # Camera movement
 func fp_camera_look(event: InputEventMouseMotion, minPitch: float, maxPitch: float):
+	# Prevent jerk on first frame
+	if mouseFirstTime:
+		mouseFirstTime = false
+		return
+	
 	var newPitch = event.relative.y
 	var newYaw = event.relative.x
 	
