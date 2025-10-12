@@ -14,10 +14,11 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c8k0w"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHolder") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHolder", "weaponInventory") groups=["Player"]]
 collision_mask = 10
 script = ExtResource("1_7lu1p")
 cameraHolder = NodePath("CameraHolder")
+weaponInventory = NodePath("WeaponInventory")
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_spn12")

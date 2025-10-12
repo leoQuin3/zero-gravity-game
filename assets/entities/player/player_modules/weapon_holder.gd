@@ -1,5 +1,6 @@
 # This module will hold collected weapons, and allow the player to equip them.
 extends Node3D
+class_name WeaponInventory
 
 # Node to hold weapon
 @export var weaponHolder: Node3D

@@ -1,9 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://c3yjmxpsn1ehs"]
+[gd_scene load_steps=22 format=3 uid="uid://c3yjmxpsn1ehs"]
 
 [ext_resource type="Script" path="res://assets/levels/test_level.gd" id="1_28vap"]
 [ext_resource type="PackedScene" uid="uid://c7s1aebr2tpxd" path="res://assets/entities/player/player.tscn" id="1_pghiu"]
 [ext_resource type="PackedScene" uid="uid://co4j6w1gq4o7r" path="res://assets/utilities/debug_ui.tscn" id="2_47kv2"]
 [ext_resource type="PackedScene" uid="uid://c815ps4cv3c4t" path="res://assets/environment/basic/wall_curve.tscn" id="4_c2t1q"]
+[ext_resource type="PackedScene" uid="uid://cgwljlg6ox42h" path="res://assets/pickups/pickup.tscn" id="5_v4sbx"]
+[ext_resource type="Texture2D" uid="uid://beogas7v0e1ub" path="res://assets/weapons/gun/gun-pickup.png" id="6_hljg4"]
+[ext_resource type="PackedScene" uid="uid://cu0n10xksgcr1" path="res://assets/weapons/gun/gun.tscn" id="7_xv726"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k3wmg"]
 
@@ -159,3 +162,8 @@ collision_mask = 26
 
 [node name="Debug" parent="Player" node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
 node = NodePath("..")
+
+[node name="Pickup" parent="." instance=ExtResource("5_v4sbx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.382826, 3.82119, 0.196445)
+sprite = ExtResource("6_hljg4")
+weapon = ExtResource("7_xv726")

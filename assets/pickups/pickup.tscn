@@ -1,11 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://cgwljlg6ox42h"]
 
 [ext_resource type="Script" path="res://assets/pickups/pickup.gd" id="1_f7pvq"]
-[ext_resource type="Texture2D" uid="uid://xmc1m3qvbbn8" path="res://icon.svg" id="2_nbcd7"]
+[ext_resource type="Texture2D" uid="uid://c876gncb3bwc" path="res://assets/pickups/obselete.png" id="2_nqgt4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_78qhx"]
 
 [node name="Pickup" type="Area3D"]
+collision_layer = 16
 script = ExtResource("1_f7pvq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -14,4 +15,6 @@ shape = SubResource("BoxShape3D_78qhx")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 pixel_size = 0.005
 billboard = 1
-texture = ExtResource("2_nbcd7")
+texture = ExtResource("2_nqgt4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -5,8 +5,10 @@ class_name Player
 const MAX_SPEED: float = 10
 const THRUST_SPEED: float = 100
 
+# FIXME: go back to drawing board on composition (ie. all of this...)
 @export_category("Connect Nodes")
 @export var cameraHolder: CameraHolder
+@export var weaponInventory: WeaponInventory
 
 # Update player physics.
 func _physics_process(delta) -> void:
@@ -25,3 +27,9 @@ func player_control_move(delta: float):
 	
 	if velocity.length() > MAX_SPEED:
 		velocity = velocity.normalized() * MAX_SPEED
+
+# Wrapper to adding weapon to inventory
+func player_weapon_to_inventory(weapon: Weapon):
+	print("adding to inventory")
+	weaponInventory.add_weapon(weapon)
+	weaponInventory.equip_weapon_at_index(0)
