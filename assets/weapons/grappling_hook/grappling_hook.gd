@@ -4,8 +4,7 @@ extends Node3D
 class_name GrapplingHook
 
 @export var grappleSpeed: float = 25
-@export var strafeSpeed: float = 900
-@export var cancelDistance: float = 2
+@export var strafeSpeed: float = 1000
 
 @export_category("Connect Nodes")
 @export var raycast: RayCast3D
@@ -22,31 +21,25 @@ func can_grapple() -> bool:
 
 # Move player towards grappling position
 func grapple_towards(player: Player, targetPosition: Vector3) -> void:
-	# Set velocity towards targetPosition
 	var targetDirection: Vector3 = (targetPosition - player.position).normalized()
 	player.velocity = targetDirection * grappleSpeed
 	
 # Allow player to strafe left and right
 #BUG: If grapple_towards() isnt being called, player will dramatically accelerate
 func player_grapple_strafe(player:Player, targetPosition: Vector3, delta):
-	# Point grapple holder to target position
 	self.look_at(targetPosition, Vector3.UP)
 	
-	# Get input and grapple holder's basis
 	var inputAxis: int = Input.get_axis("left", "right")
 	var directionVector: Vector3 = (self.global_transform.basis * Vector3(inputAxis, 0, 0)).normalized()
 	
-	# Update player velocity
 	if inputAxis:
 		player.velocity += (directionVector * strafeSpeed * delta)
 
 # Show cursor where player is moving towards
 func update_cursor_position(targetPosition: Vector3):
-	# Get vectors
 	var targetDirection: = (targetPosition - self.global_position)
 	var playerDirection: = self.camera.global_transform.basis.z
 	
-	# Calculate dot product
 	var perpDotProduct: float = targetDirection.dot(playerDirection)
 	
 	# Project cursor on target position

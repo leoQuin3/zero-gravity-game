@@ -1,23 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7s1aebr2tpxd"]
+[gd_scene load_steps=13 format=3 uid="uid://c7s1aebr2tpxd"]
 
 [ext_resource type="Script" path="res://assets/entities/player/player.gd" id="1_7lu1p"]
 [ext_resource type="Script" path="res://assets/entities/player/player_modules/camera_holder.gd" id="2_fd87b"]
 [ext_resource type="Script" path="res://assets/scripts/state_machine.gd" id="2_fxhxo"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_grounded.gd" id="2_vlx2x"]
-[ext_resource type="Script" path="res://assets/weapons/grappling_hook/grappling_hook.gd" id="3_atvrk"]
+[ext_resource type="Script" path="res://assets/weapons/grappling_gun/grappling_hook.gd" id="3_cl6et"]
 [ext_resource type="Script" path="res://assets/entities/player/player_modules/weapon_holder.gd" id="3_gaq1t"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_floating.gd" id="3_vy3lq"]
-[ext_resource type="Texture2D" uid="uid://dugyo4en2gocg" path="res://assets/weapons/grappling_hook/grapple_cursor.png" id="4_ipadf"]
+[ext_resource type="Texture2D" uid="uid://dugyo4en2gocg" path="res://assets/weapons/grappling_gun/grapple_cursor.png" id="6_1rius"]
+[ext_resource type="Script" path="res://assets/entities/player/player_modules/jetpack.gd" id="7_gogbm"]
 [ext_resource type="Script" path="res://assets/entities/player/player_states/player_grappling.gd" id="9_u80e6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_spn12"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c8k0w"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHolder") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("cameraHead", "dashTimer", "dashCooldownTimer") groups=["Player"]]
 collision_mask = 10
 script = ExtResource("1_7lu1p")
-cameraHolder = NodePath("CameraHolder")
+cameraHead = NodePath("CameraHolder")
+dashTimer = NodePath("Jetpack/DashTimer")
+dashCooldownTimer = NodePath("Jetpack/DashCooldown")
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_spn12")
@@ -42,7 +45,7 @@ collide_with_areas = true
 
 [node name="GrappleHook" type="Node3D" parent="." node_paths=PackedStringArray("raycast", "grappleCursor", "camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-script = ExtResource("3_atvrk")
+script = ExtResource("3_cl6et")
 raycast = NodePath("../CameraHolder/GrappleRaycast")
 grappleCursor = NodePath("GrappleCanvas/GrappleCursor")
 camera = NodePath("../CameraHolder/PlayerCamera")
@@ -50,7 +53,22 @@ camera = NodePath("../CameraHolder/PlayerCamera")
 [node name="GrappleCanvas" type="CanvasLayer" parent="GrappleHook"]
 
 [node name="GrappleCursor" type="Sprite2D" parent="GrappleHook/GrappleCanvas"]
-texture = ExtResource("4_ipadf")
+visible = false
+texture = ExtResource("6_1rius")
+
+[node name="Jetpack" type="Node3D" parent="." node_paths=PackedStringArray("player", "dashTimer", "dashCooldownTimer")]
+script = ExtResource("7_gogbm")
+player = NodePath("..")
+dashTimer = NodePath("DashTimer")
+dashCooldownTimer = NodePath("DashCooldown")
+
+[node name="DashTimer" type="Timer" parent="Jetpack"]
+wait_time = 0.2
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="Jetpack"]
+wait_time = 0.35
+one_shot = true
 
 [node name="WeaponInventory" type="Node3D" parent="." node_paths=PackedStringArray("weaponHolder")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -61,12 +79,13 @@ weaponHolder = NodePath("../CameraHolder/Holder")
 script = ExtResource("2_fxhxo")
 initialState = NodePath("FLOATING")
 
-[node name="FLOATING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "weaponInventory", "grappleHolder")]
+[node name="FLOATING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "weaponInventory", "grappleHolder", "jetpack")]
 script = ExtResource("2_vlx2x")
 player = NodePath("../..")
 cameraHolder = NodePath("../../CameraHolder")
 weaponInventory = NodePath("../../WeaponInventory")
 grappleHolder = NodePath("../../GrappleHook")
+jetpack = NodePath("../../Jetpack")
 
 [node name="GRAPPLING" type="Node" parent="PlayerFSM" node_paths=PackedStringArray("player", "cameraHolder", "weaponInventory", "grappleHolder")]
 script = ExtResource("9_u80e6")
@@ -77,3 +96,6 @@ grappleHolder = NodePath("../../GrappleHook")
 
 [node name="GROUNDED" type="Node" parent="PlayerFSM"]
 script = ExtResource("3_vy3lq")
+
+[connection signal="timeout" from="Jetpack/DashTimer" to="Jetpack" method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="Jetpack/DashCooldown" to="Jetpack" method="_on_dash_cooldown_timeout"]

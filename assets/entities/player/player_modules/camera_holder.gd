@@ -1,5 +1,6 @@
 # The camera module that allows the player to look around
 extends Node3D
+class_name CameraHolder
 
 @export var parent: Player
 
@@ -7,6 +8,7 @@ extends Node3D
 @export var MOUSE_IS_CAPTURED: bool = true
 @export var CAMERA_SENSITIVITY: float = 0.003
 
+# Camera movement
 func fp_camera_look(event: InputEventMouseMotion, minPitch: float, maxPitch: float):
 	var newPitch = event.relative.y
 	var newYaw = event.relative.x

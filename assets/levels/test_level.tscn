@@ -1,9 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://c3yjmxpsn1ehs"]
+[gd_scene load_steps=19 format=3 uid="uid://c3yjmxpsn1ehs"]
 
+[ext_resource type="Script" path="res://assets/levels/test_level.gd" id="1_28vap"]
 [ext_resource type="PackedScene" uid="uid://c7s1aebr2tpxd" path="res://assets/entities/player/player.tscn" id="1_pghiu"]
 [ext_resource type="PackedScene" uid="uid://co4j6w1gq4o7r" path="res://assets/utilities/debug_ui.tscn" id="2_47kv2"]
 [ext_resource type="PackedScene" uid="uid://c815ps4cv3c4t" path="res://assets/environment/basic/wall_curve.tscn" id="4_c2t1q"]
-[ext_resource type="PackedScene" uid="uid://0dxq6ir0kria" path="res://assets/entities/atdo/atdo.tscn" id="5_fcggj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k3wmg"]
 
@@ -25,10 +25,14 @@ albedo_color = Color(0.312965, 0.658143, 0, 1)
 material = SubResource("StandardMaterial3D_ad450")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vfgt2"]
-size = Vector3(6, 5, 3)
+size = Vector3(6, 3, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ya10"]
+albedo_color = Color(0.921623, 0.467374, 9.62615e-07, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_uvnck"]
-size = Vector3(6, 5, 3)
+material = SubResource("StandardMaterial3D_0ya10")
+size = Vector3(6, 3, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jf4pa"]
 size = Vector3(32, 1, 48)
@@ -41,22 +45,14 @@ size = Vector3(16, 5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mrekt"]
 cull_mode = 2
+albedo_color = Color(0.466181, 0.466181, 0.466181, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0x7vh"]
 material = SubResource("StandardMaterial3D_mrekt")
 size = Vector2(16, 5)
 
 [node name="TestLevel" type="Node3D"]
-
-[node name="Player" parent="." instance=ExtResource("1_pghiu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.57002, 6.89546)
-collision_mask = 26
-
-[node name="Debug" parent="Player" node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
-node = NodePath("..")
-
-[node name="ATDO" parent="." instance=ExtResource("5_fcggj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.57, -21.4028)
+script = ExtResource("1_28vap")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.912149, -0.179439, 0.368492, -0.409859, -0.399345, 0.820085, 0, -0.899069, -0.437807, 0, 6, 0)
@@ -65,31 +61,23 @@ transform = Transform3D(0.912149, -0.179439, 0.368492, -0.409859, -0.399345, 0.8
 environment = SubResource("Environment_lq4ny")
 
 [node name="GrapplePoint" type="StaticBody3D" parent="."]
-transform = Transform3D(3.4433, 0, 0, 0, 3.4433, 0, 0, 0, 3.4433, 0, 14, -8)
+transform = Transform3D(3.4433, 0, 0, 0, 3.4433, 0, 0, 0, 3.4433, 0, 12.067, -34.5498)
 collision_layer = 8
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrapplePoint"]
 shape = SubResource("SphereShape3D_8o476")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="GrapplePoint"]
 mesh = SubResource("SphereMesh_scdr1")
-
-[node name="Platform" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -11.5)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
-shape = SubResource("BoxShape3D_vfgt2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
-mesh = SubResource("BoxMesh_uvnck")
+metadata/_edit_lock_ = true
 
 [node name="Platform3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, -8.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
 collision_layer = 8
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Platform3"]
 shape = SubResource("BoxShape3D_vfgt2")
@@ -97,22 +85,10 @@ shape = SubResource("BoxShape3D_vfgt2")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform3"]
 mesh = SubResource("BoxMesh_uvnck")
 
-[node name="Platform2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -14.5)
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-shape = SubResource("BoxShape3D_vfgt2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-mesh = SubResource("BoxMesh_uvnck")
-
 [node name="Floor2" type="StaticBody3D" parent="."]
 collision_layer = 8
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -8)
@@ -127,16 +103,19 @@ skeleton = NodePath("../../Floor2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -19)
 collision_layer = 8
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="WallCurve2" parent="." instance=ExtResource("4_c2t1q")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8, 0, -24)
 collision_layer = 8
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="Wall3" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24)
 collision_layer = 8
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="WallCollision" type="CollisionShape3D" parent="Wall3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.25)
@@ -150,6 +129,7 @@ mesh = SubResource("PlaneMesh_0x7vh")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 0, -11)
 collision_layer = 8
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="WallCollision" type="CollisionShape3D" parent="Wall4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.25)
@@ -163,6 +143,7 @@ mesh = SubResource("PlaneMesh_0x7vh")
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 13, 0, -11)
 collision_layer = 8
 collision_mask = 0
+metadata/_edit_lock_ = true
 
 [node name="WallCollision" type="CollisionShape3D" parent="Wall5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.25)
@@ -172,8 +153,9 @@ shape = SubResource("BoxShape3D_m7xn0")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.5, 0)
 mesh = SubResource("PlaneMesh_0x7vh")
 
-[node name="ATDO2" parent="." instance=ExtResource("5_fcggj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5296, 9.92461, -16.2284)
+[node name="Player" parent="." instance=ExtResource("1_pghiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.57002, 11.8955)
+collision_mask = 26
 
-[node name="ATDO3" parent="." instance=ExtResource("5_fcggj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 9.90226, -26)
+[node name="Debug" parent="Player" node_paths=PackedStringArray("node") instance=ExtResource("2_47kv2")]
+node = NodePath("..")

@@ -2,28 +2,26 @@ extends CharacterBody3D
 class_name Player
 
 # Parameters
-@export var speed: float = 10
-@export var thrustSpeed: float = 100
+const MAX_SPEED: float = 10
+const THRUST_SPEED: float = 100
 
 @export_category("Connect Nodes")
-@export var cameraHead: Node3D
-@export var dashTimer: Timer
-@export var dashCooldownTimer: Timer
+@export var cameraHolder: CameraHolder
 
 # Update player physics.
 func _physics_process(delta) -> void:
 	move_and_slide()
 
-# Move in all directions using input keys. Always facing in camera's direction.
+# Player movement
+#FIXME: may need to handle case if cameraHolder doesn't exist
 func player_control_move(delta: float):
-	# Calculate direction vector from keys and camera orientation
 	var inputVector: Vector2 = Input.get_vector("left", "right", "forward", "back")
-	var newDirection: = (cameraHead.global_transform.basis * Vector3(inputVector.x, 0 , inputVector.y)).normalized()
+	var newDirection: = (cameraHolder.global_transform.basis * Vector3(inputVector.x, 0 , inputVector.y)).normalized()
 	
-	# Accelerate player
 	if inputVector:
-		velocity += newDirection * thrustSpeed * delta
+		velocity += newDirection * THRUST_SPEED * delta
+	else:
+		velocity = lerp(velocity, Vector3.ZERO, 0.05)
 	
-	# Enforce maximum velocity
-	if velocity.length() > speed:
-		velocity = velocity.normalized() * speed
+	if velocity.length() > MAX_SPEED:
+		velocity = velocity.normalized() * MAX_SPEED

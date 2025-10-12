@@ -7,6 +7,8 @@ extends State
 @export var weaponInventory: Node3D
 @export var grappleHolder: GrapplingHook
 
+const GRAPPLE_CANCEL_DISTANCE: int = 8
+
 var targetPosition: Vector3
 var canCancel: bool = false
 
@@ -33,7 +35,7 @@ func exit() -> void:
 # Update every frame
 func update(delta) -> void:
 	#Change state when within range of target position
-	if player.global_position.distance_to(targetPosition) < grappleHolder.cancelDistance:
+	if player.global_position.distance_squared_to(targetPosition) < GRAPPLE_CANCEL_DISTANCE * GRAPPLE_CANCEL_DISTANCE:
 		emit_signal("state_transitioned", "FLOATING")
 	
 # Grapple and strafe

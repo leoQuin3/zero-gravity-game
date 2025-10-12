@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dugyo4en2gocg"
-path="res://.godot/imported/grapple_cursor.png-69c3f6fd48152168519017b000392767.ctex"
+path="res://.godot/imported/grapple_cursor.png-cfe77ba0a3298399d221a81a115df4e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/weapons/grappling_gun/grapple_cursor.png"
-dest_files=["res://.godot/imported/grapple_cursor.png-69c3f6fd48152168519017b000392767.ctex"]
+source_file="res://assets/weapons/grappling_hook/grapple_cursor.png"
+dest_files=["res://.godot/imported/grapple_cursor.png-cfe77ba0a3298399d221a81a115df4e8.ctex"]
 
 [params]
 
