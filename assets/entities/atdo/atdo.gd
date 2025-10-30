@@ -3,7 +3,7 @@ extends CharacterBody3D
 class_name ATDO
 
 # Parameters
-@export var speed: float = 200.0
+const SPEED: float = 200.0
 
 @export_category("Connect nodes")
 @export var healthModule: HealthModule
@@ -17,7 +17,7 @@ func _physics_process(delta):
 func follow_player(playerPosition: Vector3, delta: float) -> void:
 	# Get direction vector and apply velocity
 	var directionVector: Vector3 = (playerPosition - self.global_position).normalized()
-	self.velocity = directionVector * speed * delta
+	self.velocity = directionVector * SPEED * delta
 
 # Take damage
 func take_damage(amount: int) -> void:

@@ -22,7 +22,7 @@ func _ready() -> void:
 	# Call initial state
 	currentState = get_node(initialState)
 	currentState.enter()
-		
+	
 # Update every frame
 func _process(delta) -> void:
 	currentState.update(delta)
