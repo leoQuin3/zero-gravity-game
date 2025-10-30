@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://djr8xhwxhxqdi"]
+
+[ext_resource type="PackedScene" uid="uid://bug8p72vfsvv3" path="res://DEV-GENERIC-ENTITY/test_entity.tscn" id="1_wtcr2"]
+[ext_resource type="Script" path="res://DEV-GENERIC-ENTITY/generic_entity.gd" id="2_ewaph"]
+[ext_resource type="PackedScene" uid="uid://dtm0adhwob68s" path="res://DEV-GENERIC-ENTITY/test_component.tscn" id="2_s4161"]
+
+[node name="DevTestScene" type="Node3D"]
+
+[node name="TestEntity" parent="." instance=ExtResource("1_wtcr2")]
+script = ExtResource("2_ewaph")
+
+[node name="TestComponent" parent="TestEntity" instance=ExtResource("2_s4161")]
+
+[connection signal="test_signal" from="TestEntity/TestComponent" to="TestEntity" method="_on_test_component_test_signal"]
