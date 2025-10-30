@@ -1,3 +1,42 @@
-[gd_scene format=3 uid="uid://cfv7rf7osy026"]
+[gd_scene load_steps=6 format=3 uid="uid://cfv7rf7osy026"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hid1r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8osik"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rm7yt"]
+albedo_color = Color(1, 0.503668, 0.699591, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vhsgd"]
+material = SubResource("StandardMaterial3D_rm7yt")
+size = Vector3(12, 1, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w7xqo"]
+size = Vector3(1, 1, 4)
 
 [node name="TestScene" type="Node3D"]
+
+[node name="TestCharacter" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestCharacter"]
+mesh = SubResource("CapsuleMesh_hid1r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestCharacter"]
+shape = SubResource("CapsuleShape3D_8osik")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_vhsgd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_w7xqo")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 6)
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.733468, -0.276029, -0.621154, 0.679327, 0.328907, 0.656, 0.0232268, -0.903121, 0.428757, 0, 3.42541, 0)
+shadow_enabled = true
