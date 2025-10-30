@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtm0adhwob68s"]
-
-[ext_resource type="Script" path="res://DEV-GENERIC-ENTITY/generic_component.gd" id="1_woubi"]
-
-[node name="TestComponent" type="Node"]
-script = ExtResource("1_woubi")
