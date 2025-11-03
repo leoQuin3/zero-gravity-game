@@ -1,4 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfv7rf7osy026"]
+[gd_scene load_steps=8 format=3 uid="uid://cfv7rf7osy026"]
+
+[ext_resource type="Script" path="res://DEV-GENERIC-ENTITY/base_classes/generic_controller.gd" id="1_ffr0v"]
+[ext_resource type="Script" path="res://DEV-GENERIC-ENTITY/base_classes/generic_character.gd" id="2_pbaq0"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hid1r"]
 
@@ -12,12 +15,17 @@ material = SubResource("StandardMaterial3D_rm7yt")
 size = Vector3(12, 1, 12)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w7xqo"]
-size = Vector3(1, 1, 4)
+size = Vector3(12, 1, 12)
 
 [node name="TestScene" type="Node3D"]
 
+[node name="PlayerController" type="Node" parent="." node_paths=PackedStringArray("puppet")]
+script = ExtResource("1_ffr0v")
+puppet = NodePath("../TestCharacter")
+
 [node name="TestCharacter" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+script = ExtResource("2_pbaq0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="TestCharacter"]
 mesh = SubResource("CapsuleMesh_hid1r")
@@ -40,3 +48,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 6)
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.733468, -0.276029, -0.621154, 0.679327, 0.328907, 0.656, 0.0232268, -0.903121, 0.428757, 0, 3.42541, 0)
 shadow_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="PlayerController" method="_on_timer_timeout"]
