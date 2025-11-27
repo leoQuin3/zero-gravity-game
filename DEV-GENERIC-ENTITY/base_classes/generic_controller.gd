@@ -18,18 +18,14 @@ func remove_puppet() -> void:
 		puppet.disconnected_from_controller.emit()
 		puppet = null
 
-# --------------------------- Puppet Method Callers ---------------------------
+# --------------------- Puppet Method Callers (to define) ---------------------
 # Call puppet's move() method
-func control_move(delta) -> void:
-	if puppet:
-		var input_dir = Input.get_vector("left", "right", "forward", "back")
-		var move_dir = Vector3(input_dir.x, 0, input_dir.y)
-		puppet.move(move_dir, delta)
+func control_move(delta: float) -> void:
+	pass
 
-# Call puppet's look() method
-func control_jump(delta) -> void:
-	if puppet and Input.is_action_just_pressed("jump"):
-		puppet.jump(delta)
+# Call puppet's jump() method
+func control_jump(delta: float) -> void:
+	pass
 
 # --------------------------------- Main Loop ---------------------------------
 func _ready():
@@ -37,7 +33,6 @@ func _ready():
 		puppet.connected_to_controller.emit()
 
 func _process(delta):
-	control_move(delta)
-	control_jump(delta)
-
-# ----------------------------- Reciever Methods -----------------------------
+	if puppet:
+		control_move(delta)
+		control_jump(delta)
