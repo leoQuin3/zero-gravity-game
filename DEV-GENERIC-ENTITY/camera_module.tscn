@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://jblvadlexuqp"]
+
+[ext_resource type="Script" path="res://DEV-GENERIC-ENTITY/camera_module.gd" id="1_lgd25"]
+
+[node name="CameraModule" type="Node3D"]
+script = ExtResource("1_lgd25")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+fov = 85.0

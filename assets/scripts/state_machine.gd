@@ -25,15 +25,18 @@ func _ready() -> void:
 	
 # Update every frame
 func _process(delta) -> void:
-	currentState.update(delta)
+	#currentState.update(delta)
+	pass
 
 # Update physics 
 func _physics_process(delta) -> void:
-	currentState.update_physics(delta)
+	#currentState.update_physics(delta)
+	pass
 
 # Read input
 func _input(event) -> void:
-	currentState.handle_input(event)
+	#currentState.handle_input(event)
+	pass
 
 # Transition to new state. Called by signal state_transitioned.
 func on_state_changed(newState: String) -> void:
